@@ -1,0 +1,2 @@
+# For testing to work properly, rename this file to api-key.properties and set the api key for a working Serve Manager account
+api-key=REPLACE_WITH_WORKING_API_KEY
