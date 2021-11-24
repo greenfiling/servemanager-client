@@ -1,0 +1,16 @@
+#######################
+## 1.0.1
+## 2021-12-06
+
+  * Allow preferred IP version to be set for outbound API calls
+  * Allow ApiHandle.Builder to accept an already-instantiated
+    okhttp3.OkHttpClient.Builder object for non-trivial configuration
+  * Implement undocumented ServeManager option ServiceDocument.externalUrl
+  * Implement meaningful User Agent string
+  * Internal improvements and tidying
+
+#######################
+## 1.0.0
+## 2021-11-16
+
+  * Initial release
