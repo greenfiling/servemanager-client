@@ -81,6 +81,7 @@ public class ApiHandle {
     private okhttp3.OkHttpClient client;
     private String basicAuth;
     private IpMode ipMode;
+    private okhttp3.OkHttpClient.Builder builder;
 
     /**
      * Set the API endpoint base
@@ -120,28 +121,49 @@ public class ApiHandle {
      * @since 1.0.0
      */
     public ApiHandle build() {
+      basicAuth = Base64.encodeBase64String((apiKey + ":").getBytes());
+
       if (apiEndpointBase == null || "".equals(apiEndpointBase)) {
-        this.apiEndpointBase = DEFAULT_ENDPOINT_BASE;
-      }
-      if (this.writeTimeout == null || this.writeTimeout < 0) {
-        this.writeTimeout = DEFAULT_WRITE_TIMEOUT;
-      }
-      if (this.readTimeout == null || this.readTimeout < 0) {
-        this.readTimeout = DEFAULT_READ_TIMEOUT;
-      }
-      if (this.connectTimeout == null || this.connectTimeout < 0) {
-        this.connectTimeout = DEFAULT_CONNECT_TIMEOUT;
-      }
-      if (this.ipMode == null) {
-        this.ipMode = IpMode.SYSTEM;
+        apiEndpointBase = DEFAULT_ENDPOINT_BASE;
       }
 
-      this.basicAuth = Base64.encodeBase64String((this.apiKey + ":").getBytes());
+      boolean externalBuilder = true;
+      if (builder == null) {
+        externalBuilder = false;
+        builder = new OkHttpClient.Builder();
+      }
 
-      logger.trace("build - building and returning client, endpoint = {}, writeTimeout = {}, readTimeout = {}, connectTimeout = {}, auth = {}",
-          apiEndpointBase, writeTimeout, readTimeout, connectTimeout, basicAuth);
-      this.client = new OkHttpClient.Builder().connectTimeout(this.connectTimeout, TimeUnit.SECONDS).writeTimeout(this.writeTimeout, TimeUnit.SECONDS)
-          .readTimeout(this.readTimeout, TimeUnit.SECONDS).dns(new DnsSelector(this.ipMode)).build();
+      if (ipMode != null) {
+        builder.dns(new DnsSelector(ipMode));
+      }
+
+      // Only set the defaults if we're not using an external builder object
+      if (!externalBuilder) {
+        if (writeTimeout == null) {
+          writeTimeout = DEFAULT_WRITE_TIMEOUT;
+        }
+        if (readTimeout == null) {
+          readTimeout = DEFAULT_READ_TIMEOUT;
+        }
+        if (connectTimeout == null) {
+          connectTimeout = DEFAULT_CONNECT_TIMEOUT;
+        }
+      }
+
+      if (writeTimeout != null) {
+        builder.writeTimeout(writeTimeout, TimeUnit.SECONDS);
+      }
+      if (readTimeout != null) {
+        builder.readTimeout(readTimeout, TimeUnit.SECONDS);
+      }
+      if (connectTimeout != null) {
+        builder.connectTimeout(connectTimeout, TimeUnit.SECONDS);
+      }
+
+      logger.trace(
+          "build - building and returning client, endpoint = {}, writeTimeout = {}, readTimeout = {}, connectTimeout = {}, ipMode = {}, auth = {}",
+          apiEndpointBase, writeTimeout, readTimeout, connectTimeout, ipMode, basicAuth);
+      this.client = builder.build();
 
       ApiHandle client = new ApiHandle(this);
       validate(client);
@@ -149,8 +171,25 @@ public class ApiHandle {
     }
 
     /**
+     * Sets an externally configured {@link okhttp3.OkHttpClient.Builder} object
+     * <P>
+     * By default, {@link ApiHandle} instantiates its own {@link okhttp3.OkHttpClient.Builder} object and exposes a few interfaces for configuring it
+     * ({@link #connectTimeout(int)}, etc). ServeManager-client is not interested in wrapping all okhttp3 functionality, so allows the user to pass in
+     * an instantiated builder object which they have already configured.
+     * 
+     * @param builder
+     *          An instantiated {@link okhttp3.OkHttpClient.Builder} object
+     * @return A valid @{link Builder} object so calls can be chained
+     * @since 1.0.1
+     */
+    public Builder builder(okhttp3.OkHttpClient.Builder builder) {
+      this.builder = builder;
+      return this;
+    }
+
+    /**
      * Sets the connection timeout for this handle
-     *
+     * <P>
      * If this is not set, the builder will default to {@link ApiHandle#DEFAULT_CONNECT_TIMEOUT}
      *
      * @param connectTimeout
@@ -159,7 +198,9 @@ public class ApiHandle {
      * @since 1.0.0
      */
     public Builder connectTimeout(int connectTimeout) {
-      this.connectTimeout = Long.valueOf(connectTimeout);
+      if (connectTimeout >= 0) {
+        this.connectTimeout = Long.valueOf(connectTimeout);
+      }
       return this;
     }
 
@@ -169,12 +210,12 @@ public class ApiHandle {
      * EXAMPLE: only attempt to connect to IPv4 addresses
      * <P>
      * 
-     * <code><pre>
-     * ApiHandle apiHandle = new ApiHandle.Builder()
-     *                           .apiKey(VALID_API_KEY)
-     *                           .ipMode(IpMode.IPV4_ONLY)
-     *                           .build();
-     * </pre></code>
+     * <code>
+     * ApiHandle apiHandle = new ApiHandle.Builder()<br>
+     *                           .apiKey(VALID_API_KEY)<br>
+     *                           .ipMode(IpMode.IPV4_ONLY)<br>
+     *                           .build();<br>
+     * </code>
      * 
      * @param ipMode
      * @return A valid @{link Builder} object so calls can be chained
@@ -187,7 +228,7 @@ public class ApiHandle {
 
     /**
      * Sets the read timeout for this handle
-     *
+     * <P>
      * If this is not set, the builder will default to {@link ApiHandle#DEFAULT_READ_TIMEOUT}
      *
      * @param readTimeout
@@ -196,13 +237,15 @@ public class ApiHandle {
      * @since 1.0.0
      */
     public Builder readTimeout(int readTimeout) {
-      this.readTimeout = Long.valueOf(readTimeout);
+      if (readTimeout >= 0) {
+        this.readTimeout = Long.valueOf(readTimeout);
+      }
       return this;
     }
 
     /**
      * Sets the write timeout for this handle
-     *
+     * <P>
      * If this is not set, the builder will default to {@link ApiHandle#DEFAULT_WRITE_TIMEOUT}
      *
      * @param writeTimeout
@@ -211,7 +254,9 @@ public class ApiHandle {
      * @since 1.0.0
      */
     public Builder writeTimeout(Integer writeTimeout) {
-      this.writeTimeout = Long.valueOf(writeTimeout);
+      if (writeTimeout >= 0) {
+        this.writeTimeout = Long.valueOf(writeTimeout);
+      }
       return this;
     }
 

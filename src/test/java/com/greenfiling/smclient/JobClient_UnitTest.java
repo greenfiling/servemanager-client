@@ -33,6 +33,7 @@ import java.util.Locale;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.greenfiling.smclient.DnsSelector.IpMode;
 import com.greenfiling.smclient.model.Attempt;
 import com.greenfiling.smclient.model.AttemptSubmit;
 import com.greenfiling.smclient.model.Company;
@@ -222,6 +223,20 @@ public class JobClient_UnitTest {
     // resp = jobClient.getNext(resp);
     // }
 
+  }
+
+  @Test
+  public void testIndexJob_ExternalBuilder() throws Exception {
+    okhttp3.OkHttpClient.Builder builder = new okhttp3.OkHttpClient.Builder().dns(new DnsSelector(IpMode.IPV4_ONLY));
+    ApiHandle apiHandle = new ApiHandle.Builder().builder(builder).apiKey(VALID_API_KEY).build();
+    JobClient client = new JobClient(apiHandle);
+
+    Index<Job> response = client.index();
+    Links links = response.getLinks();
+    System.out.println("links.self = " + links.getSelf());
+
+    ArrayList<Job> jobs = response.getData();
+    System.out.println("Number of jobs in response: " + jobs.size());
   }
 
   @Test
