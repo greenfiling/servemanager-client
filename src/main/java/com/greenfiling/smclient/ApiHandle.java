@@ -25,6 +25,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.greenfiling.smclient.DnsSelector.IpMode;
 import com.greenfiling.smclient.Exceptions.AccessForbiddenException;
 import com.greenfiling.smclient.Exceptions.ConflictException;
 import com.greenfiling.smclient.Exceptions.ContentTypeException;
@@ -79,6 +80,7 @@ public class ApiHandle {
     private Long connectTimeout;
     private okhttp3.OkHttpClient client;
     private String basicAuth;
+    private IpMode ipMode;
 
     /**
      * Set the API endpoint base
@@ -130,13 +132,16 @@ public class ApiHandle {
       if (this.connectTimeout == null || this.connectTimeout < 0) {
         this.connectTimeout = DEFAULT_CONNECT_TIMEOUT;
       }
+      if (this.ipMode == null) {
+        this.ipMode = IpMode.SYSTEM;
+      }
 
       this.basicAuth = Base64.encodeBase64String((this.apiKey + ":").getBytes());
 
       logger.trace("build - building and returning client, endpoint = {}, writeTimeout = {}, readTimeout = {}, connectTimeout = {}, auth = {}",
           apiEndpointBase, writeTimeout, readTimeout, connectTimeout, basicAuth);
       this.client = new OkHttpClient.Builder().connectTimeout(this.connectTimeout, TimeUnit.SECONDS).writeTimeout(this.writeTimeout, TimeUnit.SECONDS)
-          .readTimeout(this.readTimeout, TimeUnit.SECONDS).build();
+          .readTimeout(this.readTimeout, TimeUnit.SECONDS).dns(new DnsSelector(this.ipMode)).build();
 
       ApiHandle client = new ApiHandle(this);
       validate(client);
@@ -155,6 +160,28 @@ public class ApiHandle {
      */
     public Builder connectTimeout(int connectTimeout) {
       this.connectTimeout = Long.valueOf(connectTimeout);
+      return this;
+    }
+
+    /**
+     * Sets the {@link IpMode} for the http connection
+     * <P>
+     * EXAMPLE: only attempt to connect to IPv4 addresses
+     * <P>
+     * 
+     * <code><pre>
+     * ApiHandle apiHandle = new ApiHandle.Builder()
+     *                           .apiKey(VALID_API_KEY)
+     *                           .ipMode(IpMode.IPV4_ONLY)
+     *                           .build();
+     * </pre></code>
+     * 
+     * @param ipMode
+     * @return A valid @{link Builder} object so calls can be chained
+     * @since 1.0.1
+     */
+    public Builder ipMode(IpMode ipMode) {
+      this.ipMode = ipMode;
       return this;
     }
 
