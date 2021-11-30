@@ -175,13 +175,13 @@ public abstract class ApiClient<BASE, READ, CREATE> {
   }
 
   protected Index<?> toIndex(String json) {
-    logger.debug("toIndex - type = {}, value = {}", getIndexType().toString(), json);
+    logger.trace("toIndex - type = {}, value = {}", getIndexType().toString(), json);
     Index<?> showPojo = JsonHandle.get().getGson().fromJson(json, getIndexType());
     return showPojo;
   }
 
   protected Show<?> toShow(String json) {
-    logger.debug("toShow - type = {}, value = {}", getIndexType().toString(), json);
+    logger.trace("toShow - type = {}, value = {}", getIndexType().toString(), json);
     Show<?> showPojo = JsonHandle.get().getGson().fromJson(json, getShowType());
     return showPojo;
   }

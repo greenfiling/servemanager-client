@@ -334,7 +334,7 @@ public class ApiHandle {
    * @since 1.0.0
    */
   public String doGet(String url) throws Exception {
-    logger.debug("doGet - url = {}", url);
+    logger.trace("doGet - url = {}", url);
     return doApiRequest(new Request.Builder().url(url));
   }
 
@@ -367,7 +367,7 @@ public class ApiHandle {
    */
   public String doPost(String url, Object request) throws Exception {
     String jsonString = JsonHandle.get().toJson(request);
-    logger.debug("doPost - url = {}, request = {}", url, jsonString);
+    logger.trace("doPost - url = {}, request = {}", url, jsonString);
 
     RequestBody requestBody = RequestBody.create(jsonString, this.jsonMediaType);
     return doApiRequest(new Request.Builder().url(url).post(requestBody));
@@ -389,7 +389,7 @@ public class ApiHandle {
    */
   public String doPut(String url, Object request) throws Exception {
     String jsonString = JsonHandle.get().toJson(request);
-    logger.debug("doPut - url = {}, request = {}", url, jsonString);
+    logger.trace("doPut - url = {}, request = {}", url, jsonString);
 
     RequestBody requestBody = RequestBody.create(jsonString, this.jsonMediaType);
     return doApiRequest(new Request.Builder().url(url).put(requestBody));
@@ -410,7 +410,7 @@ public class ApiHandle {
    * @since 1.0.0
    */
   public String doPutFile(String url, RequestBody requestBody) throws Exception {
-    logger.debug("doPutFile - url = {}, request = {}", url);
+    logger.trace("doPutFile - url = {}, request = {}", url);
 
     return doRequest(new Request.Builder().url(url).put(requestBody));
   }
@@ -459,7 +459,7 @@ public class ApiHandle {
       responseBody = "";
     }
 
-    logger.debug("doRequest = response = {}", responseBody);
+    logger.trace("doRequest - response = {}", responseBody);
 
     if (responseCode == 200 || responseCode == 201) {
       return responseBody;
