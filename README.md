@@ -155,6 +155,8 @@ System.out.println("Job " + createdJob.getData().getId() + " updated, new rush =
 
 create() and update() can allow you to upload a file.  See the relevant [API section](https://www.servemanager.com/api/#overview-uploads) for how this works at a low level.  This client gives a convenient way to upload a fail to ServeManager's temporary URL without needing to know many specifics.
 
+See also `ServiceDocument.externalUrl` in the "Client Implementation vs. API Documentation Differences" at the end of this document.
+
 ```java
 JobSubmit newJob = new JobSubmit();
 job.setCourtCaseId(1234);
@@ -247,3 +249,4 @@ The design of the client hews very close to the API documentation, with a few ex
 - API field `jobs.affidavit_count` is represented in the client as `Job.documentsCount` to match the `jobs.documents` field to which it refers.
 - API field `jobs.document_to_be_served_count` is represented in the client as `Job.documentsToBeServedCount`, pluralizing "documents" to match that of the `jobs.documents_to_be_served` field to which it refers.
 - API field `jobs.attempt_count` is represented in the client as `Job.attemptsCount`, pluralizing "attempts" to match that of the `jobs.attempts` field to which it refers.
+- When creating or updating a job, the documented way of uploading documents is to specify the existence of the documents in the create, then use a raw PUT to post the file.  This is simplified by the `JobClient.completeUpload()` smclient method.  It can be further simplified by using the undocumented `ServiceDocument.externalUrl` member.  When this is set on a ServiceDocument object that is being passed to ServeManager during a `create()`, ServeManager will pull the file contents from that URL and save it without needing an extra step from the client.
