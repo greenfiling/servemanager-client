@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.greenfiling.smclient.model.exchange;
+package com.greenfiling.smclient.model.internal;
 
 import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FilterBase {
+public abstract class FilterBase {
 
   public class FilterPair {
     private String key;

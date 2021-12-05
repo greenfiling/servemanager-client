@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.greenfiling.smclient;
+package com.greenfiling.smclient.internal;
 
 import java.lang.reflect.Type;
 import java.time.DateTimeException;

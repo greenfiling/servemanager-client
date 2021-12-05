@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.greenfiling.smclient;
+package com.greenfiling.smclient.internal;
 
 import java.net.Inet4Address;
 import java.net.Inet6Address;
@@ -25,6 +25,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.greenfiling.smclient.ApiHandle;
 
 /**
  * Custom {@link okhttp3.Dns} for {@link ApiHandle}.

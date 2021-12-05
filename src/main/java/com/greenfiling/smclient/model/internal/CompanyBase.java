@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.greenfiling.smclient.model;
+package com.greenfiling.smclient.model.internal;
 
 public abstract class CompanyBase {
   public static final String TYPE = "company";

@@ -19,6 +19,8 @@ package com.greenfiling.smclient.model.exchange;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import com.greenfiling.smclient.model.internal.FilterBase;
+
 public class CompanyFilter extends FilterBase {
   private FilterDateRange dateRange = null;
 

@@ -18,6 +18,8 @@ package com.greenfiling.smclient.model;
 
 import java.time.OffsetDateTime;
 
+import com.greenfiling.smclient.model.internal.DocumentBase;
+
 public class ServiceDocument extends DocumentBase {
   public static final String TYPE = "document_to_be_served";
 

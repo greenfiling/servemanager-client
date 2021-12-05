@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.greenfiling.smclient.internal.JsonHandle;
 import com.greenfiling.smclient.model.Address;
 import com.greenfiling.smclient.model.Job;
 import com.greenfiling.smclient.model.JobSubmit;

@@ -16,6 +16,8 @@
 
 package com.greenfiling.smclient.model;
 
+import com.greenfiling.smclient.model.internal.AttemptBase;
+
 public class AttemptSubmit extends AttemptBase {
   private String recipientName;
   private String recipientDescription;

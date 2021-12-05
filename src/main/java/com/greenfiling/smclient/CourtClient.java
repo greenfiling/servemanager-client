@@ -17,12 +17,13 @@
 package com.greenfiling.smclient;
 
 import com.google.gson.reflect.TypeToken;
+import com.greenfiling.smclient.internal.ApiClient;
 import com.greenfiling.smclient.model.Court;
-import com.greenfiling.smclient.model.CourtBase;
 import com.greenfiling.smclient.model.CourtSubmit;
-import com.greenfiling.smclient.model.exchange.FilterBase;
 import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
+import com.greenfiling.smclient.model.internal.CourtBase;
+import com.greenfiling.smclient.model.internal.FilterBase;
 
 public class CourtClient extends ApiClient<CourtBase, Court, CourtSubmit> {
   public static final String ENDPOINT = "courts";

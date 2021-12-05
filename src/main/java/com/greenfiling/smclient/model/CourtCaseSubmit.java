@@ -16,6 +16,8 @@
 
 package com.greenfiling.smclient.model;
 
+import com.greenfiling.smclient.model.internal.CourtCaseBase;
+
 public class CourtCaseSubmit extends CourtCaseBase {
   private Integer courtId; // update = court_id
 

@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package com.greenfiling.smclient;
+package com.greenfiling.smclient.internal;
 
 import java.lang.reflect.Type;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.greenfiling.smclient.model.exchange.FilterBase;
+import com.greenfiling.smclient.ApiHandle;
+import com.greenfiling.smclient.JobClient;
 import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
+import com.greenfiling.smclient.model.internal.FilterBase;
 
 /**
  * Base class for all Serve Manager API endpoints

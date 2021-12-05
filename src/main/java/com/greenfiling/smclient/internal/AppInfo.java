@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.greenfiling.smclient;
+package com.greenfiling.smclient.internal;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

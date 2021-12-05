@@ -19,6 +19,7 @@ package com.greenfiling.smclient.model;
 import java.time.OffsetDateTime;
 
 import com.google.gson.annotations.SerializedName;
+import com.greenfiling.smclient.model.internal.AttemptBase;
 
 public class Attempt extends AttemptBase {
   public static final String TYPE = "attempt";

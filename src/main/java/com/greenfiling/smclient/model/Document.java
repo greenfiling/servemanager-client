@@ -16,6 +16,8 @@
 
 package com.greenfiling.smclient.model;
 
+import com.greenfiling.smclient.model.internal.DocumentBase;
+
 public class Document extends DocumentBase {
   public static final String TYPE = "document";
 

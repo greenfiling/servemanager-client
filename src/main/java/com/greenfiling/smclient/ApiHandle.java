@@ -25,7 +25,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.greenfiling.smclient.DnsSelector.IpMode;
 import com.greenfiling.smclient.Exceptions.AccessForbiddenException;
 import com.greenfiling.smclient.Exceptions.ConflictException;
 import com.greenfiling.smclient.Exceptions.ContentTypeException;
@@ -33,6 +32,12 @@ import com.greenfiling.smclient.Exceptions.InvalidCredentialsException;
 import com.greenfiling.smclient.Exceptions.InvalidEndpointException;
 import com.greenfiling.smclient.Exceptions.InvalidRequestException;
 import com.greenfiling.smclient.Exceptions.RecordNotFoundException;
+import com.greenfiling.smclient.internal.ApiClient;
+import com.greenfiling.smclient.internal.DnsSelector;
+import com.greenfiling.smclient.internal.JsonHandle;
+import com.greenfiling.smclient.internal.UserAgentHandle;
+import com.greenfiling.smclient.internal.UserAgentInterceptor;
+import com.greenfiling.smclient.internal.DnsSelector.IpMode;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;

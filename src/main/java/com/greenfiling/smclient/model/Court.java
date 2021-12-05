@@ -18,6 +18,8 @@ package com.greenfiling.smclient.model;
 
 import java.time.OffsetDateTime;
 
+import com.greenfiling.smclient.model.internal.CourtBase;
+
 public class Court extends CourtBase {
 
   private Links links;

@@ -16,6 +16,8 @@
 
 package com.greenfiling.smclient.model;
 
+import com.greenfiling.smclient.model.internal.CourtBase;
+
 public class CourtSubmit extends CourtBase {
   private Address addressAttributes;
 

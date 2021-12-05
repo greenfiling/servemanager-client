@@ -18,6 +18,8 @@ package com.greenfiling.smclient.model.exchange;
 
 import java.util.ArrayList;
 
+import com.greenfiling.smclient.model.internal.FilterBase;
+
 public class CourtCaseFilter extends FilterBase {
   private Integer companyId = null;
 

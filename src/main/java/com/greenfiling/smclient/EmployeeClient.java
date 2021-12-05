@@ -17,10 +17,11 @@
 package com.greenfiling.smclient;
 
 import com.google.gson.reflect.TypeToken;
+import com.greenfiling.smclient.internal.ApiClient;
 import com.greenfiling.smclient.model.Employee;
-import com.greenfiling.smclient.model.exchange.FilterBase;
 import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
+import com.greenfiling.smclient.model.internal.FilterBase;
 
 public class EmployeeClient extends ApiClient<Employee, Employee, Employee> {
   public static final String ENDPOINT = "employees";
