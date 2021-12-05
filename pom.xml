@@ -61,6 +61,11 @@
       <version>1.7.32</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>de.westemeyer</groupId>
+      <artifactId>artifact-version-service</artifactId>
+      <version>1.0.2</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -95,6 +100,18 @@
             <id>attach-javadocs</id>
             <goals>
               <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>de.westemeyer</groupId>
+        <artifactId>artifact-version-maven-plugin</artifactId>
+        <version>1.0.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate-service</goal>
             </goals>
           </execution>
         </executions>

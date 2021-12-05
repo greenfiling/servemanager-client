@@ -47,6 +47,9 @@ import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.JobFilter;
 import com.greenfiling.smclient.model.exchange.Show;
 
+import de.westemeyer.version.model.Artifact;
+import de.westemeyer.version.service.ArtifactVersionCollector;
+
 public class JobClient_UnitTest {
   public static final String VALID_API_KEY = TestHelper.VALID_API_KEY;
 
@@ -413,6 +416,16 @@ public class JobClient_UnitTest {
     // Show<Job> createdJob = jobClient.update(1234, job);
     // System.out.println("Job " + createdJob.getData().getId() + " updated, new rush = " + createdJob.getData().getRush());
 
+  }
+
+  @Test
+  public void testArtifactVersionService() throws Exception {
+    System.out.println("List of artifacts:");
+    for (Artifact artifact : ArtifactVersionCollector.collectArtifacts()) {
+      System.out.println("artifact = " + artifact);
+    }
+    Artifact smclient = ArtifactVersionCollector.findArtifact("com.greenfiling.smclient", "servemanager-client");
+    System.out.println(String.format("name = %s, version = %s", smclient.getName(), smclient.getVersion()));
   }
 
 }

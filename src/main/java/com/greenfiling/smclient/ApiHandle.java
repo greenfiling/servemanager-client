@@ -160,6 +160,8 @@ public class ApiHandle {
         builder.connectTimeout(connectTimeout, TimeUnit.SECONDS);
       }
 
+      builder.addInterceptor(new UserAgentInterceptor(UserAgentHandle.get().getUserAgent()));
+
       logger.trace(
           "build - building and returning client, endpoint = {}, writeTimeout = {}, readTimeout = {}, connectTimeout = {}, ipMode = {}, auth = {}",
           apiEndpointBase, writeTimeout, readTimeout, connectTimeout, ipMode, basicAuth);
