@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package com.greenfiling.smclient;
+package com.greenfiling.smclient.internal;
 
 import java.lang.reflect.Type;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.greenfiling.smclient.model.exchange.FilterBase;
+import com.greenfiling.smclient.ApiHandle;
+import com.greenfiling.smclient.JobClient;
 import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
+import com.greenfiling.smclient.model.internal.FilterBase;
 
 /**
  * Base class for all Serve Manager API endpoints
@@ -175,13 +177,13 @@ public abstract class ApiClient<BASE, READ, CREATE> {
   }
 
   protected Index<?> toIndex(String json) {
-    logger.debug("toIndex - type = {}, value = {}", getIndexType().toString(), json);
+    logger.trace("toIndex - type = {}, value = {}", getIndexType().toString(), json);
     Index<?> showPojo = JsonHandle.get().getGson().fromJson(json, getIndexType());
     return showPojo;
   }
 
   protected Show<?> toShow(String json) {
-    logger.debug("toShow - type = {}, value = {}", getIndexType().toString(), json);
+    logger.trace("toShow - type = {}, value = {}", getIndexType().toString(), json);
     Show<?> showPojo = JsonHandle.get().getGson().fromJson(json, getShowType());
     return showPojo;
   }

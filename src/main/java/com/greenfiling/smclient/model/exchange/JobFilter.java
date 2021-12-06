@@ -19,6 +19,8 @@ package com.greenfiling.smclient.model.exchange;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import com.greenfiling.smclient.model.internal.FilterBase;
+
 public class JobFilter extends FilterBase {
   public static final String AFFIDAVIT_STATUS_NONE = "none";
   public static final String AFFIDAVIT_STATUS_CREATED = "created";

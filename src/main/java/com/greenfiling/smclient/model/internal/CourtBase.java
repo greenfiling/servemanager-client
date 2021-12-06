@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.greenfiling.smclient.model;
+package com.greenfiling.smclient.model.internal;
 
 import com.google.gson.annotations.SerializedName;
 

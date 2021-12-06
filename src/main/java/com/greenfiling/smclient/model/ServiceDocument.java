@@ -18,15 +18,22 @@ package com.greenfiling.smclient.model;
 
 import java.time.OffsetDateTime;
 
+import com.greenfiling.smclient.model.internal.DocumentBase;
+
 public class ServiceDocument extends DocumentBase {
   public static final String TYPE = "document_to_be_served";
 
   private OffsetDateTime receivedAt;
+  private String externalUrl;
   private Upload upload;
 
   public ServiceDocument() {
     super();
     setType(TYPE);
+  }
+
+  public String getExternalUrl() {
+    return externalUrl;
   }
 
   public OffsetDateTime getReceivedAt() {
@@ -35,6 +42,10 @@ public class ServiceDocument extends DocumentBase {
 
   public Upload getUpload() {
     return this.upload;
+  }
+
+  public void setExternalUrl(String externalUrl) {
+    this.externalUrl = externalUrl;
   }
 
   public void setReceivedAt(OffsetDateTime receivedAt) {

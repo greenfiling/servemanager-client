@@ -18,6 +18,8 @@ package com.greenfiling.smclient.model;
 
 import java.util.ArrayList;
 
+import com.greenfiling.smclient.model.internal.CompanyBase;
+
 public class CompanySubmit extends CompanyBase {
   private ArrayList<PhoneNumber> phoneNumbersAttributes;
   private ArrayList<EmailAddress> emailAddressesAttributes;

@@ -18,6 +18,8 @@ package com.greenfiling.smclient.model;
 
 import java.util.ArrayList;
 
+import com.greenfiling.smclient.model.internal.JobBase;
+
 public class JobSubmit extends JobBase {
   private Recipient recipientAttributes;
   private Integer clientCompanyId;

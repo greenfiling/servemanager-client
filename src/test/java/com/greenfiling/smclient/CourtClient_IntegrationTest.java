@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.greenfiling.smclient.internal.JsonHandle;
 import com.greenfiling.smclient.model.Court;
 import com.greenfiling.smclient.model.Links;
 import com.greenfiling.smclient.model.exchange.Index;

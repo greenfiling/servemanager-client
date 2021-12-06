@@ -19,14 +19,16 @@ package com.greenfiling.smclient;
 import java.io.File;
 
 import com.google.gson.reflect.TypeToken;
+import com.greenfiling.smclient.internal.ApiClient;
+import com.greenfiling.smclient.internal.JsonHandle;
 import com.greenfiling.smclient.model.Job;
-import com.greenfiling.smclient.model.JobBase;
 import com.greenfiling.smclient.model.JobSubmit;
 import com.greenfiling.smclient.model.Note;
 import com.greenfiling.smclient.model.Upload;
-import com.greenfiling.smclient.model.exchange.FilterBase;
 import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
+import com.greenfiling.smclient.model.internal.FilterBase;
+import com.greenfiling.smclient.model.internal.JobBase;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;

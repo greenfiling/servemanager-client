@@ -19,6 +19,8 @@ package com.greenfiling.smclient.model;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
+import com.greenfiling.smclient.model.internal.CompanyBase;
+
 public class Company extends CompanyBase {
   private Links links;
   private Integer id;

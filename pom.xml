@@ -2,11 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.greenfiling.smclient</groupId>
   <artifactId>servemanager-client</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <name>ServeManager Api Client</name>
   <description>Java implementation of client for ServeManager API (https://www.servemanager.com/)</description>
   <url>https://www.github.com/greenfiling/servemanager-client</url>
   <inceptionYear>2021</inceptionYear>
+
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
@@ -14,10 +15,20 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+
+  <developers>
+    <developer>
+      <name>John Jetmore</name>
+      <email>john+smclient@greenfiling.com</email>
+      <organization>Green Filing, LLC</organization>
+      <organizationUrl>https://www.greenfiling.com/</organizationUrl>
+    </developer>
+  </developers>
   <organization>
     <name>Green Filing, LLC</name>
     <url>https://www.greenfiling.com/</url>
   </organization>
+
   <issueManagement>
     <system>Github</system>
     <url>https://www.github.com/greenfiling/servemanager-client/issues</url>
@@ -28,6 +39,14 @@
     <url>https://github.com/greenfiling/servemanager-client/tree/${project.scm.tag}</url>
     <tag>main</tag>
   </scm>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -61,7 +80,13 @@
       <version>1.7.32</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>de.westemeyer</groupId>
+      <artifactId>artifact-version-service</artifactId>
+      <version>1.0.2</version>
+    </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -90,12 +115,52 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>3.2.0</version>
+        <configuration>
+          <source>8</source>
+        </configuration>
         <executions>
           <execution>
             <id>attach-javadocs</id>
             <goals>
               <goal>jar</goal>
             </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>de.westemeyer</groupId>
+        <artifactId>artifact-version-maven-plugin</artifactId>
+        <version>1.0.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate-service</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.7</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>ossrh</serverId>
+          <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>false</autoReleaseAfterClose>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+          <id>sign-artifacts</id>
+          <phase>verify</phase>
+          <goals>
+            <goal>sign</goal>
+          </goals>
           </execution>
         </executions>
       </plugin>

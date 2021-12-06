@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.google.gson.annotations.SerializedName;
+import com.greenfiling.smclient.model.internal.JobBase;
 
 public class Job extends JobBase {
   public static final String TYPE = "job";

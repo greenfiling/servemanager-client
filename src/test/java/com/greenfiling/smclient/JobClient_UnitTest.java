@@ -33,6 +33,8 @@ import java.util.Locale;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.greenfiling.smclient.internal.DnsSelector;
+import com.greenfiling.smclient.internal.DnsSelector.IpMode;
 import com.greenfiling.smclient.model.Attempt;
 import com.greenfiling.smclient.model.AttemptSubmit;
 import com.greenfiling.smclient.model.Company;
@@ -40,11 +42,14 @@ import com.greenfiling.smclient.model.Job;
 import com.greenfiling.smclient.model.Links;
 import com.greenfiling.smclient.model.Recipient;
 import com.greenfiling.smclient.model.ServiceDocument;
-import com.greenfiling.smclient.model.exchange.FilterBase;
 import com.greenfiling.smclient.model.exchange.FilterDateRange;
 import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.JobFilter;
 import com.greenfiling.smclient.model.exchange.Show;
+import com.greenfiling.smclient.model.internal.FilterBase;
+
+import de.westemeyer.version.model.Artifact;
+import de.westemeyer.version.service.ArtifactVersionCollector;
 
 public class JobClient_UnitTest {
   public static final String VALID_API_KEY = TestHelper.VALID_API_KEY;
@@ -225,6 +230,20 @@ public class JobClient_UnitTest {
   }
 
   @Test
+  public void testIndexJob_ExternalBuilder() throws Exception {
+    okhttp3.OkHttpClient.Builder builder = new okhttp3.OkHttpClient.Builder().dns(new DnsSelector(IpMode.IPV4_ONLY));
+    ApiHandle apiHandle = new ApiHandle.Builder().builder(builder).apiKey(VALID_API_KEY).build();
+    JobClient client = new JobClient(apiHandle);
+
+    Index<Job> response = client.index();
+    Links links = response.getLinks();
+    System.out.println("links.self = " + links.getSelf());
+
+    ArrayList<Job> jobs = response.getData();
+    System.out.println("Number of jobs in response: " + jobs.size());
+  }
+
+  @Test
   public void testIndexJob_Filter_HappyPath() throws Exception {
     ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
     JobClient client = new JobClient(apiHandle);
@@ -272,21 +291,22 @@ public class JobClient_UnitTest {
     System.out.println("VALID_FILE_2: " + TestHelper.VALID_FILE_PATH_2);
   }
 
-  @Test
-  public void testShowJob_BadApiEndpoint() throws Exception {
-    boolean caughtException = false;
-    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
-    JobClient client = new JobClient(apiHandle);
-    client.setEndpoint("foo");
-    Show<Job> showResp = null;
-    try {
-      showResp = client.show(8559826);
-    } catch (Exceptions.InvalidEndpointException e) {
-      caughtException = true;
-    }
-    assertThat(caughtException, equalTo(true));
-    assertThat(showResp, equalTo(null));
-  }
+  // because setEndPoint() is protected, we can't run this anymore. To test, do a custom extension of ApiClient that has the wrong endpoint
+  // @Test
+  // public void testShowJob_BadApiEndpoint() throws Exception {
+  // boolean caughtException = false;
+  // ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+  // JobClient client = new JobClient(apiHandle);
+  // client.setEndpoint("foo");
+  // Show<Job> showResp = null;
+  // try {
+  // showResp = client.show(8559826);
+  // } catch (Exceptions.InvalidEndpointException e) {
+  // caughtException = true;
+  // }
+  // assertThat(caughtException, equalTo(true));
+  // assertThat(showResp, equalTo(null));
+  // }
 
   @Test
   public void testShowJob_BadAuth() throws Exception {
@@ -398,6 +418,16 @@ public class JobClient_UnitTest {
     // Show<Job> createdJob = jobClient.update(1234, job);
     // System.out.println("Job " + createdJob.getData().getId() + " updated, new rush = " + createdJob.getData().getRush());
 
+  }
+
+  @Test
+  public void testArtifactVersionService() throws Exception {
+    System.out.println("List of artifacts:");
+    for (Artifact artifact : ArtifactVersionCollector.collectArtifacts()) {
+      System.out.println("artifact = " + artifact);
+    }
+    Artifact smclient = ArtifactVersionCollector.findArtifact("com.greenfiling.smclient", "servemanager-client");
+    System.out.println(String.format("name = %s, version = %s", smclient.getName(), smclient.getVersion()));
   }
 
 }

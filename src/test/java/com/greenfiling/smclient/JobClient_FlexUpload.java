@@ -127,4 +127,59 @@ public class JobClient_FlexUpload {
 
   }
 
+  @Test
+  public void testCreateJob_ExternalUrl() throws Exception {
+
+    Recipient r = TestHelper.getRecipient();
+    r.setDescription("Recipient created by testCreateJob_Full");
+
+    ArrayList<Address> addresses = new ArrayList<>();
+    Address a = TestHelper.getAddress();
+    a.setLabel("Address created by testCreateJob_Full (1)");
+    a.setPrimary(true);
+    addresses.add(a);
+    a = TestHelper.getAddress();
+    a.setLabel("Address created by testCreateJob_Full (2)");
+    a.setPrimary(false);
+    addresses.add(a);
+
+    ArrayList<ServiceDocument> docs = new ArrayList<>();
+    ServiceDocument doc = new ServiceDocument();
+    doc.setTitle("Subpoena");
+    doc.setReceivedAt(OffsetDateTime.now());
+    doc.setFileName("file_name.pdf");
+    doc.setExternalUrl("https://github.com/greenfiling/servemanager-client/raw/main/src/test/resources/small-1.pdf");
+    docs.add(doc);
+
+    JobSubmit job = new JobSubmit();
+    job.setClientCompanyId(TestHelper.VALID_CLIENT_COMPANY_ID);
+    job.setClientContactId(TestHelper.VALID_CLIENT_CONTACT_ID);
+    job.setProcessServerCompanyId(TestHelper.VALID_PROCESS_SERVER_COMPANY_ID);
+    job.setCourtCaseId(TestHelper.VALID_COURT_CASE_ID);
+    job.setDueDate(LocalDate.parse("2021-12-01"));
+    job.setServiceInstructions("from testCreateJob_Full");
+    job.setClientJobNumber("A623948z");
+    job.setRush(true);
+    job.setJobStatus(Job.JOB_STATUS_FILED);
+    job.setRecipientAttributes(r);
+    job.setAddressesAttributes(addresses);
+    job.setDocumentsToBeServedAttributes(docs);
+    job.setMiscAttachmentsAttributes(null);
+
+    Show<Job> response = client.create(job);
+    Links links = response.getData().getLinks();
+    System.out.println("links.self = " + links.getSelf());
+    System.out.println("type = " + response.getData().getType());
+    System.out.println("updated_at = " + response.getData().getUpdatedAt());
+    System.out.println("recipient.name = " + response.getData().getRecipient().getName());
+    System.out.println("dueDate = " + response.getData().getDueDate());
+    // System.out.println(Util.printObject(response.getData()));
+
+    response = client.show(response.getData().getId());
+    System.out.println("links.self = " + links.getSelf());
+    for (ServiceDocument d : response.getData().getDocumentsToBeServed()) {
+      System.out.println("document_to_be_served, " + d.getUpload().getLinks().getDownloadUrl());
+    }
+  }
+
 }

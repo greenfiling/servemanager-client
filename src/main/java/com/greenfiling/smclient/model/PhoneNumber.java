@@ -16,6 +16,8 @@
 
 package com.greenfiling.smclient.model;
 
+import com.greenfiling.smclient.model.internal.ContactPoint;
+
 public class PhoneNumber extends ContactPoint {
   public static final String TYPE = "phone_number";
 
