@@ -103,7 +103,7 @@ public abstract class FilterBase {
     if (queryString.endsWith("&")) {
       queryString = queryString.substring(0, queryString.length() - 1);
     }
-    logger.debug("getQueryString - queryString = {}", queryString);
+    logger.trace("getQueryString - queryString = {}", queryString);
     return queryString;
   }
 
