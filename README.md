@@ -203,6 +203,32 @@ while (resp != null) {
 }
 ```
 
+#### Notes
+
+The Notea interface is unique among the ServeManager endpoints.  There are three functions to be done with notes: (1) create a new note, (2) list all of the notes associated with a Job, and (3) list all existing notes.  Only (3) uses the /notes endoint.  (1) and (2) are actually performed through the /jobs endpoint.  This API tries to follow the principle that regardless of the action, they should exist in the correct Client class for the endpoint being accessed.  As such, the listing of all notes is performed via NoteClient, but per-job listing and note creation are done via JobClient.
+
+```java
+noteClient = new NoteClient(apiHandle);
+Index<Note> resp = client.index();
+System.out.println("There are " + resp.getData().size() + " total notes (or possibly more if it was paginated)");
+```
+
+```java
+jobClient = new JobClient(apiHandle);
+Integer jobId = 111111;
+
+Note note = new Note();
+note.setLabel("Job Details");
+note.setBody("this is the body");
+note.setJobId(jobId);
+
+Show<Note> createResponse = jobClient.createNote(note);
+System.out.println("created note id = " + createResponse.getData().getId());
+
+Index<Note> indexResponse = jobClient.indexNotes(jobId);
+System.out.println("Number of notes after create: " + indexResponse.getData().size() + " (or possibly more if it was paginated)");
+```
+
 #### Constants
 
 The API documentation lists many string constants that can be passed to the API as valid values (listed under "Enumerated Attributes" under each endpoint that has them).  Some of these are complete, meaning that using any other value will result in an error, but others define a list of standard values but say that custom values are allowed.  While a Java `enum` would work for the former, it would not work for the latter.  For simplicity, string constants are provided internally for each value defined in the API documentation.  Each set method which could accept one of these values have javadoc which defines the available constants.  While these constants do not have to be used, their use will make maintaining client code easier.
