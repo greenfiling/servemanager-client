@@ -1,4 +1,13 @@
 #######################
+## 1.0.2
+## 2022-03-03
+
+  * Add explanatory text when throwing UnsupportedOperationException
+  * Fix the create interface for notes
+  * Add test cases
+  * Lower log level in FilterBase.getQueryString()
+
+#######################
 ## 1.0.1
 ## 2021-12-06
 

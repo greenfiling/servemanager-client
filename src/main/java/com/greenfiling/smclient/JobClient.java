@@ -97,6 +97,33 @@ public class JobClient extends ApiClient<JobBase, Job, JobSubmit> {
     // @formatter:on
   }
 
+  // Create a note. Notes is confusing but ultimately I decided that it should go into the client class that is the api base URL.
+  public Show<Note> createNote(Integer jobId, Note record) throws Exception {
+    if (record == null) {
+      throw new IllegalStateException("record null");
+    }
+    if (jobId == null) {
+      throw new IllegalStateException("jobId null");
+    }
+    if (record.getJobId() == null) {
+      throw new IllegalStateException("jobId not found");
+    }
+
+    Show<Note> showRecord = new Show<Note>(record);
+    String url = makeShowUrl(jobId) + "/notes";
+    String responseJson = getHandle().doPost(url, showRecord);
+
+    // @formatter:off
+    return JsonHandle.get().getGson().fromJson(responseJson, new TypeToken<Show<Note>>() {}.getType());
+    // @formatter:on
+  }
+
+  // Convenience method, if you already have the jobId in the Note object
+  public Show<Note> createNote(Note record) throws Exception {
+    Integer jobId = record == null ? null : record.getJobId();
+    return createNote(jobId, record);
+  }
+
   // =================
 
   @Override

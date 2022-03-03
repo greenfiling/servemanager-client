@@ -57,7 +57,7 @@ public abstract class ApiClient<BASE, READ, CREATE> {
   }
 
   public Show<READ> create(BASE record) throws Exception {
-    throw new UnsupportedOperationException();
+    throw new UnsupportedOperationException("The extending class did not implement the create method");
   }
 
   public void getFile(String Url, String filePath) throws Exception {
@@ -65,7 +65,7 @@ public abstract class ApiClient<BASE, READ, CREATE> {
   }
 
   public Index<READ> getNext(Index<READ> index) throws Exception {
-    throw new UnsupportedOperationException();
+    throw new UnsupportedOperationException("The extending class did not implement the index method");
   }
 
   public Index<READ> index() throws Exception {
@@ -73,15 +73,15 @@ public abstract class ApiClient<BASE, READ, CREATE> {
   }
 
   public Index<READ> index(FilterBase filter) throws Exception {
-    throw new UnsupportedOperationException();
+    throw new UnsupportedOperationException("The extending class did not implement the index(filter) method");
   }
 
   public Show<READ> show(Integer id) throws Exception {
-    throw new UnsupportedOperationException();
+    throw new UnsupportedOperationException("The extending class did not implement the show method");
   }
 
   public Show<READ> update(Integer id, BASE record) throws Exception {
-    throw new UnsupportedOperationException();
+    throw new UnsupportedOperationException("The extending class did not implement the update method");
   }
 
   private String getEndpoint() {

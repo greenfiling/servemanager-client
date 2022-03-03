@@ -20,14 +20,17 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.io.File;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 import org.junit.BeforeClass;
@@ -35,6 +38,7 @@ import org.junit.Test;
 
 import com.greenfiling.smclient.internal.DnsSelector;
 import com.greenfiling.smclient.internal.DnsSelector.IpMode;
+import com.greenfiling.smclient.model.Attachment;
 import com.greenfiling.smclient.model.Attempt;
 import com.greenfiling.smclient.model.AttemptSubmit;
 import com.greenfiling.smclient.model.Company;
@@ -102,6 +106,23 @@ public class JobClient_UnitTest {
     // Show<Job> createdJob = jobClient.create(job);
     // System.out.println("New job " + createdJob.getData().getId() + " visible at " + createdJob.getData().getLinks().getSelf());
 
+  }
+
+  @Test
+  public void testCreateJob_CustomData() throws Exception {
+    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    JobClient client = new JobClient(apiHandle);
+
+    Job newJob = new Job();
+
+    // Doesn't seem to actually do anything. Still haven't heard what good this is
+    HashMap<String, String> custom = new HashMap<String, String>();
+    custom.put("test_custom_key", "test_custom_value");
+    newJob.setCustom(custom);
+
+    Show<Job> response = client.create(newJob);
+    Links links = response.getData().getLinks();
+    System.out.println("job created, links.self = " + links.getSelf());
   }
 
   @Test
@@ -430,4 +451,47 @@ public class JobClient_UnitTest {
     System.out.println(String.format("name = %s, version = %s", smclient.getName(), smclient.getVersion()));
   }
 
+  @Test
+  public void testUpdateJob_CheckForDelayOnAttachmentUpload() throws Exception {
+    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    JobClient client = new JobClient(apiHandle);
+
+    Job newJob = new Job();
+
+    Show<Job> response = client.create(newJob);
+    Links links = response.getData().getLinks();
+    llog(String.format("job created, links.self = %s", links.getSelf()));
+
+    ArrayList<Attachment> docs = new ArrayList<>();
+    Attachment doc = new Attachment();
+    doc.setFileName("file_name.pdf");
+    docs.add(doc);
+
+    Job job = response.getData();
+    job.setMiscAttachments(docs);
+    response = client.update(job.getId(), job);
+    llog("attachment added");
+    for (Attachment a : response.getData().getMiscAttachments()) {
+      client.completeUpload(a.getUpload(), "application/pdf", new File(TestHelper.VALID_FILE_PATH_1));
+      llog("attachment uploaded");
+    }
+
+    // for (int i = 0; i < 100; i++) {
+    response = client.show(job.getId());
+    llog(String.format("polled for misc_attachments, _count = %d, real count = %d", response.getData().getMiscAttachmentsCount(),
+        response.getData().getMiscAttachments().size()));
+    // }
+
+    // JobSubmit job = new JobSubmit();
+    // job.setCourtCaseId(1234);
+    // job.setRush(true);
+    // job.setDueDate(LocalDate.parse("2021-11-15"));
+    // Show<Job> createdJob = client.create(job);
+    // System.out.println("New job " + createdJob.getData().getId() + " visible at " + createdJob.getData().getLinks().getSelf());
+
+  }
+
+  private void llog(String msg) {
+    System.err.println(LocalTime.now() + ": " + msg);
+  }
 }
