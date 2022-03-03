@@ -19,7 +19,7 @@ Installing
 <dependency>
     <groupId>com.greenfiling.smclient</groupId>
     <artifactId>servemanager-client</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 
@@ -201,6 +201,32 @@ while (resp != null) {
   }
   resp = jobClient.getNext(resp);
 }
+```
+
+#### Notes
+
+The Notea interface is unique among the ServeManager endpoints.  There are three functions to be done with notes: (1) create a new note, (2) list all of the notes associated with a Job, and (3) list all existing notes.  Only (3) uses the /notes endoint.  (1) and (2) are actually performed through the /jobs endpoint.  This API tries to follow the principle that regardless of the action, they should exist in the correct Client class for the endpoint being accessed.  As such, the listing of all notes is performed via NoteClient, but per-job listing and note creation are done via JobClient.
+
+```java
+noteClient = new NoteClient(apiHandle);
+Index<Note> resp = client.index();
+System.out.println("There are " + resp.getData().size() + " total notes (or possibly more if it was paginated)");
+```
+
+```java
+jobClient = new JobClient(apiHandle);
+Integer jobId = 111111;
+
+Note note = new Note();
+note.setLabel("Job Details");
+note.setBody("this is the body");
+note.setJobId(jobId);
+
+Show<Note> createResponse = jobClient.createNote(note);
+System.out.println("created note id = " + createResponse.getData().getId());
+
+Index<Note> indexResponse = jobClient.indexNotes(jobId);
+System.out.println("Number of notes after create: " + indexResponse.getData().size() + " (or possibly more if it was paginated)");
 ```
 
 #### Constants

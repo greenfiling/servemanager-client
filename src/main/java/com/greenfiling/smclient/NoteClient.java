@@ -37,12 +37,6 @@ public class NoteClient extends ApiClient<Note, Note, Note> {
 
   @Override
   @SuppressWarnings("unchecked")
-  public Show<Note> create(Note record) throws Exception {
-    return (Show<Note>) toShow(doCreateRequest(record));
-  }
-
-  @Override
-  @SuppressWarnings("unchecked")
   public Index<Note> getNext(Index<Note> index) throws Exception {
     return (Index<Note>) toIndex(doGetNext(index));
   }
