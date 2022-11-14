@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2022 Green Filing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,6 +51,7 @@ import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.JobFilter;
 import com.greenfiling.smclient.model.exchange.Show;
 import com.greenfiling.smclient.model.internal.FilterBase;
+import com.greenfiling.smclient.model.internal.JobBase;
 
 import de.westemeyer.version.model.Artifact;
 import de.westemeyer.version.service.ArtifactVersionCollector;
@@ -107,6 +108,41 @@ public class JobClient_UnitTest {
     // System.out.println("New job " + createdJob.getData().getId() + " visible at " + createdJob.getData().getLinks().getSelf());
 
   }
+
+  @Test
+  public void testCreateJob_JobTypeId() throws Exception {
+
+    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    JobClient client = new JobClient(apiHandle);
+
+    Job newJob = new Job();
+    newJob.setJobTypeId(JobBase.JOB_TYPE_SOP);
+
+    Show<Job> response = client.create(newJob);
+    Links links = response.getData().getLinks();
+    System.out.println("job created, links.self = " + links.getSelf());
+
+    // JobClient jobClient = new JobClient(apiHandle);
+    // JobSubmit job = new JobSubmit();
+    // job.setCourtCaseId(1234);
+    // job.setRush(true);
+    // job.setDueDate(LocalDate.parse("2021-11-15"));
+    // Show<Job> createdJob = jobClient.create(job);
+    // System.out.println("New job " + createdJob.getData().getId() + " visible at " + createdJob.getData().getLinks().getSelf());
+
+  }
+
+  // @Test
+  // public void test_readJob() throws Exception {
+  //
+  // ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+  // JobClient client = new JobClient(apiHandle);
+  //
+  // Show<Job> resp = client.show(11051692);
+  //
+  // System.out.println("Job Number: " + resp.getData().getServeManagerJobNumber());
+  // System.out.println("Job Type ID: " + resp.getData().getJobTypeId());
+  // }
 
   @Test
   public void testCreateJob_CustomData() throws Exception {
