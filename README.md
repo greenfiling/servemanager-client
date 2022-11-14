@@ -65,19 +65,19 @@ ApiHandle apiHandle = new ApiHandle.Builder()
                           .build();
 ```
 
-Once an ApiHandle is created, it can be used to create the individual enpoint clients:
+Once an ApiHandle is created, it can be used to create the individual endpoint clients:
 
 ```java
 JobClient client = new JobClient(apiHandle);
 ```
 
-While more than one ApiHandle can be created, typically only one is needed for an application.  Similarly, there's not really any reason to create more than one client endoint object per application.
+While more than one ApiHandle can be created, typically only one is needed for an application.  Similarly, there's not really any reason to create more than one client endpoint object per application.
 
 #### Data Model
 
-The data model hews strongly to the documentation.  Each endpoint has a dedicated read object matching the read and index documentation (eg `Job` for `JobClient`), and come have a submit object.  There are also support objects that do not match endpoint definitions but are needed to create the object in Java.  For instance, there is a LineItem class.
+The data model hews strongly to the documentation.  Each endpoint has a dedicated read object matching the read and index documentation (e.g., `Job` for `JobClient`), and some have a submit object.  There are also support objects that do not match endpoint definitions but are needed to create the object in Java.  For instance, there is a LineItem class.
 
-There are two container classes  used to wrap the endpoint object, `Show<>` and `Index<>`.  `Show<>` is the wrapper for a single object, accessible via `.getData()`.  `Index<>` is the wrapper for a list of objects, as returned by the `index()` interface, and `.getData()` returns an array of objects.
+There are two container classes used to wrap the endpoint object, `Show<>` and `Index<>`.  `Show<>` is the wrapper for a single object, accessible via `.getData()`.  `Index<>` is the wrapper for a list of objects, as returned by the `index()` interface, and `.getData()` returns an array of objects.
 
 #### Reading (show)
 
@@ -153,7 +153,7 @@ System.out.println("Job " + createdJob.getData().getId() + " updated, new rush =
 
 #### Uploading Files
 
-create() and update() can allow you to upload a file.  See the relevant [API section](https://www.servemanager.com/api/#overview-uploads) for how this works at a low level.  This client gives a convenient way to upload a fail to ServeManager's temporary URL without needing to know many specifics.
+create() and update() can allow you to upload a file.  See the relevant [API section](https://www.servemanager.com/api/#overview-uploads) for how this works at a low level.  This client gives a convenient way to upload a file to ServeManager's temporary URL without needing to know many specifics.
 
 See also `ServiceDocument.externalUrl` in the "Client Implementation vs. API Documentation Differences" at the end of this document.
 
@@ -205,7 +205,7 @@ while (resp != null) {
 
 #### Notes
 
-The Notea interface is unique among the ServeManager endpoints.  There are three functions to be done with notes: (1) create a new note, (2) list all of the notes associated with a Job, and (3) list all existing notes.  Only (3) uses the /notes endoint.  (1) and (2) are actually performed through the /jobs endpoint.  This API tries to follow the principle that regardless of the action, they should exist in the correct Client class for the endpoint being accessed.  As such, the listing of all notes is performed via NoteClient, but per-job listing and note creation are done via JobClient.
+The Notes interface is unique among the ServeManager endpoints.  There are three functions to be done with notes: (1) create a new note, (2) list all of the notes associated with a Job, and (3) list all existing notes.  Only (3) uses the /notes endpoint.  (1) and (2) are actually performed through the /jobs endpoint.  This API tries to follow the principle that regardless of the action, they should exist in the correct Client class for the endpoint being accessed.  As such, the listing of all notes is performed via NoteClient, but per-job listing and note creation are done via JobClient.
 
 ```java
 noteClient = new NoteClient(apiHandle);
