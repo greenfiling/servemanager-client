@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2022 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,12 @@ public abstract class JobBase {
   public static final String JOB_STATUS_ON_HOLD = "On Hold";
   public static final String JOB_STATUS_SKIP_TRACE = "Skip Trace";
 
+  public static final Integer JOB_TYPE_SOP = 1;
+  public static final Integer JOB_TYPE_CCD = 2;
+
   private String type;
   private String jobStatus;
+  private Integer jobTypeId;
   private String clientJobNumber;
   private String serviceInstructions;
   private LocalDate dueDate;
@@ -48,6 +52,7 @@ public abstract class JobBase {
     setServiceInstructions(job.getServiceInstructions());
     setDueDate(job.getDueDate());
     setRush(job.getRush());
+    setJobTypeId(job.getJobTypeId());
   }
 
   public String getClientJobNumber() {
@@ -60,6 +65,10 @@ public abstract class JobBase {
 
   public String getJobStatus() {
     return this.jobStatus;
+  }
+
+  public Integer getJobTypeId() {
+    return this.jobTypeId;
   }
 
   public Boolean getRush() {
@@ -97,6 +106,10 @@ public abstract class JobBase {
    */
   public void setJobStatus(String jobStatus) {
     this.jobStatus = jobStatus;
+  }
+
+  public void setJobTypeId(Integer jobTypeId) {
+    this.jobTypeId = jobTypeId;
   }
 
   public void setRush(Boolean rush) {
