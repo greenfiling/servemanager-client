@@ -1,4 +1,11 @@
 #######################
+## 1.0.3
+## 2022-11-16
+
+  * Fix typos in README.md
+  * Add support for new Job job_type_id field
+
+#######################
 ## 1.0.2
 ## 2022-03-03
 
