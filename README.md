@@ -19,7 +19,7 @@ Installing
 <dependency>
     <groupId>com.greenfiling.smclient</groupId>
     <artifactId>servemanager-client</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 
@@ -31,7 +31,7 @@ The library logs via [SLF4J](http://www.slf4j.org/).  What logging actually take
 License
 -------
 
-servemanager-client is copyright 2021 Green Filing, LLC and is licensed under the Apache License 2.0
+servemanager-client is copyright 2022 Green Filing, LLC and is licensed under the Apache License 2.0
 
 To Do
 -----
