@@ -17,6 +17,7 @@
 package com.greenfiling.smclient.internal;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +55,16 @@ public abstract class ApiClient<BASE, READ, CREATE> {
 
   public ApiClient(ApiHandle handle) {
     setHandle(handle);
+  }
+
+  /**
+   * Convenience method to get the {@link Transaction}s from the client's {@link ApiHandle}
+   * 
+   * @return list of {@link Transaction}s associated with the client's {@link ApiHandle}
+   * @since 1.0.4
+   */
+  public ArrayList<Transaction> getTransactions() {
+    return apiHandle.getTransactions();
   }
 
   public Show<READ> create(BASE record) throws Exception {

@@ -31,7 +31,7 @@ The library logs via [SLF4J](http://www.slf4j.org/).  What logging actually take
 License
 -------
 
-servemanager-client is copyright 2022 Green Filing, LLC and is licensed under the Apache License 2.0
+servemanager-client is copyright 2023 Green Filing, LLC and is licensed under the Apache License 2.0
 
 To Do
 -----
@@ -57,7 +57,7 @@ This implementation follows the [API documentation](https://www.servemanager.com
 
 #### Instantiating
 
-There are two steps to being able to interact with the API.  The first is getting an ApiHandle.  This contains non-endpoint-specific information for communicating with the API, including API key, URL, and timeouts.  The only element required to instantiate is the API key.  ApiHandle uses a builder pattern:
+There are two steps to being able to interact with the API.  The first is getting an ApiHandle.  This contains non-endpoint-specific information for communicating with the API, including API key, URL, and timeouts (see the `ApiHandle` class for all settings).  The only element required to instantiate is the API key.  ApiHandle uses a builder pattern:
 
 ```java
 ApiHandle apiHandle = new ApiHandle.Builder()
@@ -71,7 +71,7 @@ Once an ApiHandle is created, it can be used to create the individual endpoint c
 JobClient client = new JobClient(apiHandle);
 ```
 
-While more than one ApiHandle can be created, typically only one is needed for an application.  Similarly, there's not really any reason to create more than one client endpoint object per application.
+While more than one ApiHandle can be created, typically only one is needed for an application (though see Transactions in the Debugging section below).  Similarly, there's not really any reason to create more than one client endpoint object per application.
 
 #### Data Model
 
@@ -260,6 +260,12 @@ client.getFile(url, localPath);
 System.out.println("Downloaded from " + url);
 System.out.println("Downloaded to " + localPath);
 ```
+
+#### Debugging
+
+As mentioned above, the library logs via [SLF4J](http://www.slf4j.org/).  If the slf4j is to log level `trace` either via a scope (for instance, com.greenfiling.smclient) or globally, extremely detailed request and response logs will be made.
+
+To gain access to this information programmatically, see the `Transaction` class.  You can gain detailed information about both sides of a request/response pair.  The number of transactions to keep in memory is tuneable via the `keepTransactions()` method in the `ApiHandle` builder class.  The transactions themselves can be accessed via `ApiHandle.getTransactions()`.  Because it is likely that the ApiHandle and a client might be far apart in an application, there is a convenience accessor vie the getTransactions() method on all `*Client` classes.  The transactions are members of the ApiHandle, which means that if you use the same ApiHandle to instantiate multiple clients, the client transactions will co-mingle in the handle.
 
 #### Error Handling
 
