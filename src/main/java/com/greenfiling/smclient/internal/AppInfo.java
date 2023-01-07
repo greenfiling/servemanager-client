@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,6 @@ public class AppInfo {
   private static final Logger logger = LoggerFactory.getLogger(AppInfo.class);
   public final static String GROUP_ID = "com.greenfiling.smclient";
   public final static String ARTIFACT_ID = "servemanager-client";
-  private static final String URL = "https://www.github.com/greenfiling/servemanager-client";
   private static AppInfo handle = new AppInfo();
 
   public static AppInfo get() {
@@ -61,7 +60,7 @@ public class AppInfo {
   }
 
   public String getUrl() {
-    return URL;
+    return getAppInfo().getUrl();
   }
 
   public String getVersion() {
