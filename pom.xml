@@ -37,7 +37,7 @@
     <connection>scm:git:https://github.com/greenfiling/servemanager-client.git</connection>
     <developerConnection>scm:git:https://github.com/greenfiling/servemanager-client.git</developerConnection>
     <url>https://github.com/greenfiling/servemanager-client/tree/${project.scm.tag}</url>
-    <tag>main</tag>
+    <tag>v${project.version}</tag>
   </scm>
 
   <distributionManagement>
