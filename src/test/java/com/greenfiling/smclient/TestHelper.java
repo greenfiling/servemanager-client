@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,6 +60,10 @@ public class TestHelper {
     a.setPrimary(true);
 
     return a;
+  }
+
+  public static ApiHandle getApiHandle() {
+    return new ApiHandle.Builder().apiKey(Transactions_IntegrationTest.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
   }
 
   public static Recipient getRecipient() {
