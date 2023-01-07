@@ -94,6 +94,7 @@ public class ApiHandle {
      * Defaults to {@link ApiHandle#DEFAULT_ENDPOINT_BASE}
      * 
      * @param apiEndpoint
+     *          api endpoint to use
      * @return A valid @{link Builder} object so calls can be chained
      * @since 1.0.0
      */
@@ -225,6 +226,7 @@ public class ApiHandle {
      * </code>
      * 
      * @param ipMode
+     *          an {@link IpMode} object to be used for connection attempts
      * @return A valid @{link Builder} object so calls can be chained
      * @since 1.0.1
      */
@@ -271,6 +273,7 @@ public class ApiHandle {
      * Validates an instantiated {@link ApiHandle} client to make sure we don't pass a misconfigured client to the user
      * 
      * @param client
+     *          an instantiated {@link ApiHandle} to validate
      * @throws IllegalStateException
      */
     private void validate(ApiHandle client) throws IllegalStateException {

@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -191,6 +191,7 @@ public class Recipient {
    * </UL>
    * 
    * @param ethnicity
+   *          ethnicity
    */
   public void setEthnicity(String ethnicity) {
     this.ethnicity = ethnicity;
@@ -213,6 +214,7 @@ public class Recipient {
    * </UL>
    * 
    * @param eyes
+   *          eyes
    */
   public void setEyes(String eyes) {
     this.eyes = eyes;
@@ -230,6 +232,7 @@ public class Recipient {
    * </UL>
    * 
    * @param gender
+   *          gender
    */
   public void setGender(String gender) {
     this.gender = gender;
@@ -252,6 +255,7 @@ public class Recipient {
    * </UL>
    * 
    * @param hair
+   *          hair
    */
   public void setHair(String hair) {
     this.hair = hair;
@@ -273,6 +277,7 @@ public class Recipient {
    * </UL>
    * 
    * @param height1
+   *          "feet" part of height
    */
   public void setHeight1(String height1) {
     this.height1 = height1;
@@ -299,6 +304,7 @@ public class Recipient {
    * </UL>
    * 
    * @param height2
+   *          inches part of height
    */
   public void setHeight2(String height2) {
     this.height2 = height2;
@@ -340,6 +346,7 @@ public class Recipient {
    * </UL>
    * 
    * @param relationship
+   *          relationship
    */
   public void setRelationship(String relationship) {
     this.relationship = relationship;
