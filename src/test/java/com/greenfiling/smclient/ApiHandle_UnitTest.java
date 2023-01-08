@@ -22,7 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.Test;
 
-public class ApiHandle_Unit_Manual {
+public class ApiHandle_UnitTest {
   public static final String VALID_API_KEY = TestHelper.VALID_API_KEY;
 
   @Test
