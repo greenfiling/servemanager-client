@@ -88,6 +88,13 @@ public class TestHelper {
     return r;
   }
 
+  public static void log(String template, Object... args) {
+    if (QUIET_TESTS) {
+      return;
+    }
+    System.out.println(String.format(template, args));
+  }
+
   private static String getProperty(String string) {
     if (properties == null) {
       properties = loadProperties();
