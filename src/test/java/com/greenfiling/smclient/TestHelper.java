@@ -30,9 +30,11 @@ import com.greenfiling.smclient.model.Recipient;
 public class TestHelper {
   private static final Logger logger = LoggerFactory.getLogger(TestHelper.class);
 
-  private static final String API_KEY_FILE_NAME = "/api-key.properties";
-  private static final String API_KEY_NAME = "api-key";
-  public static final String VALID_API_KEY = getApiKey();
+  private static Properties properties = null;
+  private static final String API_KEY_FILE_NAME = "/testing.properties";
+  public static final String VALID_API_KEY = getProperty("api-key");
+  public static final Boolean QUIET_TESTS = getProperty("quiet-tests").equalsIgnoreCase("true") ? true : false;
+  // public static final Boolean LOG_AT_TRACE = getProperty("log-trace").equalsIgnoreCase("true") ? true : false;
 
   public static final String VALID_FILE_NAME_1 = "small-1.pdf";
   public static final String VALID_FILE_PATH_1 = getResourcePath(VALID_FILE_NAME_1);
@@ -86,31 +88,12 @@ public class TestHelper {
     return r;
   }
 
-  private static String getApiKey() {
-    InputStream in = TestHelper.class.getResourceAsStream(API_KEY_FILE_NAME);
-
-    if (in == null) {
-      logger.error("getApiKey - unable to select file {} as the input resource, tests will probably not run correctly", API_KEY_FILE_NAME);
-      return null;
+  private static String getProperty(String string) {
+    if (properties == null) {
+      properties = loadProperties();
     }
 
-    Properties fileConfig = new Properties();
-    try {
-      fileConfig.load(in);
-    } catch (Exception e) {
-      logger.error("getApiKey - exception loading {}, tests will probably not run correctly: {}", API_KEY_FILE_NAME, e.getMessage());
-    }
-
-    for (java.util.Map.Entry<Object, Object> entry : fileConfig.entrySet()) {
-      String settingName = (String) entry.getKey();
-      String settingValue = (String) entry.getValue();
-
-      if (API_KEY_NAME.equals(settingName)) {
-        return settingValue;
-      }
-    }
-
-    return null;
+    return properties.getProperty(string);
   }
 
   private static String getResourcePath(String filename) {
@@ -125,4 +108,31 @@ public class TestHelper {
 
     return absolutePath;
   }
+
+  private static Properties loadProperties() {
+    InputStream in = TestHelper.class.getResourceAsStream(API_KEY_FILE_NAME);
+
+    if (in == null) {
+      logger.error("getApiKey - unable to select file {} as the input resource, tests will probably not run correctly", API_KEY_FILE_NAME);
+      System.exit(1);
+    }
+
+    properties = new Properties();
+    try {
+      properties.load(in);
+    } catch (Exception e) {
+      logger.error("getApiKey - exception loading {}, tests will probably not run correctly: {}, {}", API_KEY_FILE_NAME, e.getClass(),
+          e.getMessage());
+      System.exit(1);
+    }
+
+    return properties;
+  }
+
+  // public static void setLogLevel() {
+  // if (LOG_AT_TRACE) {
+  // System.out.println("setting log level to TRACE");
+  // System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "Trace");
+  // }
+  // }
 }
