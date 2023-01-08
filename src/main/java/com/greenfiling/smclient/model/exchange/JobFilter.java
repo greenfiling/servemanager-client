@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -164,6 +164,7 @@ public class JobFilter extends FilterBase {
    * </UL>
    * 
    * @param affidavitStatus
+   *          affidavit status
    */
   public void setAffidavitStatus(ArrayList<String> affidavitStatus) {
     this.affidavitStatus = affidavitStatus;
@@ -197,6 +198,7 @@ public class JobFilter extends FilterBase {
    * </UL>
    * 
    * @param invoiceStatus
+   *          invoice status
    */
   public void setInvoiceStatus(ArrayList<String> invoiceStatus) {
     this.invoiceStatus = invoiceStatus;
@@ -215,6 +217,7 @@ public class JobFilter extends FilterBase {
    * </UL>
    * 
    * @param jobStatus
+   *          job status
    */
   public void setJobStatus(ArrayList<String> jobStatus) {
     this.jobStatus = jobStatus;
@@ -236,6 +239,7 @@ public class JobFilter extends FilterBase {
    * </UL>
    * 
    * @param serviceStatus
+   *          service status
    */
   public void setServiceStatus(ArrayList<String> serviceStatus) {
     this.serviceStatus = serviceStatus;

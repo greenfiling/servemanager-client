@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import com.greenfiling.smclient.ApiHandle;
 
 /**
  * Custom {@link okhttp3.Dns} for {@link ApiHandle}.
- * <P>
+ * 
  * This class exists solely to allow users of servemanager-client to specify IP version preferences. See {@link ApiHandle.Builder#ipMode(IpMode)} and
  * {@link IpMode}.
  * 
@@ -40,7 +40,7 @@ import com.greenfiling.smclient.ApiHandle;
 public class DnsSelector implements okhttp3.Dns {
   /**
    * The IpMode enum is used to specify IP version preferences when connecting to remote websites
-   * <P>
+   * 
    * <UL>
    * <LI><B>SYSTEM</B> - the default order, defined by local system resolver</LI>
    * <LI><B>IPV4_ONLY</B> - only attempt connections to IPv4 addresses</LI>

@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -160,7 +160,10 @@ public abstract class ApiClient<BASE, READ, CREATE> {
     return url;
   }
 
-  protected String makeUpdateUrl(Integer id) {
+  protected String makeUpdateUrl(Integer id) throws Exception {
+    if (id == null) {
+      throw new IllegalArgumentException("Argument id cannot be null");
+    }
     return apiHandle.getApiEndpointBase() + "/" + getEndpoint() + "/" + id.toString();
   }
 

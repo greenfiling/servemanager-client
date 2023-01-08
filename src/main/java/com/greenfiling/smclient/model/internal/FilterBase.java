@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -118,6 +118,7 @@ public abstract class FilterBase {
    * </UL>
    * 
    * @param archiveState
+   *          archive state
    */
   public void setArchiveState(String archiveState) {
     this.archiveState = archiveState;

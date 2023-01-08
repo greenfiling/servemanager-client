@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -169,6 +169,7 @@ public class AttemptSubmit extends AttemptBase {
    * </UL>
    * 
    * @param recipientEthnicity
+   *          recipient ethnicity
    */
   public void setRecipientEthnicity(String recipientEthnicity) {
     this.recipientEthnicity = recipientEthnicity;
@@ -191,6 +192,7 @@ public class AttemptSubmit extends AttemptBase {
    * </UL>
    * 
    * @param recipientEyes
+   *          recipient eyes
    */
   public void setRecipientEyes(String recipientEyes) {
     this.recipientEyes = recipientEyes;
@@ -208,6 +210,7 @@ public class AttemptSubmit extends AttemptBase {
    * </UL>
    * 
    * @param recipientGender
+   *          recipient gender
    */
   public void setRecipientGender(String recipientGender) {
     this.recipientGender = recipientGender;
@@ -230,6 +233,7 @@ public class AttemptSubmit extends AttemptBase {
    * </UL>
    * 
    * @param recipientHair
+   *          recipient hair
    */
   public void setRecipientHair(String recipientHair) {
     this.recipientHair = recipientHair;
@@ -251,6 +255,7 @@ public class AttemptSubmit extends AttemptBase {
    * </UL>
    * 
    * @param recipientHeight1
+   *          recipient height (feet part)
    */
   public void setRecipientHeight1(String recipientHeight1) {
     this.recipientHeight1 = recipientHeight1;
@@ -277,6 +282,7 @@ public class AttemptSubmit extends AttemptBase {
    * </UL>
    * 
    * @param recipientHeight2
+   *          recipient height (inch part)
    */
   public void setRecipientHeight2(String recipientHeight2) {
     this.recipientHeight2 = recipientHeight2;
@@ -314,6 +320,7 @@ public class AttemptSubmit extends AttemptBase {
    * </UL>
    * 
    * @param recipientRelationship
+   *          recipient relationship
    */
   public void setRecipientRelationship(String recipientRelationship) {
     this.recipientRelationship = recipientRelationship;

@@ -2,11 +2,15 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.greenfiling.smclient</groupId>
   <artifactId>servemanager-client</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4-SNAPSHOT</version>
   <name>ServeManager Api Client</name>
   <description>Java implementation of client for ServeManager API (https://www.servemanager.com/)</description>
   <url>https://www.github.com/greenfiling/servemanager-client</url>
   <inceptionYear>2021</inceptionYear>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
   <licenses>
     <license>
@@ -37,7 +41,7 @@
     <connection>scm:git:https://github.com/greenfiling/servemanager-client.git</connection>
     <developerConnection>scm:git:https://github.com/greenfiling/servemanager-client.git</developerConnection>
     <url>https://github.com/greenfiling/servemanager-client/tree/${project.scm.tag}</url>
-    <tag>main</tag>
+    <tag>v${project.version}</tag>
   </scm>
 
   <distributionManagement>
