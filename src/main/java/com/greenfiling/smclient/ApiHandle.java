@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,10 +34,12 @@ import com.greenfiling.smclient.Exceptions.InvalidRequestException;
 import com.greenfiling.smclient.Exceptions.RecordNotFoundException;
 import com.greenfiling.smclient.internal.ApiClient;
 import com.greenfiling.smclient.internal.DnsSelector;
+import com.greenfiling.smclient.internal.DnsSelector.IpMode;
 import com.greenfiling.smclient.internal.JsonHandle;
+import com.greenfiling.smclient.internal.RequestEnclosure;
+import com.greenfiling.smclient.internal.Transaction;
 import com.greenfiling.smclient.internal.UserAgentHandle;
 import com.greenfiling.smclient.internal.UserAgentInterceptor;
-import com.greenfiling.smclient.internal.DnsSelector.IpMode;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -83,6 +85,7 @@ public class ApiHandle {
     private Long writeTimeout;
     private Long readTimeout;
     private Long connectTimeout;
+    private Integer keepTransactions;
     private okhttp3.OkHttpClient client;
     private String basicAuth;
     private IpMode ipMode;
@@ -143,6 +146,10 @@ public class ApiHandle {
         builder.dns(new DnsSelector(ipMode));
       }
 
+      if (keepTransactions == null) {
+        keepTransactions = DEFAULT_KEEP_TRANSACTIONS;
+      }
+
       // Only set the defaults if we're not using an external builder object
       if (!externalBuilder) {
         if (writeTimeout == null) {
@@ -169,12 +176,13 @@ public class ApiHandle {
       builder.addInterceptor(new UserAgentInterceptor(UserAgentHandle.get().getUserAgent()));
 
       logger.trace(
-          "build - building and returning client, endpoint = {}, writeTimeout = {}, readTimeout = {}, connectTimeout = {}, ipMode = {}, auth = {}",
-          apiEndpointBase, writeTimeout, readTimeout, connectTimeout, ipMode, basicAuth);
+          "build - building and returning client, endpoint = {}, writeTimeout = {}, readTimeout = {}, connectTimeout = {}, keepTransactions = {}, ipMode = {}, auth = {}",
+          apiEndpointBase, writeTimeout, readTimeout, connectTimeout, keepTransactions, ipMode, basicAuth);
       this.client = builder.build();
 
       ApiHandle client = new ApiHandle(this);
       validate(client);
+      client.keepTransactions = keepTransactions;
       return client;
     }
 
@@ -232,6 +240,23 @@ public class ApiHandle {
      */
     public Builder ipMode(IpMode ipMode) {
       this.ipMode = ipMode;
+      return this;
+    }
+
+    /**
+     * Sets the number of {@link Transaction}s that will be kept in memory for this ApiHandle
+     * <P>
+     * If this is not set, the builder will default to {@link ApiHandle#DEFAULT_KEEP_TRANSACTIONS}
+     * 
+     * @param keepTransactions
+     *          number of transactions to keep in memory
+     * @return A valid @{link Builder} object so calls can be chained
+     * @since 1.0.4
+     */
+    public Builder keepTransactions(int keepTransactions) {
+      if (keepTransactions >= 0) {
+        this.keepTransactions = keepTransactions;
+      }
       return this;
     }
 
@@ -313,11 +338,17 @@ public class ApiHandle {
    * The default connect timeout, in seconds, when communicating with the Serve Manager API
    */
   public static final long DEFAULT_CONNECT_TIMEOUT = 180;
+  /**
+   * How many transactions are saved in the transaction history
+   */
+  public static final Integer DEFAULT_KEEP_TRANSACTIONS = 3;
 
   private String apiEndpointBase;
   private String basicAuth;
   private okhttp3.OkHttpClient client;
   private MediaType jsonMediaType;
+  private Integer keepTransactions;
+  private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 
   /**
    * Instantiates an ApiHandler object based off a Builder object.
@@ -345,7 +376,9 @@ public class ApiHandle {
    */
   public String doGet(String url) throws Exception {
     logger.trace("doGet - url = {}", url);
-    return doApiRequest(new Request.Builder().url(url));
+    Request.Builder builder = new Request.Builder().url(url);
+    return doApiRequest(new RequestEnclosure(builder, null));
+
   }
 
   public void doGetFile(String Url, String filePath) throws Exception {
@@ -380,7 +413,8 @@ public class ApiHandle {
     logger.trace("doPost - url = {}, request = {}", url, jsonString);
 
     RequestBody requestBody = RequestBody.create(jsonString, this.jsonMediaType);
-    return doApiRequest(new Request.Builder().url(url).post(requestBody));
+    Request.Builder builder = new Request.Builder().url(url).post(requestBody);
+    return doApiRequest(new RequestEnclosure(builder, jsonString));
   }
 
   /**
@@ -402,7 +436,8 @@ public class ApiHandle {
     logger.trace("doPut - url = {}, request = {}", url, jsonString);
 
     RequestBody requestBody = RequestBody.create(jsonString, this.jsonMediaType);
-    return doApiRequest(new Request.Builder().url(url).put(requestBody));
+    Request.Builder builder = new Request.Builder().url(url).put(requestBody);
+    return doApiRequest(new RequestEnclosure(builder, jsonString));
   }
 
   /**
@@ -422,7 +457,8 @@ public class ApiHandle {
   public String doPutFile(String url, RequestBody requestBody) throws Exception {
     logger.trace("doPutFile - url = {}, request = {}", url);
 
-    return doRequest(new Request.Builder().url(url).put(requestBody));
+    String dataString = "<" + requestBody.contentLength() + " bytes of file data>";
+    return doRequest(new RequestEnclosure(new Request.Builder().url(url).put(requestBody), dataString));
   }
 
   /**
@@ -436,17 +472,28 @@ public class ApiHandle {
   }
 
   /**
+   * Returns a list of saved {@link Transaction} objects.
+   * 
+   * @return list of {@link Transaction} objects. Newest transaction is always index 0
+   * @since 1.0.4
+   */
+  public ArrayList<Transaction> getTransactions() {
+    return transactions;
+  }
+
+  /**
    * Adds headers to a Request.Builder object needed to communicate with the API
    */
-  private okhttp3.Request.Builder addApiHeaders(okhttp3.Request.Builder builder) {
-    return builder.addHeader("accept", "application/json").addHeader("Authorization", "Basic " + this.basicAuth);
+  private RequestEnclosure addApiHeaders(RequestEnclosure enclosure) {
+    enclosure.getBuilder().addHeader("accept", "application/json").addHeader("Authorization", "Basic " + this.basicAuth);
+    return enclosure;
   }
 
   /**
    * Perform a request against the API
    */
-  private String doApiRequest(okhttp3.Request.Builder builder) throws Exception {
-    return doRequest(addApiHeaders(builder));
+  private String doApiRequest(RequestEnclosure enclosure) throws Exception {
+    return doRequest(addApiHeaders(enclosure));
   }
 
   /**
@@ -454,20 +501,28 @@ public class ApiHandle {
    * <P>
    * This is a raw request (for S3, etc). If you need to communicate with the API use {@link #doApiRequest(okhttp3.Request.Builder)} instead
    */
-  private String doRequest(okhttp3.Request.Builder builder) throws Exception {
+  private String doRequest(RequestEnclosure enclosure) throws Exception {
+    okhttp3.Request.Builder builder = enclosure.getBuilder();
+    Transaction txn = getNewTransaction();
+    txn.setRequestUrl(builder.getUrl$okhttp().toString());
+    txn.setRequestBody(enclosure.getRequestBody());
+    txn.setRequestType(builder.getMethod$okhttp());
+
     String responseBody;
     int responseCode;
     try (Response response = client.newCall(builder.build()).execute()) {
       try (ResponseBody body = response.body()) {
         responseBody = body.string().trim();
-
       }
       responseCode = response.code();
+      txn.setResponseCode(responseCode);
+      txn.setResponseLine(response.message());
     }
 
     if (responseBody == null) {
       responseBody = "";
     }
+    txn.setResponseBody(responseBody);
 
     logger.trace("doRequest - response = {}", responseBody);
 
@@ -519,4 +574,17 @@ public class ApiHandle {
     logger.info("doRequest - An unknown exception occurred. Server response code = {}, error = {}", responseCode, error);
     throw new Exception("An unknown exception occurred. Server response code = " + responseCode + ", error = " + error);
   }
+
+  private Transaction getNewTransaction() {
+    Transaction txn = new Transaction();
+    getTransactions().add(0, txn);
+
+    // Make sure we don't retain more than we're supposed to
+    while (getTransactions().size() > keepTransactions) {
+      getTransactions().remove(getTransactions().size() - 1);
+    }
+
+    return txn;
+  }
+
 }
