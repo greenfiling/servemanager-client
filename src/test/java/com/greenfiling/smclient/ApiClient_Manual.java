@@ -30,7 +30,7 @@ import com.greenfiling.smclient.model.exchange.Show;
 
 // ApiClient is abstract, so we'll actually test via JobClient, but we're really testing common code in ApiClient
 // Much of the current content of JobClient tests belong here, but I'm not touching them for now
-public class ApiClient_IntegrationTest {
+public class ApiClient_Manual {
   public static final String VALID_API_KEY = TestHelper.VALID_API_KEY;
   public static Job job;
 

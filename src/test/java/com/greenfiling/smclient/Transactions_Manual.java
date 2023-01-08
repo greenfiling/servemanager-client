@@ -35,7 +35,7 @@ import com.greenfiling.smclient.model.Links;
 import com.greenfiling.smclient.model.ServiceDocument;
 import com.greenfiling.smclient.model.exchange.Show;
 
-public class Transactions_IntegrationTest {
+public class Transactions_Manual {
   public static final String VALID_API_KEY = TestHelper.VALID_API_KEY;
   public static Job job;
 
@@ -205,7 +205,7 @@ public class Transactions_IntegrationTest {
 
   @Test
   public void testTransactions_testConfigurableMaxTransactions() throws Exception {
-    ApiHandle handle = new ApiHandle.Builder().apiKey(Transactions_IntegrationTest.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE)
+    ApiHandle handle = new ApiHandle.Builder().apiKey(Transactions_Manual.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE)
         .keepTransactions(2).build();
     JobClient client = new JobClient(handle);
 
@@ -245,7 +245,7 @@ public class Transactions_IntegrationTest {
 
   @Test
   public void testTransactions_testConfigurableMaxTransactions_keepNone() throws Exception {
-    ApiHandle handle = new ApiHandle.Builder().apiKey(Transactions_IntegrationTest.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE)
+    ApiHandle handle = new ApiHandle.Builder().apiKey(Transactions_Manual.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE)
         .keepTransactions(0).build();
     JobClient client = new JobClient(handle);
 

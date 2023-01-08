@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.Test;
 
-public class ApiHandle_UnitTest {
+public class ApiHandle_Unit_Manual {
   public static final String VALID_API_KEY = TestHelper.VALID_API_KEY;
 
   @Test

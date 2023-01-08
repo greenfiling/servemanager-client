@@ -63,7 +63,7 @@ public class TestHelper {
   }
 
   public static ApiHandle getApiHandle() {
-    return new ApiHandle.Builder().apiKey(Transactions_IntegrationTest.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    return new ApiHandle.Builder().apiKey(Transactions_Manual.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
   }
 
   public static Recipient getRecipient() {
