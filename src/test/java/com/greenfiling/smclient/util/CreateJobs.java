@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-package com.greenfiling.smclient;
+package com.greenfiling.smclient.util;
 
+import com.greenfiling.smclient.ApiHandle;
+import com.greenfiling.smclient.JobClient;
+import com.greenfiling.smclient.TestHelper;
 import com.greenfiling.smclient.model.Job;
 import com.greenfiling.smclient.model.Links;
 import com.greenfiling.smclient.model.exchange.Show;

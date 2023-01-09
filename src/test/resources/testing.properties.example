@@ -1,0 +1,9 @@
+# This files contains values that control the test process.  In order for testing to work this file MUST
+# be renamed to testing.properties, and in order for integration tests to work property `api-key` MUST be
+# populated with a valid ServeManager API key.
+
+# The key used to authenticate with ServeManager when running tests
+api-key=REPLACE_WITH_WORKING_API_KEY
+
+# When set to true, tests may print additional information to console. This affects the tests themselves
+quiet-tests=false

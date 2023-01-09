@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,35 +16,33 @@
 
 package com.greenfiling.smclient;
 
-import java.util.ArrayList;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.greenfiling.smclient.internal.JsonHandle;
-import com.greenfiling.smclient.model.Employee;
+import com.greenfiling.smclient.model.Account;
 import com.greenfiling.smclient.model.Links;
-import com.greenfiling.smclient.model.exchange.Index;
+import com.greenfiling.smclient.model.exchange.Show;
 
-public class EmployeeClient_IntegrationTest {
+public class AccountClient_Manual {
   private static ApiHandle apiHandle = null;
-  private static EmployeeClient client = null;
+  private static AccountClient client = null;
 
   @BeforeClass
   public static void setUpClass() {
     apiHandle = new ApiHandle.Builder().apiKey(TestHelper.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
-    client = new EmployeeClient(apiHandle);
+    client = new AccountClient(apiHandle);
   }
 
   @Test
-  public void testIndexEmployee_HappyPath() throws Exception {
-    Index<Employee> response = client.index();
-    Links links = response.getLinks();
+  public void testShowAccount_HappyPath() throws Exception {
+    Show<Account> response = client.show();
+    Links links = response.getData().getLinks();
     System.out.println("links.self = " + links.getSelf());
-
-    ArrayList<Employee> employees = response.getData();
-    System.out.println("Number of jobs in response: " + employees.size());
+    System.out.println("type = " + response.getData().getType());
+    System.out.println("updated_at = " + response.getData().getUpdatedAt());
 
     System.out.println("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
   }
+
 }

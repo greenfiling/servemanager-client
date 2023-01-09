@@ -1,5 +1,5 @@
 /**
- * Copyright 2021-2022 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import com.greenfiling.smclient.model.Note;
 import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
 
-public class NoteClient_IntegrationTest {
+public class NoteClient_Manual {
   private static ApiHandle apiHandle = null;
   private static NoteClient client = null;
   private static JobClient jobClient = null;

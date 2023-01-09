@@ -16,6 +16,7 @@
 
 package com.greenfiling.smclient;
 
+import static com.greenfiling.smclient.TestHelper.log;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -35,13 +36,14 @@ import com.greenfiling.smclient.model.Links;
 import com.greenfiling.smclient.model.ServiceDocument;
 import com.greenfiling.smclient.model.exchange.Show;
 
-public class Transactions_IntegrationTest {
+public class Transactions_IntegrationTests {
   public static final String VALID_API_KEY = TestHelper.VALID_API_KEY;
   public static Job job;
 
   @BeforeClass
   public static void setUpClass() throws Exception {
-    // System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
+    // TestHelper.setLogLevel();
+
     ApiHandle handle = TestHelper.getApiHandle();
     JobClient client = new JobClient(handle);
 
@@ -58,10 +60,10 @@ public class Transactions_IntegrationTest {
       return;
     }
 
-    System.out.println(" REQUEST " + txn.getRequestType() + " " + txn.getRequestUrl());
-    System.out.println(" REQUEST BODY " + txn.getRequestBody());
-    System.out.println("RESPONSE  " + txn.getResponseCode() + " " + txn.getResponseLine());
-    System.out.println("RESPONSE BODY " + txn.getResponseBody());
+    log(" REQUEST %s %s", txn.getRequestType(), txn.getRequestUrl());
+    log(" REQUEST BODY %s", txn.getRequestBody());
+    log("RESPONSE  %d %s", txn.getResponseCode(), txn.getResponseLine());
+    log("RESPONSE BODY %s", txn.getResponseBody());
   }
 
   @Test
@@ -109,7 +111,7 @@ public class Transactions_IntegrationTest {
     Show<Job> response = client.create(newJob);
     assertThat(response, not(equalTo(null)));
     Links links = response.getData().getLinks();
-    System.out.println("job created, links.self = " + links.getSelf());
+    log("job created, links.self = %s", links.getSelf());
 
     ArrayList<Transaction> txns = handle.getTransactions();
     assertThat(txns, not(equalTo(null)));
@@ -143,7 +145,7 @@ public class Transactions_IntegrationTest {
     Show<Job> response = client.create(newJob);
     assertThat(response, not(equalTo(null)));
     Links links = response.getData().getLinks();
-    System.out.println("job created, links.self = " + links.getSelf());
+    log("job created, links.self = %s", links.getSelf());
 
     ArrayList<Transaction> txns = handle.getTransactions();
     assertThat(txns, not(equalTo(null)));
@@ -205,7 +207,7 @@ public class Transactions_IntegrationTest {
 
   @Test
   public void testTransactions_testConfigurableMaxTransactions() throws Exception {
-    ApiHandle handle = new ApiHandle.Builder().apiKey(Transactions_IntegrationTest.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE)
+    ApiHandle handle = new ApiHandle.Builder().apiKey(Transactions_IntegrationTests.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE)
         .keepTransactions(2).build();
     JobClient client = new JobClient(handle);
 
@@ -245,7 +247,7 @@ public class Transactions_IntegrationTest {
 
   @Test
   public void testTransactions_testConfigurableMaxTransactions_keepNone() throws Exception {
-    ApiHandle handle = new ApiHandle.Builder().apiKey(Transactions_IntegrationTest.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE)
+    ApiHandle handle = new ApiHandle.Builder().apiKey(Transactions_IntegrationTests.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE)
         .keepTransactions(0).build();
     JobClient client = new JobClient(handle);
 
@@ -330,7 +332,7 @@ public class Transactions_IntegrationTest {
     Show<Job> response = client.create(newJob);
     assertThat(response, not(equalTo(null)));
     Links links = response.getData().getLinks();
-    System.out.println("job created, links.self = " + links.getSelf());
+    log("job created, links.self = %s", links.getSelf());
 
     ArrayList<Transaction> txns = handle.getTransactions();
     assertThat(txns, not(equalTo(null)));
