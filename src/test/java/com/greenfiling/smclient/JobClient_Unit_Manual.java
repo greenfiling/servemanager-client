@@ -1,5 +1,5 @@
 /**
- * Copyright 2021-2022 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@ import com.greenfiling.smclient.model.internal.JobBase;
 import de.westemeyer.version.model.Artifact;
 import de.westemeyer.version.service.ArtifactVersionCollector;
 
-public class JobClient_UnitTest {
+public class JobClient_Unit_Manual {
   public static final String VALID_API_KEY = TestHelper.VALID_API_KEY;
 
   @BeforeClass

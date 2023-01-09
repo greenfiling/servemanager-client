@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import com.greenfiling.smclient.model.Recipient;
 import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
 
-public class JobClient_IntegrationTest {
+public class JobClient_Manual {
   public static final String VALID_API_KEY = TestHelper.VALID_API_KEY;
   private static ApiHandle apiHandle = null;
   private static JobClient client = null;

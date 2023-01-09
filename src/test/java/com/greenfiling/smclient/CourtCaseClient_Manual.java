@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,27 +16,42 @@
 
 package com.greenfiling.smclient;
 
+import java.util.ArrayList;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.greenfiling.smclient.internal.JsonHandle;
-import com.greenfiling.smclient.model.Account;
+import com.greenfiling.smclient.model.CourtCase;
 import com.greenfiling.smclient.model.Links;
+import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
 
-public class AccountClient_IntegrationTest {
+public class CourtCaseClient_Manual {
   private static ApiHandle apiHandle = null;
-  private static AccountClient client = null;
+  private static CourtCaseClient client = null;
 
   @BeforeClass
   public static void setUpClass() {
     apiHandle = new ApiHandle.Builder().apiKey(TestHelper.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
-    client = new AccountClient(apiHandle);
+    client = new CourtCaseClient(apiHandle);
   }
 
   @Test
-  public void testShowAccount_HappyPath() throws Exception {
-    Show<Account> response = client.show();
+  public void testIndexCourtCase_HappyPath() throws Exception {
+    Index<CourtCase> response = client.index();
+    Links links = response.getLinks();
+    System.out.println("links.self = " + links.getSelf());
+
+    ArrayList<CourtCase> courts = response.getData();
+    System.out.println("Number of jobs in response: " + courts.size());
+
+    System.out.println("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+  }
+
+  @Test
+  public void testShowCourtCase_HappyPath() throws Exception {
+    Show<CourtCase> response = client.show(3968864);
     Links links = response.getData().getLinks();
     System.out.println("links.self = " + links.getSelf());
     System.out.println("type = " + response.getData().getType());
