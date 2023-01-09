@@ -16,6 +16,11 @@
 
 package com.greenfiling.smclient;
 
+import static com.greenfiling.smclient.TestHelper.log;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import java.util.Date;
 
 import org.junit.Test;
@@ -56,15 +61,19 @@ public class JsonDate_Manual {
   }
 
   @Test
+  // I think this was verifying the change in name policy and converting dates, but I'm not sure this is something to make a unit test
+  // or leave as manual
   public void testDate_From() throws Exception {
-    String objJson = "{\"name\":\"this is a name\",\"date\":\"2021-10-26T15:32:34-06:00\",\"multi_name_field\":\"field value\"}";
+    String objJson = "{\"name\":\"this is a name\",\"date\":\"2021-10-26T15:32:34-00:00\",\"multi_name_field\":\"field value\"}";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX")
         .setFieldNamingPolicy(com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 
     TestObj obj = gson.fromJson(objJson, TestObj.class);
-    System.out.println("name = " + obj.getName() + ", date = " + obj.getDate() + ", multiNameField = " + obj.getMultiNameField());
+    assertThat(obj, not(equalTo(null)));
+    log("name = %s, date = %s, multiNameField = %s", obj.getName(), obj.getDate(), obj.getMultiNameField());
 
     String newJson = gson.toJson(obj);
-    System.out.println("re-encoded json: " + newJson);
+    assertThat(newJson, equalTo(objJson));
+    log("re-encoded json: %s", newJson);
   }
 }
