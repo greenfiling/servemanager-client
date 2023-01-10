@@ -1,4 +1,14 @@
 #######################
+## 1.0.4
+## 2023-01-10
+
+  * Make low-level trasaction information available to library users
+  * Update project dependencies
+  * Fix a potential null pointer dereference in ApiClient.makeUpdateUrl()
+  * Update javadoc to prevent build warnings
+  * Testing improvements
+
+#######################
 ## 1.0.3
 ## 2022-11-16
 
