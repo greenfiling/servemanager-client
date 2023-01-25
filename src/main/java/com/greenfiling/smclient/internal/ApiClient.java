@@ -197,7 +197,7 @@ public abstract class ApiClient<BASE, READ, CREATE> {
   }
 
   protected Show<?> toShow(String json) {
-    logger.trace("toShow - type = {}, value = {}", getIndexType().toString(), json);
+    logger.trace("toShow - type = {}, value = {}", getShowType().toString(), json);
     Show<?> showPojo = JsonHandle.get().getGson().fromJson(json, getShowType());
     return showPojo;
   }
