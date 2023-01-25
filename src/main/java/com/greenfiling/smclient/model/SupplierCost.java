@@ -1,30 +1,23 @@
 package com.greenfiling.smclient.model;
 
-import java.util.Date;
-
-import com.google.gson.annotations.SerializedName;
+import java.time.OffsetDateTime;
 
 public class SupplierCost {
 
   private Integer id;
   private String zipcode;
-  @SerializedName(value = "job_type_id")
   private String jobTypeId;
-  @SerializedName(value = "sla_id")
   private String slaId;
   private Double amount;
-  @SerializedName(value = "suggested_retail_price")
   private Double suggestedRetailPrice;
-  @SerializedName(value = "created_at")
-  private Date createdAt;
-  @SerializedName(value = "updated_at")
-  private Date updatedAt;
+  private OffsetDateTime createdAt;
+  private OffsetDateTime updatedAt;
 
   public Double getAmount() {
     return this.amount;
   }
 
-  public Date getCreatedAt() {
+  public OffsetDateTime getCreatedAt() {
     return this.createdAt;
   }
 
@@ -44,7 +37,7 @@ public class SupplierCost {
     return this.suggestedRetailPrice;
   }
 
-  public Date getUpdatedAt() {
+  public OffsetDateTime getUpdatedAt() {
     return this.updatedAt;
   }
 
@@ -56,7 +49,7 @@ public class SupplierCost {
     this.amount = amount;
   }
 
-  public void setCreatedAt(Date createdAt) {
+  public void setCreatedAt(OffsetDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
@@ -76,7 +69,7 @@ public class SupplierCost {
     this.suggestedRetailPrice = suggestedRetailPrice;
   }
 
-  public void setUpdatedAt(Date updatedAt) {
+  public void setUpdatedAt(OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 

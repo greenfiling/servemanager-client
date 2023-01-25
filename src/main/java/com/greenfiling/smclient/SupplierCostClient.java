@@ -3,11 +3,15 @@ package com.greenfiling.smclient;
 import com.google.gson.reflect.TypeToken;
 import com.greenfiling.smclient.internal.ApiClient;
 import com.greenfiling.smclient.model.SupplierCost;
-import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
 import com.greenfiling.smclient.model.exchange.SupplierCostFilter;
-import com.greenfiling.smclient.model.internal.FilterBase;
 
+/**
+ * Index lookup for ZipCode pricing is not supported since we never expect to get more than one ServiceCost object per response.
+ * 
+ * @author elenasergienko
+ *
+ */
 public class SupplierCostClient extends ApiClient<SupplierCost, SupplierCost, SupplierCost> {
 
   /**
@@ -23,20 +27,7 @@ public class SupplierCostClient extends ApiClient<SupplierCost, SupplierCost, Su
 
     // @formatter:off
     setShowType(new TypeToken<Show<SupplierCost>>() {}.getType());
-    setIndexType(new TypeToken<Index<SupplierCost>>() {}.getType());
     // @formatter:on
-  }
-
-  @Override
-  @SuppressWarnings("unchecked")
-  public Index<SupplierCost> getNext(Index<SupplierCost> index) throws Exception {
-    return (Index<SupplierCost>) toIndex(doGetNext(index));
-  }
-
-  @Override
-  @SuppressWarnings("unchecked")
-  public Index<SupplierCost> index(FilterBase filter) throws Exception {
-    return (Index<SupplierCost>) toIndex(doIndexRequest(filter));
   }
 
   @Override

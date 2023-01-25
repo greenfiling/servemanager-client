@@ -1,5 +1,6 @@
 package com.greenfiling.smclient;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -20,40 +21,52 @@ public class SupplierCostClient_UnitTest {
   @BeforeClass
   public static void setUpClass() {
     apiHandle = new ApiHandle.Builder().apiKey(TestHelper.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
-    client = new SupplierCostClient(apiHandle);
   }
 
   @Test
   public void testShowCostByZip_HappyPath() throws Exception {
+    client = new SupplierCostClient(apiHandle);
+
     Show<SupplierCost> response = client.show(47374);
 
+    TestHelper.log("testShowCostByZip_HappyPath re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+
     assertThat(response.getData().getAmount(), notNullValue());
+    assertThat(response.getData().getJobTypeId(), equalTo("1"));
+    assertThat(response.getData().getSlaId(), equalTo("1"));
 
-    System.out.println("amount = " + response.getData().getAmount());
-    System.out.println("updated_at = " + response.getData().getUpdatedAt());
-    System.out.println("created_at = " + response.getData().getCreatedAt());
+    TestHelper.log("amount = " + response.getData().getAmount());
+    TestHelper.log("updated_at = " + response.getData().getUpdatedAt());
+    TestHelper.log("created_at = " + response.getData().getCreatedAt());
 
-    System.out.println("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
   }
 
   @Test
   public void testShowCostByZip_WithQueryParameters_HappyPath() throws Exception {
+    client = new SupplierCostClient(apiHandle);
+
     SupplierCostFilter request = new SupplierCostFilter();
     request.setZipCode(47374);
     request.setJobType(JobType.CCD);
-    request.setServiceLevel(ServiceLevel.ROUTINE);
+    request.setServiceLevel(ServiceLevel.RUSH);
 
     Show<SupplierCost> response = client.show(request);
+    TestHelper.log("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
 
     assertThat(response.getData().getAmount(), notNullValue());
+    assertThat(response.getData().getJobTypeId(), equalTo("2"));
+    assertThat(response.getData().getSlaId(), equalTo("2"));
 
-    System.out.println("amount = " + response.getData().getAmount());
-    System.out.println("updated_at = " + response.getData().getUpdatedAt());
-    System.out.println("created_at = " + response.getData().getCreatedAt());
+    TestHelper.log("amount = " + response.getData().getAmount());
+    TestHelper.log("updated_at = " + response.getData().getUpdatedAt());
+    TestHelper.log("created_at = " + response.getData().getCreatedAt());
 
-    System.out.println("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
   }
 
+  /**
+   * TODO: uncomment once we start getting real data back. <br>
+   * This test is currently failing b/c currently we get dummy data passed regardless of our API parameters.
+   */
   // @Test
   // public void testShowCostByZip_NoSuchObject() throws Exception {
   // boolean caughtException = false;
