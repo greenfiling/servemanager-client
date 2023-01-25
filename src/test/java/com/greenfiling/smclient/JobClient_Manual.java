@@ -16,6 +16,12 @@
 
 package com.greenfiling.smclient;
 
+import static com.greenfiling.smclient.TestHelper.log;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -24,8 +30,10 @@ import org.junit.Test;
 
 import com.greenfiling.smclient.internal.JsonHandle;
 import com.greenfiling.smclient.model.Address;
+import com.greenfiling.smclient.model.Invoice;
 import com.greenfiling.smclient.model.Job;
 import com.greenfiling.smclient.model.JobSubmit;
+import com.greenfiling.smclient.model.LineItem;
 import com.greenfiling.smclient.model.Links;
 import com.greenfiling.smclient.model.Note;
 import com.greenfiling.smclient.model.Recipient;
@@ -119,6 +127,28 @@ public class JobClient_Manual {
     System.out.println("updated_at = " + response.getData().getUpdatedAt());
 
     System.out.println("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+  }
+
+  @Test
+  public void testShowJob_InvoiceLineItems() throws Exception {
+    Show<Job> response = client.show(11487024);
+    Links links = response.getData().getLinks();
+    log("links.self = %s", links.getSelf());
+    log("type = %s", response.getData().getType());
+    log("updated_at = %s", response.getData().getUpdatedAt());
+    log("re-serialized: %s", JsonHandle.get().getGsonWithNulls().toJson(response));
+
+    assertThat(response, notNullValue());
+    assertThat(response.getData(), notNullValue());
+    Invoice invoice = response.getData().getProcessServerInvoice();
+    assertThat(invoice, notNullValue());
+    assertThat(invoice.getLineItems(), notNullValue());
+    assertThat(invoice.getLineItems().isEmpty(), not(equalTo(true)));
+
+    for (LineItem li : invoice.getLineItems()) {
+      log("line item: %s, name: %s, description: %s, %s*%s, %.02f/%.02f, %.02f, %.02f", li.getId(), li.getName(), li.getDescription(),
+          li.getUnitCost(), li.getQuantity(), li.getTaxRate(), li.getTaxAmount(), li.getSubtotal(), li.getTotal());
+    }
   }
 
 }

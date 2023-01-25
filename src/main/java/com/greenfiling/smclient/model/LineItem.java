@@ -27,6 +27,10 @@ public class LineItem {
   private String description;
   private String unitCost;
   private String quantity;
+  private Double taxRate;
+  private Double taxAmount;
+  private Double subtotal;
+  private Double total;
   private OffsetDateTime updatedAt;
   private OffsetDateTime createdAt;
 
@@ -53,6 +57,22 @@ public class LineItem {
 
   public String getQuantity() {
     return this.quantity;
+  }
+
+  public Double getSubtotal() {
+    return this.subtotal;
+  }
+
+  public Double getTaxAmount() {
+    return this.taxAmount;
+  }
+
+  public Double getTaxRate() {
+    return this.taxRate;
+  }
+
+  public Double getTotal() {
+    return this.total;
   }
 
   public String getType() {
@@ -85,6 +105,22 @@ public class LineItem {
 
   public void setQuantity(String quantity) {
     this.quantity = quantity;
+  }
+
+  public void setSubtotal(Double subtotal) {
+    this.subtotal = subtotal;
+  }
+
+  public void setTaxAmount(Double taxAmount) {
+    this.taxAmount = taxAmount;
+  }
+
+  public void setTaxRate(Double taxRate) {
+    this.taxRate = taxRate;
+  }
+
+  public void setTotal(Double total) {
+    this.total = total;
   }
 
   public void setType(String type) {
