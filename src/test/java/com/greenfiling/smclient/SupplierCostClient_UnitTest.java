@@ -21,13 +21,13 @@ public class SupplierCostClient_UnitTest {
   @BeforeClass
   public static void setUpClass() {
     apiHandle = new ApiHandle.Builder().apiKey(TestHelper.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    client = new SupplierCostClient(apiHandle);
   }
 
   @Test
   public void testShowCostByZip_HappyPath() throws Exception {
-    client = new SupplierCostClient(apiHandle);
 
-    Show<SupplierCost> response = client.show(47374);
+    Show<SupplierCost> response = client.show(47374, null);
 
     TestHelper.log("testShowCostByZip_HappyPath re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
 
@@ -42,19 +42,54 @@ public class SupplierCostClient_UnitTest {
   }
 
   @Test
-  public void testShowCostByZip_WithQueryParameters_HappyPath() throws Exception {
-    client = new SupplierCostClient(apiHandle);
+  public void testShowCostByZip_WithAllFilters_HappyPath() throws Exception {
 
     SupplierCostFilter request = new SupplierCostFilter();
-    request.setZipCode(47374);
     request.setJobType(JobType.CCD);
     request.setServiceLevel(ServiceLevel.RUSH);
 
-    Show<SupplierCost> response = client.show(request);
+    Show<SupplierCost> response = client.show(47374, request);
     TestHelper.log("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
 
     assertThat(response.getData().getAmount(), notNullValue());
     assertThat(response.getData().getJobTypeId(), equalTo("2"));
+    assertThat(response.getData().getSlaId(), equalTo("2"));
+
+    TestHelper.log("amount = " + response.getData().getAmount());
+    TestHelper.log("updated_at = " + response.getData().getUpdatedAt());
+    TestHelper.log("created_at = " + response.getData().getCreatedAt());
+
+  }
+
+  @Test
+  public void testShowCostByZip_WithJobTypeFilter_HappyPath() throws Exception {
+
+    SupplierCostFilter request = new SupplierCostFilter();
+    request.setJobType(JobType.CCD);
+
+    Show<SupplierCost> response = client.show(47374, request);
+    TestHelper.log("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+
+    assertThat(response.getData().getAmount(), notNullValue());
+    assertThat(response.getData().getJobTypeId(), equalTo("2"));
+    assertThat(response.getData().getSlaId(), equalTo("1"));
+
+    TestHelper.log("amount = " + response.getData().getAmount());
+    TestHelper.log("updated_at = " + response.getData().getUpdatedAt());
+    TestHelper.log("created_at = " + response.getData().getCreatedAt());
+  }
+
+  @Test
+  public void testShowCostByZip_WitServiceTypeFilter_HappyPath() throws Exception {
+
+    SupplierCostFilter request = new SupplierCostFilter();
+    request.setServiceLevel(ServiceLevel.RUSH);
+
+    Show<SupplierCost> response = client.show(47374, request);
+    TestHelper.log("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+
+    assertThat(response.getData().getAmount(), notNullValue());
+    assertThat(response.getData().getJobTypeId(), equalTo("1"));
     assertThat(response.getData().getSlaId(), equalTo("2"));
 
     TestHelper.log("amount = " + response.getData().getAmount());

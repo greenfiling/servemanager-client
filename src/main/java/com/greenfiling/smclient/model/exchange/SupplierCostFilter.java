@@ -27,7 +27,6 @@ public class SupplierCostFilter extends FilterBase {
     }
   }
 
-  private Integer zipCode;
   private JobType jobType;
   private ServiceLevel serviceLevel;
 
@@ -51,19 +50,11 @@ public class SupplierCostFilter extends FilterBase {
     return serviceLevel;
   }
 
-  public Integer getZipCode() {
-    return zipCode;
-  }
-
   public void setJobType(JobType jobType) {
     this.jobType = jobType;
   }
 
   public void setServiceLevel(ServiceLevel serviceLevel) {
     this.serviceLevel = serviceLevel;
-  }
-
-  public void setZipCode(Integer zipCode) {
-    this.zipCode = zipCode;
   }
 }

@@ -5,6 +5,9 @@ import com.greenfiling.smclient.internal.ApiClient;
 import com.greenfiling.smclient.model.SupplierCost;
 import com.greenfiling.smclient.model.exchange.Show;
 import com.greenfiling.smclient.model.exchange.SupplierCostFilter;
+import com.greenfiling.smclient.model.exchange.SupplierCostFilter.JobType;
+import com.greenfiling.smclient.model.exchange.SupplierCostFilter.ServiceLevel;
+import com.greenfiling.smclient.model.internal.FilterBase;
 
 /**
  * Index lookup for ZipCode pricing is not supported since we never expect to get more than one ServiceCost object per response.
@@ -19,8 +22,6 @@ public class SupplierCostClient extends ApiClient<SupplierCost, SupplierCost, Su
    */
   public static final String ENDPOINT = "itx/zipcodes";
 
-  private SupplierCostFilter request;
-
   public SupplierCostClient(ApiHandle handle) {
     super(handle);
     setEndpoint(ENDPOINT);
@@ -30,24 +31,18 @@ public class SupplierCostClient extends ApiClient<SupplierCost, SupplierCost, Su
     // @formatter:on
   }
 
+  /**
+   * expects {@linkplain SupplierCostFilter} with optional {@linkplain JobType} (for {@linkplain JobType#SOP}, {@linkplain JobType#CCD}), and
+   * {@linkplain ServiceLevel} (for {@linkplain ServiceLevel#RUSH}, {@linkplain ServiceLevel#ROUTINE})
+   */
   @Override
   @SuppressWarnings("unchecked")
-  public Show<SupplierCost> show(Integer id) throws Exception {
-    return (Show<SupplierCost>) toShow(doShowRequest(id));
-  }
-
-  public Show<SupplierCost> show(SupplierCostFilter request) throws Exception {
-    this.request = request;
-    return show(request.getZipCode());
+  public Show<SupplierCost> show(Integer id, FilterBase filter) throws Exception {
+    return (Show<SupplierCost>) toShow(doShowRequest(id, filter));
   }
 
   @Override
-  protected String makeShowUrl(Integer id) {
-    String baseUrl = super.makeShowUrl(id) + "/supplier_costs";
-    if (request == null || (request.getJobType() == null && request.getServiceLevel() == null)) {
-      return baseUrl;
-    }
-
-    return baseUrl + "?" + request.getQueryString();
+  protected String makeShowBaseUrl(Integer id) {
+    return super.makeShowBaseUrl(id) + "/supplier_costs";
   }
 }
