@@ -20,7 +20,7 @@ use FindBin qw($Bin);
 
 my $findsrc = "$Bin/../../..";
 
-my $fileToYearMap = getFileVcsModTime();
+my $fileToYearMap = getFileVcsModTime($findsrc);
 
 find(\&wanted, $findsrc);
 
@@ -29,9 +29,13 @@ exit;
 sub wanted {
 	return 0 if ($File::Find::name !~ /\.(java|pl)/);
 	return 0 if ($File::Find::dir =~ m|$findsrc/target|);
+	my $currentYear = (localtime())[5] + 1900;
 
 	my $relativeFile = $File::Find::name;
 	$relativeFile =~ s|$findsrc/||;
+	# next if ($relativeFile ne 'test/resources/bin/find-copyright-issues.pl');
+	# next if ($relativeFile !~ m|JobClient_Unit|);
+	# print STDERR "considering $relativeFile\n";
 
 	# we can't enforce this because some files might not be in version control yet
 	# if (!exists($fileToYearMap->{$relativeFile})) {
@@ -45,33 +49,60 @@ sub wanted {
 		$header .= <I>;
 	}
 	close(I);
-	if ($header !~ / Copyright \d+(-\d+)? Green Filing, LLC/ || $header !~ /Licensed under the Apache License/) {
-		print STDERR "missing/corrupt copyright in $relativeFile\n";
+
+	my $fileYear = '';
+	my $licensed = 0;
+	my $copyrighted = 0;
+	if ($header =~ / Copyright (?:\d+-)?(\d\d\d\d) Green Filing, LLC/) {
+		$copyrighted = 1;
+		$fileYear = $1;
+	}
+	if ($header =~ /Licensed under the Apache License/) {
+		$licensed = 1;
 	}
 
-	if (exists($fileToYearMap->{$relativeFile}) && $header =~ / Copyright (?:\d+-)?(\d\d\d\d) Green Filing, LLC/) {
-		my $fileYear = $1;
-		if ($fileYear ne $fileToYearMap->{$relativeFile}) {
-			print STDERR "last copyright year not accurate (file: $fileYear, vcs: $fileToYearMap->{$relativeFile}) in $relativeFile\n";
+	if (!$licensed || !$copyrighted) {
+		error("missing/corrupt copyright in $relativeFile (lic: $licensed, cr: $copyrighted)");
+	}
+	else {
+		# $fileYear has to be set to a 4 digit number in order to be in this block
+
+		if (exists($fileToYearMap->{$relativeFile})) {
+			if ($fileYear ne $fileToYearMap->{$relativeFile}) {
+				error("copyright end year not accurate in $relativeFile (file: $fileYear, vcs: $fileToYearMap->{$relativeFile})");
+			}
+		}
+		else {
+			# if it doesn't exist in fileToYearMap that means it's not committed to git yet, meaning this is a new file.  In that case
+			# we check to make sure the copyright year is the current year
+			if ($fileYear != $currentYear) {
+				error("copyright end year not current year for uncommitted file in $relativeFile (file: $fileYear, current: $currentYear)");
+			}
 		}
 	}
+}
+
+sub error {
+	my $msg = shift;
+	print STDERR "$msg\n";
 }
 
 # pieced together from multiple answers from https://serverfault.com/questions/401437/how-to-retrieve-the-last-modification-date-of-all-files-in-a-git-repository
 # git ls-files '*.java' '*.pl' -z | TZ=UTC xargs -0n1 -I_ git --no-pager log -1 --date=format:%Y --format="%ad _" -- _
 sub getFileVcsModTime {
+	my $base = shift;
 	my $fileToYear = {};
-	chdir($findsrc);
 
-	open(P, "git ls-files '*.java' '*.pl' |") || die "Couldn't get files from git: $!\n";
+	my @filesInGit = ();
+	open(P, "git -C $base ls-files '*.java' '*.pl' |") || die "Couldn't get files from git: $!\n";
 	while(my $file = <P>) {
 		chomp($file);
-		$fileToYear->{$file} = 0;
+		push(@filesInGit, $file);
 	}
 	close(P);
 
-	foreach my $file (sort keys %$fileToYear) {
-		open(P, "git --no-pager log -1 --date=format:%Y --format=%ad -- $file |") || die "Couldn't get year for $file from git: $!\n";
+	foreach my $file (sort @filesInGit) {
+		open(P, "git -C $base  --no-pager log -1 --date=format:%Y --format=%ad -- $file |") || die "Couldn't get year for $file from git: $!\n";
 		while (my $year = <P>) {
 			chomp($year);
 			$fileToYear->{$file} = $year;
