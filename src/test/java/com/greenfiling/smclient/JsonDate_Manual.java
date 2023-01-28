@@ -23,8 +23,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.Date;
 
-import org.junit.Test;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -60,7 +58,7 @@ public class JsonDate_Manual {
     }
   }
 
-  @Test
+  // @Test
   // I think this was verifying the change in name policy and converting dates, but I'm not sure this is something to make a unit test
   // or leave as manual
   public void testDate_From() throws Exception {
