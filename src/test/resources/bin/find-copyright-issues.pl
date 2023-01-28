@@ -19,12 +19,14 @@ use File::Find;
 use FindBin qw($Bin);
 
 my $findsrc = "$Bin/../../..";
+$findsrc = "$Bin/../../../src" if ($findsrc =~ m|/target/|);
 
 my $fileToYearMap = getFileVcsModTime($findsrc);
 
+our $foundErrorCount = 0;
 find(\&wanted, $findsrc);
 
-exit;
+exit $foundErrorCount;
 
 sub wanted {
 	return 0 if ($File::Find::name !~ /\.(java|pl)/);
@@ -85,6 +87,7 @@ sub wanted {
 sub error {
 	my $msg = shift;
 	print STDERR "$msg\n";
+	$main::foundErrorCount++;
 }
 
 # pieced together from multiple answers from https://serverfault.com/questions/401437/how-to-retrieve-the-last-modification-date-of-all-files-in-a-git-repository
