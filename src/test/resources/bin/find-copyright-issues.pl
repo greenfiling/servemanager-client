@@ -18,7 +18,7 @@ use strict;
 use File::Find;
 use FindBin qw($Bin);
 
-my $findsrc = "$Bin/..";
+my $findsrc = "$Bin/../../..";
 
 my $fileToYearMap = getFileVcsModTime();
 
