@@ -20,7 +20,7 @@ use FindBin qw($Bin);
 
 my $findsrc = "$Bin/../../..";
 
-my $fileToYearMap = getFileVcsModTime();
+my $fileToYearMap = getFileVcsModTime($findsrc);
 
 find(\&wanted, $findsrc);
 
@@ -60,18 +60,19 @@ sub wanted {
 # pieced together from multiple answers from https://serverfault.com/questions/401437/how-to-retrieve-the-last-modification-date-of-all-files-in-a-git-repository
 # git ls-files '*.java' '*.pl' -z | TZ=UTC xargs -0n1 -I_ git --no-pager log -1 --date=format:%Y --format="%ad _" -- _
 sub getFileVcsModTime {
+	my $base = shift;
 	my $fileToYear = {};
-	chdir($findsrc);
 
-	open(P, "git ls-files '*.java' '*.pl' |") || die "Couldn't get files from git: $!\n";
+	my @filesInGit = ();
+	open(P, "git -C $base ls-files '*.java' '*.pl' |") || die "Couldn't get files from git: $!\n";
 	while(my $file = <P>) {
 		chomp($file);
-		$fileToYear->{$file} = 0;
+		push(@filesInGit, $file);
 	}
 	close(P);
 
-	foreach my $file (sort keys %$fileToYear) {
-		open(P, "git --no-pager log -1 --date=format:%Y --format=%ad -- $file |") || die "Couldn't get year for $file from git: $!\n";
+	foreach my $file (sort @filesInGit) {
+		open(P, "git -C $base  --no-pager log -1 --date=format:%Y --format=%ad -- $file |") || die "Couldn't get year for $file from git: $!\n";
 		while (my $year = <P>) {
 			chomp($year);
 			$fileToYear->{$file} = $year;
