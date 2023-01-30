@@ -5,8 +5,6 @@ import com.greenfiling.smclient.internal.ApiClient;
 import com.greenfiling.smclient.model.SupplierCost;
 import com.greenfiling.smclient.model.exchange.Show;
 import com.greenfiling.smclient.model.exchange.SupplierCostFilter;
-import com.greenfiling.smclient.model.exchange.SupplierCostFilter.JobType;
-import com.greenfiling.smclient.model.exchange.SupplierCostFilter.ServiceLevel;
 import com.greenfiling.smclient.model.internal.FilterBase;
 
 /**
@@ -32,8 +30,8 @@ public class SupplierCostClient extends ApiClient<SupplierCost, SupplierCost, Su
   }
 
   /**
-   * expects {@linkplain SupplierCostFilter} with optional {@linkplain JobType} (for {@linkplain JobType#SOP}, {@linkplain JobType#CCD}), and
-   * {@linkplain ServiceLevel} (for {@linkplain ServiceLevel#RUSH}, {@linkplain ServiceLevel#ROUTINE})
+   * expects {@linkplain SupplierCostFilter} with optional {@linkplain SupplierCostFilter#getJobType} and
+   * {@linkplain SupplierCostFilter#getServiceLevel}
    */
   @Override
   @SuppressWarnings("unchecked")

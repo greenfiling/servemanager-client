@@ -11,8 +11,6 @@ import com.greenfiling.smclient.internal.JsonHandle;
 import com.greenfiling.smclient.model.SupplierCost;
 import com.greenfiling.smclient.model.exchange.Show;
 import com.greenfiling.smclient.model.exchange.SupplierCostFilter;
-import com.greenfiling.smclient.model.exchange.SupplierCostFilter.JobType;
-import com.greenfiling.smclient.model.exchange.SupplierCostFilter.ServiceLevel;
 
 public class SupplierCostClient_UnitTest {
   private static ApiHandle apiHandle = null;
@@ -45,8 +43,8 @@ public class SupplierCostClient_UnitTest {
   public void testShowCostByZip_WithAllFilters_HappyPath() throws Exception {
 
     SupplierCostFilter request = new SupplierCostFilter();
-    request.setJobType(JobType.CCD);
-    request.setServiceLevel(ServiceLevel.RUSH);
+    request.setJobType(SupplierCostFilter.JOB_TYPE_CCD);
+    request.setServiceLevel(SupplierCostFilter.SERVICE_LEVEL_RUSH);
 
     Show<SupplierCost> response = client.show(47374, request);
     TestHelper.log("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
@@ -65,7 +63,7 @@ public class SupplierCostClient_UnitTest {
   public void testShowCostByZip_WithJobTypeFilter_HappyPath() throws Exception {
 
     SupplierCostFilter request = new SupplierCostFilter();
-    request.setJobType(JobType.CCD);
+    request.setJobType(SupplierCostFilter.JOB_TYPE_CCD);
 
     Show<SupplierCost> response = client.show(47374, request);
     TestHelper.log("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
@@ -83,7 +81,7 @@ public class SupplierCostClient_UnitTest {
   public void testShowCostByZip_WitServiceTypeFilter_HappyPath() throws Exception {
 
     SupplierCostFilter request = new SupplierCostFilter();
-    request.setServiceLevel(ServiceLevel.RUSH);
+    request.setServiceLevel(SupplierCostFilter.SERVICE_LEVEL_RUSH);
 
     Show<SupplierCost> response = client.show(47374, request);
     TestHelper.log("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
