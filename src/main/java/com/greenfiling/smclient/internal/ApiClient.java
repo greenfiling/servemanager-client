@@ -76,7 +76,7 @@ public abstract class ApiClient<BASE, READ, CREATE> {
   }
 
   public Index<READ> getNext(Index<READ> index) throws Exception {
-    throw new UnsupportedOperationException("The extending class did not implement the index method");
+    throw new UnsupportedOperationException("The extending class did not implement the getNext method");
   }
 
   public Index<READ> index() throws Exception {

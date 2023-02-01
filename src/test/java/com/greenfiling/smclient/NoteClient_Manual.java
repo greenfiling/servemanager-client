@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.greenfiling.smclient.internal.JsonHandle;
 import com.greenfiling.smclient.model.Links;
@@ -28,6 +30,9 @@ import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
 
 public class NoteClient_Manual {
+  @SuppressWarnings("unused")
+  private static final Logger logger = LoggerFactory.getLogger(NoteClient_Manual.class);
+
   private static ApiHandle apiHandle = null;
   private static NoteClient client = null;
   private static JobClient jobClient = null;
@@ -35,7 +40,9 @@ public class NoteClient_Manual {
 
   @BeforeClass
   public static void setUpClass() {
-    apiHandle = new ApiHandle.Builder().apiKey(TestHelper.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    TestHelper.loadTestResources();
+
+    apiHandle = TestHelper.getApiHandle();
     client = new NoteClient(apiHandle);
     jobClient = new JobClient(apiHandle);
   }

@@ -20,10 +20,14 @@ import static com.greenfiling.smclient.TestHelper.log;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -60,7 +64,21 @@ public class JsonDate_Manual {
     }
   }
 
+  @SuppressWarnings("unused")
+  private static final Logger logger = LoggerFactory.getLogger(JsonDate_Manual.class);
+
+  @BeforeClass
+  public static void setUpClass() {
+    TestHelper.loadTestResources();
+  }
+
+  // If you don't have at least one @Test in a test class, junit is very, very disappointed in you
   @Test
+  public void alwaysPasses() throws Exception {
+    assertTrue(true);
+  }
+
+  // @Test
   // I think this was verifying the change in name policy and converting dates, but I'm not sure this is something to make a unit test
   // or leave as manual
   public void testDate_From() throws Exception {

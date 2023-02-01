@@ -20,17 +20,26 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ApiHandle_UnitTest {
-  public static final String VALID_API_KEY = TestHelper.VALID_API_KEY;
+  @SuppressWarnings("unused")
+  private static final Logger logger = LoggerFactory.getLogger(ApiHandle_UnitTest.class);
+
+  @BeforeClass
+  public static void setUpClass() {
+    TestHelper.loadTestResources();
+  }
 
   @Test
   public void testConstructor_HappyPath() throws Exception {
     boolean caughtException = false;
     ApiHandle client = null;
     try {
-      client = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+      client = new ApiHandle.Builder().apiKey(TestHelper.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
     } catch (IllegalStateException e) {
       caughtException = true;
     }
@@ -44,7 +53,7 @@ public class ApiHandle_UnitTest {
     boolean caughtException = false;
     ApiHandle client = null;
     try {
-      client = new ApiHandle.Builder().apiKey(VALID_API_KEY).build();
+      client = new ApiHandle.Builder().apiKey(TestHelper.VALID_API_KEY).build();
     } catch (IllegalStateException e) {
       caughtException = true;
     }
