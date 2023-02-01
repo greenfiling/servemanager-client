@@ -31,7 +31,6 @@ import org.slf4j.LoggerFactory;
 import com.greenfiling.smclient.TestHelper;
 
 public class StandardContents_UnitTest {
-  @SuppressWarnings("unused")
   private static final Logger logger = LoggerFactory.getLogger(StandardContents_UnitTest.class);
 
   @BeforeClass
@@ -56,7 +55,7 @@ public class StandardContents_UnitTest {
     assertNotNull("failed to get buffered reader for script stderr", reader);
     String s;
     while ((s = reader.readLine()) != null) {
-      TestHelper.logE("copyright errors: %s", s);
+      logger.error("copyright errors: {}", s);
     }
 
     process.waitFor();

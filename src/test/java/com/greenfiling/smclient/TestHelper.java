@@ -139,13 +139,6 @@ public class TestHelper {
     System.out.println(String.format(template, args));
   }
 
-  public static void logE(String template, Object... args) {
-    if (QUIET_TESTS) {
-      return;
-    }
-    System.err.println(String.format(template, args));
-  }
-
   private static String getProperty(String string) {
     if (properties == null) {
       properties = loadProperties();
