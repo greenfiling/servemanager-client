@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.greenfiling.smclient.internal.JsonHandle;
 import com.greenfiling.smclient.model.Employee;
@@ -27,12 +29,17 @@ import com.greenfiling.smclient.model.Links;
 import com.greenfiling.smclient.model.exchange.Index;
 
 public class EmployeeClient_Manual {
+  @SuppressWarnings("unused")
+  private static final Logger logger = LoggerFactory.getLogger(EmployeeClient_Manual.class);
+
   private static ApiHandle apiHandle = null;
   private static EmployeeClient client = null;
 
   @BeforeClass
   public static void setUpClass() {
-    apiHandle = new ApiHandle.Builder().apiKey(TestHelper.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    TestHelper.loadTestResources();
+
+    apiHandle = TestHelper.getApiHandle();
     client = new EmployeeClient(apiHandle);
   }
 

@@ -35,6 +35,8 @@ import java.util.Locale;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.greenfiling.smclient.internal.DnsSelector;
 import com.greenfiling.smclient.internal.DnsSelector.IpMode;
@@ -57,10 +59,12 @@ import de.westemeyer.version.model.Artifact;
 import de.westemeyer.version.service.ArtifactVersionCollector;
 
 public class JobClient_Unit_Manual {
-  public static final String VALID_API_KEY = TestHelper.VALID_API_KEY;
+  @SuppressWarnings("unused")
+  private static final Logger logger = LoggerFactory.getLogger(JobClient_Unit_Manual.class);
 
   @BeforeClass
   public static void setUpClass() {
+    TestHelper.loadTestResources();
     // System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
   }
 
@@ -70,7 +74,7 @@ public class JobClient_Unit_Manual {
     JobClient client = null;
     ApiHandle apiHandle = null;
     try {
-      apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+      apiHandle = TestHelper.getApiHandle();
     } catch (IllegalStateException e) {
       caughtException = true;
     }
@@ -90,7 +94,7 @@ public class JobClient_Unit_Manual {
   @Test
   public void testCreateJob_HappyPath() throws Exception {
 
-    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
     Job newJob = new Job();
@@ -112,7 +116,7 @@ public class JobClient_Unit_Manual {
   @Test
   public void testCreateJob_JobTypeId() throws Exception {
 
-    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
     Job newJob = new Job();
@@ -146,7 +150,7 @@ public class JobClient_Unit_Manual {
 
   @Test
   public void testCreateJob_CustomData() throws Exception {
-    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
     Job newJob = new Job();
@@ -194,7 +198,7 @@ public class JobClient_Unit_Manual {
 
   @Test
   public void testGetFile() throws Exception {
-    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
     String url = "http://speedtest.ftp.otenet.gr/files/test100k.db";
@@ -206,7 +210,7 @@ public class JobClient_Unit_Manual {
 
   @Test
   public void testGetFile2() throws Exception {
-    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
     Show<Job> resp = client.show(8624870);
@@ -221,7 +225,7 @@ public class JobClient_Unit_Manual {
 
   @Test
   public void testGetNext_HappyPath() throws Exception {
-    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
     Index<Job> response = client.index();
@@ -251,7 +255,7 @@ public class JobClient_Unit_Manual {
 
   @Test
   public void testIndexJob_Filter_DateRange() throws Exception {
-    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
     JobFilter filter = new JobFilter();
@@ -289,7 +293,7 @@ public class JobClient_Unit_Manual {
   @Test
   public void testIndexJob_ExternalBuilder() throws Exception {
     okhttp3.OkHttpClient.Builder builder = new okhttp3.OkHttpClient.Builder().dns(new DnsSelector(IpMode.IPV4_ONLY));
-    ApiHandle apiHandle = new ApiHandle.Builder().builder(builder).apiKey(VALID_API_KEY).build();
+    ApiHandle apiHandle = new ApiHandle.Builder().builder(builder).apiKey(TestHelper.VALID_API_KEY).build();
     JobClient client = new JobClient(apiHandle);
 
     Index<Job> response = client.index();
@@ -302,7 +306,7 @@ public class JobClient_Unit_Manual {
 
   @Test
   public void testIndexJob_Filter_HappyPath() throws Exception {
-    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
     JobFilter filter = new JobFilter();
@@ -321,7 +325,7 @@ public class JobClient_Unit_Manual {
 
   @Test
   public void testIndexJob_HappyPath() throws Exception {
-    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
     Index<Job> response = client.index();
@@ -383,7 +387,7 @@ public class JobClient_Unit_Manual {
   @Test
   public void testShowJob_BadEndpointBase() throws Exception {
     boolean caughtException = false;
-    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint("https://jetmore.org/api").build();
+    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(TestHelper.VALID_API_KEY).apiEndpoint("https://jetmore.org/api").build();
     JobClient client = new JobClient(apiHandle);
     Show<Job> showResp = null;
     try {
@@ -398,8 +402,8 @@ public class JobClient_Unit_Manual {
   @Test
   public void testShowJob_BadEndpointServer() throws Exception {
     boolean caughtException = false;
-    ApiHandle apiHandle = new ApiHandle.Builder().connectTimeout(2).apiKey(VALID_API_KEY).apiEndpoint("https://adfadsf234iukjawdfkhwe3333333.org/api")
-        .build();
+    ApiHandle apiHandle = new ApiHandle.Builder().connectTimeout(2).apiKey(TestHelper.VALID_API_KEY)
+        .apiEndpoint("https://adfadsf234iukjawdfkhwe3333333.org/api").build();
     JobClient client = new JobClient(apiHandle);
     Show<Job> showResp = null;
     try {
@@ -413,7 +417,7 @@ public class JobClient_Unit_Manual {
 
   @Test
   public void testShowJob_HappyPath() throws Exception {
-    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
     Show<Job> response = client.show(8559826);
@@ -441,7 +445,7 @@ public class JobClient_Unit_Manual {
   @Test
   public void testShowJob_NoSuchObject() throws Exception {
     boolean caughtException = false;
-    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
     Show<Job> showResp = null;
     try {
@@ -455,7 +459,7 @@ public class JobClient_Unit_Manual {
 
   @Test
   public void testUpdateJob_HappyPath() throws Exception {
-    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
     Job newJob = new Job();
@@ -489,7 +493,7 @@ public class JobClient_Unit_Manual {
 
   @Test
   public void testUpdateJob_CheckForDelayOnAttachmentUpload() throws Exception {
-    ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+    ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
     Job newJob = new Job();
