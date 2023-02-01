@@ -15,8 +15,9 @@
  */
 package projecthealth;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -61,6 +62,7 @@ public class StandardContents_UnitTest {
     process.waitFor();
     int exitStatus = process.exitValue();
 
-    assertTrue("copyright checker failed to run cleanly", exitStatus == 0);
+    assertThat("copyright checker failed to run cleanly", exitStatus, equalTo(0));
+
   }
 }
