@@ -16,6 +16,12 @@
 
 package com.greenfiling.smclient;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
@@ -30,17 +36,13 @@ import com.greenfiling.smclient.model.Recipient;
 public class TestHelper {
   private static final Logger logger = LoggerFactory.getLogger(TestHelper.class);
 
-  private static Properties properties = null;
-  private static final String API_KEY_FILE_NAME = "/testing.properties";
-  public static final String VALID_API_KEY = getProperty("api-key");
-  public static final Boolean QUIET_TESTS = getProperty("quiet-tests").equalsIgnoreCase("true") ? true : false;
-  // public static final Boolean LOG_AT_TRACE = getProperty("log-trace").equalsIgnoreCase("true") ? true : false;
-
-  public static final String VALID_FILE_NAME_1 = "small-1.pdf";
-  public static final String VALID_FILE_PATH_1 = getResourcePath(VALID_FILE_NAME_1);
-
-  public static final String VALID_FILE_NAME_2 = "small-2.pdf";
-  public static final String VALID_FILE_PATH_2 = getResourcePath(VALID_FILE_NAME_2);
+  private static final String TESTING_PROPERTIES_FILE = "testing.properties";
+  private static final String QUIET_TESTS_PROPERTY_NAME = "quiet-tests";
+  private static final String API_KEY_PROPERTY_NAME = "api-key";
+  private static final String VALID_FILE_NAME_1 = "small-1.pdf";
+  private static final String VALID_FILE_NAME_2 = "small-2.pdf";
+  private static final String DEFAULT_API_KEY = "REPLACE_WITH_WORKING_API_KEY";
+  private static final String SOURCE_RESOURCE_PATH = "src/test/resources";
 
   public static final Integer VALID_CLIENT_COMPANY_ID = 783056;
   public static final Integer VALID_CLIENT_CONTACT_ID = 984328;
@@ -48,6 +50,17 @@ public class TestHelper {
   public static final Integer VALID_PROCESS_SERVER_CONTACT_ID = null;
   public static final Integer VALID_EMPLOYEE_PROCESS_SERVER_ID = 289268;
   public static final Integer VALID_COURT_CASE_ID = 3109987;
+
+  private static Properties properties = null;
+  public static String VALID_API_KEY;
+  private static Boolean QUIET_TESTS = false; // Run with this at false until we get through the actual configuration
+  // public static Boolean LOG_AT_TRACE;
+  public static String VALID_FILE_PATH_1;
+  public static String VALID_FILE_PATH_2;
+
+  public static String fmt(String template, Object... args) {
+    return String.format(template, args);
+  }
 
   public static Address getAddress() {
     Address a = new Address();
@@ -88,6 +101,37 @@ public class TestHelper {
     return r;
   }
 
+  public static void loadTestResources() {
+    String resourcePath = getResourcePath(TESTING_PROPERTIES_FILE);
+    if (resourcePath == null || resourcePath.isEmpty()) {
+      logger.error("Unable to locate resource file {}.", TESTING_PROPERTIES_FILE);
+      logger.error("This file contains configuration information that these tests cannot run without.");
+      logger.error("Did you copy {}/{}.example to {}/{} and edit it as needed?", SOURCE_RESOURCE_PATH, TESTING_PROPERTIES_FILE, SOURCE_RESOURCE_PATH,
+          TESTING_PROPERTIES_FILE);
+      fail(fmt("unable to locate required resource property file %s", TESTING_PROPERTIES_FILE));
+    }
+
+    // if quiet-tests doesn't exist, proceed as if it was set to false
+    String quietTests = getProperty(QUIET_TESTS_PROPERTY_NAME);
+    QUIET_TESTS = quietTests == null ? false : quietTests.equalsIgnoreCase("true");
+
+    VALID_API_KEY = getProperty(API_KEY_PROPERTY_NAME);
+    assertNotNull(fmt("unable to find required test property %s", API_KEY_PROPERTY_NAME), VALID_API_KEY);
+    assertThat(fmt("unable to find required test property %s", API_KEY_PROPERTY_NAME), VALID_API_KEY, not(equalTo("")));
+    assertThat(fmt("test property %s must be changed from the default value", API_KEY_PROPERTY_NAME), VALID_API_KEY, not(equalTo(DEFAULT_API_KEY)));
+
+    // This is an experiment I might get back to some day
+    // LOG_AT_TRACE = getProperty("log-trace").equalsIgnoreCase("true") ? true : false;
+
+    VALID_FILE_PATH_1 = getResourcePath(VALID_FILE_NAME_1);
+    assertNotNull(fmt("unable to find required test resource %s", VALID_FILE_NAME_1), VALID_FILE_PATH_1);
+    assertThat(fmt("unable to find required test resource %s", VALID_FILE_NAME_1), VALID_FILE_PATH_1, not(equalTo("")));
+
+    VALID_FILE_PATH_2 = getResourcePath(VALID_FILE_NAME_2);
+    assertNotNull(fmt("unable to find required test resource %s", VALID_FILE_NAME_2), VALID_FILE_PATH_2);
+    assertThat(fmt("unable to find required test resource %s", VALID_FILE_NAME_2), VALID_FILE_PATH_2, not(equalTo("")));
+  }
+
   public static void log(String template, Object... args) {
     if (QUIET_TESTS) {
       return;
@@ -114,7 +158,7 @@ public class TestHelper {
     URL fileUrl = TestHelper.class.getClassLoader().getResource(filename);
 
     if (fileUrl == null) {
-      logger.error("getResourcePath - unable to find file {} as a test resource, tests will probably not run correctly", filename);
+      logger.error("getResourcePath - unable to find file {} as a test resource", filename);
       return null;
     }
 
@@ -124,20 +168,16 @@ public class TestHelper {
   }
 
   private static Properties loadProperties() {
-    InputStream in = TestHelper.class.getResourceAsStream(API_KEY_FILE_NAME);
-
-    if (in == null) {
-      logger.error("getApiKey - unable to select file {} as the input resource, tests will probably not run correctly", API_KEY_FILE_NAME);
-      System.exit(1);
-    }
+    InputStream in = TestHelper.class.getClassLoader().getResourceAsStream(TESTING_PROPERTIES_FILE);
+    assertNotNull(fmt("unable to locate and open testing resource %s", TESTING_PROPERTIES_FILE), in);
 
     properties = new Properties();
+    assertNotNull("unable to instantiate properties object", properties);
     try {
       properties.load(in);
     } catch (Exception e) {
-      logger.error("getApiKey - exception loading {}, tests will probably not run correctly: {}, {}", API_KEY_FILE_NAME, e.getClass(),
-          e.getMessage());
-      System.exit(1);
+      logger.error("loadProperties - exception loading {}: {}, {}", TESTING_PROPERTIES_FILE, e.getClass(), e.getMessage());
+      fail("unable to load properties from file");
     }
 
     return properties;
