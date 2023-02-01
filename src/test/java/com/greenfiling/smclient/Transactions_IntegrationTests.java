@@ -28,6 +28,8 @@ import java.util.ArrayList;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.greenfiling.smclient.internal.Transaction;
 import com.greenfiling.smclient.model.Job;
@@ -37,11 +39,13 @@ import com.greenfiling.smclient.model.ServiceDocument;
 import com.greenfiling.smclient.model.exchange.Show;
 
 public class Transactions_IntegrationTests {
-  public static final String VALID_API_KEY = TestHelper.VALID_API_KEY;
+  @SuppressWarnings("unused")
+  private static final Logger logger = LoggerFactory.getLogger(Transactions_IntegrationTests.class);
   public static Job job;
 
   @BeforeClass
   public static void setUpClass() throws Exception {
+    TestHelper.loadTestResources();
     // TestHelper.setLogLevel();
 
     ApiHandle handle = TestHelper.getApiHandle();
@@ -207,8 +211,8 @@ public class Transactions_IntegrationTests {
 
   @Test
   public void testTransactions_testConfigurableMaxTransactions() throws Exception {
-    ApiHandle handle = new ApiHandle.Builder().apiKey(Transactions_IntegrationTests.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE)
-        .keepTransactions(2).build();
+    ApiHandle handle = new ApiHandle.Builder().apiKey(TestHelper.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).keepTransactions(2)
+        .build();
     JobClient client = new JobClient(handle);
 
     // transaction 1
@@ -247,8 +251,8 @@ public class Transactions_IntegrationTests {
 
   @Test
   public void testTransactions_testConfigurableMaxTransactions_keepNone() throws Exception {
-    ApiHandle handle = new ApiHandle.Builder().apiKey(Transactions_IntegrationTests.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE)
-        .keepTransactions(0).build();
+    ApiHandle handle = new ApiHandle.Builder().apiKey(TestHelper.VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).keepTransactions(0)
+        .build();
     JobClient client = new JobClient(handle);
 
     // transaction 1

@@ -24,7 +24,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -58,6 +62,14 @@ public class JsonDate_Manual {
     public void setName(String name) {
       this.name = name;
     }
+  }
+
+  @SuppressWarnings("unused")
+  private static final Logger logger = LoggerFactory.getLogger(JsonDate_Manual.class);
+
+  @BeforeClass
+  public static void setUpClass() {
+    TestHelper.loadTestResources();
   }
 
   // If you don't have at least one @Test in a test class, junit is very, very disappointed in you
