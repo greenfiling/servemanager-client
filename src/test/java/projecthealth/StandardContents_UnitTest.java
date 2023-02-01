@@ -23,27 +23,37 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.greenfiling.smclient.TestHelper;
 
 public class StandardContents_UnitTest {
+  @SuppressWarnings("unused")
+  private static final Logger logger = LoggerFactory.getLogger(StandardContents_UnitTest.class);
+
+  @BeforeClass
+  public static void setUpClass() {
+    TestHelper.loadTestResources();
+  }
 
   // Run the find-copyright-issues.pl script and fail the test if it exits with a non-zero status.
   // Any output from the script will be written to stderr for evaluation on the console
   @Test
   public void testCheckForAccurateCopyright() throws Exception {
     URL script = TestHelper.class.getResource("/bin/find-copyright-issues.pl");
-    assertNotNull(script);
+    assertNotNull("failed to find test script in resources", script);
 
     File scriptFile = new File(script.toURI());
-    assertNotNull(scriptFile);
+    assertNotNull("failed to get Fil from URL", scriptFile);
     scriptFile.setExecutable(true, true);
 
     Process process = Runtime.getRuntime().exec(script.getPath());
-    assertNotNull(process);
+    assertNotNull("failed to execute script", process);
     BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-    assertNotNull(reader);
+    assertNotNull("failed to get buffered reader for script stderr", reader);
     String s;
     while ((s = reader.readLine()) != null) {
       TestHelper.logE("copyright errors: %s", s);
@@ -52,6 +62,6 @@ public class StandardContents_UnitTest {
     process.waitFor();
     int exitStatus = process.exitValue();
 
-    assertTrue("copyright checker ran cleanly", exitStatus == 0);
+    assertTrue("copyright checker failed to run cleanly", exitStatus == 0);
   }
 }

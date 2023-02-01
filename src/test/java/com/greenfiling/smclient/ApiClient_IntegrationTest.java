@@ -24,6 +24,8 @@ import java.time.LocalDate;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.greenfiling.smclient.model.Job;
 import com.greenfiling.smclient.model.exchange.Show;
@@ -31,11 +33,15 @@ import com.greenfiling.smclient.model.exchange.Show;
 // ApiClient is abstract, so we'll actually test via JobClient, but we're really testing common code in ApiClient
 // Much of the current content of JobClient tests belong here, but I'm not touching them for now
 public class ApiClient_IntegrationTest {
-  public static final String VALID_API_KEY = TestHelper.VALID_API_KEY;
+  @SuppressWarnings("unused")
+  private static final Logger logger = LoggerFactory.getLogger(ApiClient_IntegrationTest.class);
+
   public static Job job;
 
   @BeforeClass
   public static void setUpClass() throws Exception {
+    TestHelper.loadTestResources();
+
     ApiHandle handle = TestHelper.getApiHandle();
     JobClient client = new JobClient(handle);
 
