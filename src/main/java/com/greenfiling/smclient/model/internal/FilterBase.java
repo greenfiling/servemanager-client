@@ -80,6 +80,15 @@ public abstract class FilterBase {
     return pairs;
   }
 
+  protected ArrayList<FilterPair> addListFilter(String filterName, ArrayList<String> params) {
+    ArrayList<FilterPair> returnList = new ArrayList<FilterPair>();
+    if (params == null) {
+      return returnList;
+    }
+    params.stream().forEach(x -> returnList.add(new FilterPair(filterName, x)));
+    return returnList;
+  }
+
   public Integer getPage() {
     return this.page;
   }

@@ -316,6 +316,7 @@ public class JobClient_Unit_Manual {
     filter.getJobStatus().add(JobFilter.JOB_STATUS_FILED);
 
     Index<Job> response = client.index(filter);
+
     Links links = response.getLinks();
     System.out.println("links.self = " + links.getSelf());
 

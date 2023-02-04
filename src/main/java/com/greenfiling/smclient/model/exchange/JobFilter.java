@@ -89,31 +89,17 @@ public class JobFilter extends FilterBase {
     if (getServer() != null) {
       pairs.add(new FilterPair("filter[server]", getServer().toString()));
     }
-    if (getAffidavitStatus() != null) {
-      for (String s : getAffidavitStatus()) {
-        pairs.add(new FilterPair("filter[affidavit_status][]", s));
-      }
-    }
-    if (getInvoiceStatus() != null) {
-      for (String s : getInvoiceStatus()) {
-        pairs.add(new FilterPair("filter[invoice_status][]", s));
-      }
-    }
-    if (getAttemptCount() != null) {
-      for (String s : getAttemptCount()) {
-        pairs.add(new FilterPair("filter[attempt_count][]", s));
-      }
-    }
-    if (getServiceStatus() != null) {
-      for (String s : getServiceStatus()) {
-        pairs.add(new FilterPair("filter[service_status][]", s));
-      }
-    }
-    if (getJobStatus() != null) {
-      for (String s : getJobStatus()) {
-        pairs.add(new FilterPair("filter[job_status][]", s));
-      }
-    }
+
+    pairs.addAll(addListFilter("filter[affidavit_status][]", getAffidavitStatus()));
+
+    pairs.addAll(addListFilter("filter[invoice_status][]", getInvoiceStatus()));
+
+    pairs.addAll(addListFilter("filter[attempt_count][]", getAttemptCount()));
+
+    pairs.addAll(addListFilter("filter[service_status][]", getServiceStatus()));
+
+    pairs.addAll(addListFilter("filter[job_status][]", getJobStatus()));
+
     if (getDateRange() != null) {
       if (getDateRange().getType() != null) {
         pairs.add(new FilterPair("filter[date_range][type]", getDateRange().getType()));
