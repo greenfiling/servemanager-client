@@ -32,6 +32,7 @@ import com.greenfiling.smclient.model.SupplierCost;
 import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
 import com.greenfiling.smclient.model.exchange.SupplierCostFilter;
+import com.greenfiling.smclient.model.internal.JobBase;
 
 public class SupplierCostClient_UnitTest {
   private static ApiHandle apiHandle = null;
@@ -141,7 +142,7 @@ public class SupplierCostClient_UnitTest {
   public void testIndex_WitJobTypeFilterSOP_HappyPath() throws Exception {
 
     SupplierCostFilter request = new SupplierCostFilter();
-    request.setJobType(SupplierCostFilter.JOB_TYPE_SOP);
+    request.setJobType(JobBase.JOB_TYPE_SOP);
 
     Index<SupplierCost> response = client.index(request);
     TestHelper.log("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));

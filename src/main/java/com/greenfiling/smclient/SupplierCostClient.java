@@ -22,12 +22,6 @@ import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
 import com.greenfiling.smclient.model.internal.FilterBase;
 
-/**
- * Index lookup for ZipCode pricing is not supported since we never expect to get more than one ServiceCost object per response.
- * 
- * @author elenasergienko
- *
- */
 public class SupplierCostClient extends ApiClient<SupplierCost, SupplierCost, SupplierCost> {
 
   public static final String ENDPOINT = "itx/supplier_costs";

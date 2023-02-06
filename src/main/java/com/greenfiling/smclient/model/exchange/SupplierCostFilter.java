@@ -19,16 +19,14 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
 import com.greenfiling.smclient.model.internal.FilterBase;
+import com.greenfiling.smclient.model.internal.JobBase;
 
 public class SupplierCostFilter extends FilterBase {
-
-  public static String JOB_TYPE_SOP = "1";
-  public static String JOB_TYPE_CCD = "2";
 
   public static String SERVICE_LEVEL_ROUTINE = "1";
   public static String SERVICE_LEVEL_RUSH = "2";
 
-  private String jobType;
+  private Integer jobType;
   private String serviceLevel;
   private ArrayList<String> zipCodes = null;
   private OffsetDateTime updatedSince;
@@ -37,7 +35,7 @@ public class SupplierCostFilter extends FilterBase {
     ArrayList<FilterPair> pairs = super.getFilters();
 
     if (getJobType() != null) {
-      pairs.add(new FilterPair("job_type_id", getJobType()));
+      pairs.add(new FilterPair("job_type_id", String.valueOf(getJobType())));
     }
     if (getServiceLevel() != null) {
       pairs.add(new FilterPair("sla_id", getServiceLevel()));
@@ -46,7 +44,7 @@ public class SupplierCostFilter extends FilterBase {
     return pairs;
   }
 
-  public String getJobType() {
+  public Integer getJobType() {
     return jobType;
   }
 
@@ -70,12 +68,12 @@ public class SupplierCostFilter extends FilterBase {
    * <P>
    * This field uses pre-defined values. Allowed values are:
    * <UL>
-   * <LI>{@link #JOB_TYPE_SOP}</LI>
-   * <LI>{@link #JOB_TYPE_CCD}</LI>
+   * <LI>{@link JobBase#JOB_TYPE_SOP}</LI>
+   * <LI>{@link JobBase#JOB_TYPE_CCD}</LI>
    * </UL>
    *
    */
-  public void setJobType(String jobType) {
+  public void setJobType(Integer jobType) {
     this.jobType = jobType;
   }
 

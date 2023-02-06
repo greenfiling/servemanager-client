@@ -18,6 +18,7 @@ package com.greenfiling.smclient.model;
 import java.time.OffsetDateTime;
 
 public class SupplierCost {
+  public static final String TYPE = "supplier_cost";
 
   private Integer id;
   private String type;
@@ -29,6 +30,11 @@ public class SupplierCost {
   private Double suggestedRetailPrice;
   private OffsetDateTime createdAt;
   private OffsetDateTime updatedAt;
+
+  public SupplierCost() {
+    super();
+    setType(TYPE);
+  }
 
   public Double getAmount() {
     return this.amount;
