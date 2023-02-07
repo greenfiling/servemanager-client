@@ -57,16 +57,6 @@ public abstract class ApiClient<BASE, READ, CREATE> {
     setHandle(handle);
   }
 
-  /**
-   * Convenience method to get the {@link Transaction}s from the client's {@link ApiHandle}
-   * 
-   * @return list of {@link Transaction}s associated with the client's {@link ApiHandle}
-   * @since 1.0.4
-   */
-  public ArrayList<Transaction> getTransactions() {
-    return apiHandle.getTransactions();
-  }
-
   public Show<READ> create(BASE record) throws Exception {
     throw new UnsupportedOperationException("The extending class did not implement the create method");
   }
@@ -79,6 +69,16 @@ public abstract class ApiClient<BASE, READ, CREATE> {
     throw new UnsupportedOperationException("The extending class did not implement the getNext method");
   }
 
+  /**
+   * Convenience method to get the {@link Transaction}s from the client's {@link ApiHandle}
+   * 
+   * @return list of {@link Transaction}s associated with the client's {@link ApiHandle}
+   * @since 1.0.4
+   */
+  public ArrayList<Transaction> getTransactions() {
+    return apiHandle.getTransactions();
+  }
+
   public Index<READ> index() throws Exception {
     return index(null);
   }
@@ -89,6 +89,10 @@ public abstract class ApiClient<BASE, READ, CREATE> {
 
   public Show<READ> show(Integer id) throws Exception {
     throw new UnsupportedOperationException("The extending class did not implement the show method");
+  }
+
+  public Show<READ> show(Integer id, FilterBase filter) throws Exception {
+    throw new UnsupportedOperationException("The extending class did not implement the show(filter) method");
   }
 
   public Show<READ> update(Integer id, BASE record) throws Exception {
@@ -105,6 +109,18 @@ public abstract class ApiClient<BASE, READ, CREATE> {
 
   private Type getShowType() {
     return this.showType;
+  }
+
+  private String makeBaseUrl() {
+    return apiHandle.getApiEndpointBase() + "/" + getEndpoint();
+  }
+
+  private String makeUrlWithFilter(String baseUrl, String filter) {
+    if (filter == null || "".equals(filter)) {
+      return baseUrl;
+    }
+
+    return baseUrl + "?" + filter;
   }
 
   private void setHandle(ApiHandle handle) {
@@ -133,7 +149,11 @@ public abstract class ApiClient<BASE, READ, CREATE> {
   }
 
   protected String doShowRequest(Integer id) throws Exception {
-    String url = makeShowUrl(id);
+    return doShowRequest(id, null);
+  }
+
+  protected String doShowRequest(Integer id, FilterBase filter) throws Exception {
+    String url = makeShowUrl(id, filter);
     String responseJson = getHandle().doGet(url);
     return responseJson;
   }
@@ -150,32 +170,37 @@ public abstract class ApiClient<BASE, READ, CREATE> {
   }
 
   protected String makeCreateUrl() {
-    return apiHandle.getApiEndpointBase() + "/" + getEndpoint();
+    return makeBaseUrl();
   }
 
   protected String makeIndexUrl(String filter) {
-    String baseUrl = apiHandle.getApiEndpointBase() + "/" + getEndpoint();
+    String baseUrl = makeBaseUrl();
 
-    if (filter == null || "".equals(filter)) {
-      return baseUrl;
-    }
-
-    return baseUrl + "?" + filter;
+    return makeUrlWithFilter(baseUrl, filter);
   }
 
-  protected String makeShowUrl(Integer id) {
+  /**
+   * @return URL w/o the filter options. Abstracted to be allowed to be overridden
+   */
+  protected String makeShowBaseUrl(Integer id) {
+    String baseUrl = makeBaseUrl();
+
     if (id == null) {
-      return makeIndexUrl(null);
+      return baseUrl;
     }
-    String url = apiHandle.getApiEndpointBase() + "/" + getEndpoint() + "/" + id.toString();
-    return url;
+    return baseUrl + "/" + id.toString();
+
+  }
+
+  protected String makeShowUrl(Integer id, FilterBase filter) {
+    return makeUrlWithFilter(makeShowBaseUrl(id), filter == null ? null : filter.getQueryString());
   }
 
   protected String makeUpdateUrl(Integer id) throws Exception {
     if (id == null) {
       throw new IllegalArgumentException("Argument id cannot be null");
     }
-    return apiHandle.getApiEndpointBase() + "/" + getEndpoint() + "/" + id.toString();
+    return makeBaseUrl() + "/" + id.toString();
   }
 
   protected void setEndpoint(String endpoint) {

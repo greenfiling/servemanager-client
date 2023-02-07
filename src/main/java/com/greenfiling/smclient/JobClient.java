@@ -89,7 +89,7 @@ public class JobClient extends ApiClient<JobBase, Job, JobSubmit> {
       throw new IllegalStateException("jobId null");
     }
 
-    String url = makeShowUrl(jobId) + "/notes";
+    String url = makeShowBaseUrl(jobId) + "/notes";
     String responseJson = getHandle().doGet(url);
 
     // @formatter:off
@@ -110,7 +110,7 @@ public class JobClient extends ApiClient<JobBase, Job, JobSubmit> {
     }
 
     Show<Note> showRecord = new Show<Note>(record);
-    String url = makeShowUrl(jobId) + "/notes";
+    String url = makeShowBaseUrl(jobId) + "/notes";
     String responseJson = getHandle().doPost(url, showRecord);
 
     // @formatter:off
