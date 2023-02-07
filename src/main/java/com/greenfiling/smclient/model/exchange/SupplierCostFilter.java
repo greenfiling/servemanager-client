@@ -23,11 +23,11 @@ import com.greenfiling.smclient.model.internal.JobBase;
 
 public class SupplierCostFilter extends FilterBase {
 
-  public static String SERVICE_LEVEL_ROUTINE = "1";
-  public static String SERVICE_LEVEL_RUSH = "2";
+  public static Integer SERVICE_LEVEL_ROUTINE = 1;
+  public static Integer SERVICE_LEVEL_RUSH = 2;
 
   private Integer jobType;
-  private String serviceLevel;
+  private Integer serviceLevel;
   private ArrayList<String> zipCodes = null;
   private OffsetDateTime updatedSince;
 
@@ -38,7 +38,7 @@ public class SupplierCostFilter extends FilterBase {
       pairs.add(new FilterPair("job_type_id", String.valueOf(getJobType())));
     }
     if (getServiceLevel() != null) {
-      pairs.add(new FilterPair("sla_id", getServiceLevel()));
+      pairs.add(new FilterPair("sla_id", String.valueOf(getServiceLevel())));
     }
     pairs.addAll(addListFilter("zipcodes[]", getZipCodes()));
     return pairs;
@@ -48,7 +48,7 @@ public class SupplierCostFilter extends FilterBase {
     return jobType;
   }
 
-  public String getServiceLevel() {
+  public Integer getServiceLevel() {
     return serviceLevel;
   }
 
@@ -87,7 +87,7 @@ public class SupplierCostFilter extends FilterBase {
    * </UL>
    *
    */
-  public void setServiceLevel(String serviceLevel) {
+  public void setServiceLevel(Integer serviceLevel) {
     this.serviceLevel = serviceLevel;
   }
 

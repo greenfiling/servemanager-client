@@ -191,8 +191,8 @@ public class SupplierCostClient_UnitTest {
     TestHelper.log("testShowCost_HappyPath re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
 
     assertThat(response.getData().getAmount(), notNullValue());
-    assertThat(response.getData().getJobTypeId(), equalTo("1"));
-    assertThat(response.getData().getSlaId(), equalTo("1"));
+    assertThat(response.getData().getJobTypeId(), equalTo(1));
+    assertThat(response.getData().getSlaId(), equalTo(1));
     assertThat(response.getData().getType(), equalTo("supplier_cost"));
     assertThat(response.getData().getZipcode(), notNullValue());
     assertThat(response.getData().getZipcodeZoneId(), notNullValue());

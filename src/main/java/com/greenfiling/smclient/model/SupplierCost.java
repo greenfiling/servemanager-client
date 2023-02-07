@@ -24,8 +24,8 @@ public class SupplierCost {
   private String type;
   private String zipcode;
   private Integer zipcodeZoneId;
-  private String jobTypeId;
-  private String slaId;
+  private Integer jobTypeId;
+  private Integer slaId;
   private Double amount;
   private Double suggestedRetailPrice;
   private OffsetDateTime createdAt;
@@ -48,11 +48,11 @@ public class SupplierCost {
     return this.id;
   }
 
-  public String getJobTypeId() {
+  public Integer getJobTypeId() {
     return this.jobTypeId;
   }
 
-  public String getSlaId() {
+  public Integer getSlaId() {
     return this.slaId;
   }
 
@@ -96,11 +96,11 @@ public class SupplierCost {
     this.id = id;
   }
 
-  public void setJobTypeId(String jobTypeId) {
+  public void setJobTypeId(Integer jobTypeId) {
     this.jobTypeId = jobTypeId;
   }
 
-  public void setSlaId(String slaId) {
+  public void setSlaId(Integer slaId) {
     this.slaId = slaId;
   }
 
