@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 import com.greenfiling.smclient.TestHelper;
 
 public class StandardContents_UnitTest {
-  @SuppressWarnings("unused")
+  // @SuppressWarnings("unused")
   private static final Logger logger = LoggerFactory.getLogger(StandardContents_UnitTest.class);
 
   @BeforeClass
