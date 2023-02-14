@@ -72,6 +72,8 @@ public class SupplierCostFilter extends FilterBase {
    * <LI>{@link JobBase#JOB_TYPE_CCD}</LI>
    * </UL>
    *
+   * @param jobType
+   *          The job type (see method-level doc)
    */
   public void setJobType(Integer jobType) {
     this.jobType = jobType;
@@ -86,6 +88,8 @@ public class SupplierCostFilter extends FilterBase {
    * <LI>{@link #SERVICE_LEVEL_RUSH}</LI>
    * </UL>
    *
+   * @param serviceLevel
+   *          The service level (see method-level doc)
    */
   public void setServiceLevel(Integer serviceLevel) {
     this.serviceLevel = serviceLevel;

@@ -180,6 +180,8 @@ public abstract class ApiClient<BASE, READ, CREATE> {
   }
 
   /**
+   * @param id
+   *          id of resource for endpoint. Can be null.
    * @return URL w/o the filter options. Abstracted to be allowed to be overridden
    */
   protected String makeShowBaseUrl(Integer id) {
