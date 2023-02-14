@@ -73,12 +73,15 @@ public class SupplierCost {
   }
 
   /**
-   * "1 - Very Densely Populated"<br>
-   * "2 - Densely Populated"<br>
-   * "3 - Semi-Densely Populated"<br>
-   * "4 - Moderately Populated"<br>
-   * "5 - Sparsely Populated"
-   *
+   * <ul>
+   * <li>1 - Very Densely Populated</li>
+   * <li>2 - Densely Populated</li>
+   * <li>3 - Semi-Densely Populated</li>
+   * <li>4 - Moderately Populated</li>
+   * <li>5 - Sparsely Populated</li>
+   * </ul>
+   * 
+   * @return the zone id of the zipcode for this SupplierCost object
    */
   public Integer getZipcodeZoneId() {
     return zipcodeZoneId;
