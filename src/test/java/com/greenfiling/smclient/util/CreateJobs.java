@@ -16,11 +16,10 @@
 
 package com.greenfiling.smclient.util;
 
-import static com.greenfiling.smclient.TestHelper.fmt;
+import static com.greenfiling.smclient.util.TestHelper.fmt;
 
 import com.greenfiling.smclient.ApiHandle;
 import com.greenfiling.smclient.JobClient;
-import com.greenfiling.smclient.TestHelper;
 import com.greenfiling.smclient.model.Job;
 import com.greenfiling.smclient.model.Links;
 import com.greenfiling.smclient.model.exchange.Show;
@@ -36,6 +35,9 @@ public class CreateJobs {
       JobClient client = new JobClient(apiHandle);
 
       Job newJob = TestHelper.getTestJob(fmt("job %d", i));
+
+      // These were created specifically to support pagination testing. Don't create any more with this status
+      // newJob.setJobStatus(TestHelper.PAGINATION_STATUS);
 
       Show<Job> response = null;
       try {

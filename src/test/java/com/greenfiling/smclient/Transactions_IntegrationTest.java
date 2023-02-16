@@ -16,7 +16,7 @@
 
 package com.greenfiling.smclient;
 
-import static com.greenfiling.smclient.TestHelper.log;
+import static com.greenfiling.smclient.util.TestHelper.log;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -37,10 +37,11 @@ import com.greenfiling.smclient.model.JobSubmit;
 import com.greenfiling.smclient.model.Links;
 import com.greenfiling.smclient.model.ServiceDocument;
 import com.greenfiling.smclient.model.exchange.Show;
+import com.greenfiling.smclient.util.TestHelper;
 
-public class Transactions_IntegrationTests {
-  @SuppressWarnings("unused")
-  private static final Logger logger = LoggerFactory.getLogger(Transactions_IntegrationTests.class);
+public class Transactions_IntegrationTest {
+  // @SuppressWarnings("unused")
+  private static final Logger logger = LoggerFactory.getLogger(Transactions_IntegrationTest.class);
   public static Job job;
 
   @BeforeClass
@@ -71,22 +72,6 @@ public class Transactions_IntegrationTests {
   }
 
   @Test
-  public void testTransactions_GET_HappyPath() throws Exception {
-    ApiHandle handle = TestHelper.getApiHandle();
-    JobClient client = new JobClient(handle);
-
-    Show<Job> response = client.show(job.getId());
-    assertThat(response, not(equalTo(null)));
-    assertThat(response.getData(), not(equalTo(null)));
-
-    ArrayList<Transaction> txns = handle.getTransactions();
-    assertThat(txns, not(equalTo(null)));
-    assertThat(txns.size(), equalTo(1));
-    Transaction txn = txns.get(0);
-    showTransaction(txn);
-  }
-
-  @Test
   public void testTransactions_accessibleViaApiClient() throws Exception {
     // the "correct" way to access transactions is via ApiHandle.getTransactions(), but I know there are cases where calling code will only have the
     // client, so I want to make sure that transactions are available via the ApiClient classes also
@@ -98,6 +83,22 @@ public class Transactions_IntegrationTests {
     assertThat(response.getData(), not(equalTo(null)));
 
     ArrayList<Transaction> txns = client.getTransactions();
+    assertThat(txns, not(equalTo(null)));
+    assertThat(txns.size(), equalTo(1));
+    Transaction txn = txns.get(0);
+    showTransaction(txn);
+  }
+
+  @Test
+  public void testTransactions_GET_HappyPath() throws Exception {
+    ApiHandle handle = TestHelper.getApiHandle();
+    JobClient client = new JobClient(handle);
+
+    Show<Job> response = client.show(job.getId());
+    assertThat(response, not(equalTo(null)));
+    assertThat(response.getData(), not(equalTo(null)));
+
+    ArrayList<Transaction> txns = handle.getTransactions();
     assertThat(txns, not(equalTo(null)));
     assertThat(txns.size(), equalTo(1));
     Transaction txn = txns.get(0);

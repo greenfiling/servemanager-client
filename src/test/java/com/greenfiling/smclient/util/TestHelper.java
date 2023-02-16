@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.greenfiling.smclient;
+package com.greenfiling.smclient.util;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.concurrent.ThreadLocalRandom;
@@ -33,6 +34,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.greenfiling.smclient.ApiHandle;
 import com.greenfiling.smclient.model.Address;
 import com.greenfiling.smclient.model.Job;
 import com.greenfiling.smclient.model.JobSubmit;
@@ -50,7 +52,9 @@ public class TestHelper {
   private static final String DEFAULT_API_KEY = "REPLACE_WITH_WORKING_API_KEY";
   private static final String SOURCE_RESOURCE_PATH = "src/test/resources";
 
+  public static final String REMOTE_FILE = "https://github.com/greenfiling/servemanager-client/raw/main/src/test/resources/small-1.pdf";
   public static final String DEFAULT_STATUS = "TestSuite";
+  public static final String PAGINATION_STATUS = "ForPaginationTest";
   public static final Integer VALID_CLIENT_COMPANY_ID = 783056;
   public static final Integer VALID_CLIENT_CONTACT_ID = 984328;
   public static final Integer VALID_PROCESS_SERVER_COMPANY_ID = 917465;
@@ -138,6 +142,10 @@ public class TestHelper {
     return job;
   }
 
+  public static String getUniqueString() {
+    return "FOO-BAR-" + getRandom() + "-RAB-OOF";
+  }
+
   public static void loadTestResources() {
     String resourcePath = getResourcePath(TESTING_PROPERTIES_FILE);
     if (resourcePath == null || resourcePath.isEmpty()) {
@@ -175,6 +183,24 @@ public class TestHelper {
       return;
     }
     System.out.println(String.format(template, args));
+  }
+
+  public static void logt(String msg) {
+    log("%s: %s", LocalTime.now(), msg);
+  }
+
+  public static Integer pageToInt(String url) {
+    // breaking this out into multiple pieces so that if/when it breaks the stack trace will be useful
+    int index = url.lastIndexOf("page=");
+    if (index == -1) {
+      // The nature of this method assumes we're passing in a pagination link which should have a page= in it. Therefore, if there is no
+      // page=, assume we're on the response to the very first call, meaning this is page 1
+      return 1;
+    }
+    String pageStr = url.substring(index + 5);
+    Integer page = Integer.valueOf(pageStr);
+
+    return page;
   }
 
   private static void decorateTestJob(JobBase job, String desc) {

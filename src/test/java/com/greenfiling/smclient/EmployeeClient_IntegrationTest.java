@@ -16,7 +16,10 @@
 
 package com.greenfiling.smclient;
 
-import static com.greenfiling.smclient.TestHelper.log;
+import static com.greenfiling.smclient.util.TestHelper.log;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.ArrayList;
 
@@ -25,14 +28,14 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.greenfiling.smclient.internal.JsonHandle;
 import com.greenfiling.smclient.model.Employee;
 import com.greenfiling.smclient.model.Links;
 import com.greenfiling.smclient.model.exchange.Index;
+import com.greenfiling.smclient.util.TestHelper;
 
-public class EmployeeClient_Manual {
+public class EmployeeClient_IntegrationTest {
   @SuppressWarnings("unused")
-  private static final Logger logger = LoggerFactory.getLogger(EmployeeClient_Manual.class);
+  private static final Logger logger = LoggerFactory.getLogger(EmployeeClient_IntegrationTest.class);
 
   private static ApiHandle apiHandle = null;
   private static EmployeeClient client = null;
@@ -48,12 +51,16 @@ public class EmployeeClient_Manual {
   @Test
   public void testIndexEmployee_HappyPath() throws Exception {
     Index<Employee> response = client.index();
+    assertThat(response, not(equalTo(null)));
+    assertThat(response.getData(), not(equalTo(null)));
+    assertThat(response.getLinks(), not(equalTo(null)));
+
     Links links = response.getLinks();
     log("links.self = %s", links.getSelf());
 
     ArrayList<Employee> employees = response.getData();
     log("Number of jobs in response: %s", employees.size());
 
-    log("re-serialized: %s", JsonHandle.get().getGsonWithNulls().toJson(response));
+    // log("re-serialized: %s", JsonHandle.get().getGsonWithNulls().toJson(response));
   }
 }

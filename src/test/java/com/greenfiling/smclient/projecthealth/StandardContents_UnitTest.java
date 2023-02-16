@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package projecthealth;
+package com.greenfiling.smclient.projecthealth;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -29,7 +29,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.greenfiling.smclient.TestHelper;
+import com.greenfiling.smclient.util.TestHelper;
 
 public class StandardContents_UnitTest {
   // @SuppressWarnings("unused")

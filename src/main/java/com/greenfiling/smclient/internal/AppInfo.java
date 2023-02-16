@@ -47,7 +47,7 @@ public class AppInfo {
     if (appInfo == null) {
       appInfo = ArtifactVersionCollector.findArtifact(GROUP_ID, ARTIFACT_ID);
       if (appInfo == null) {
-        logger.error("getAppInfo - unable to find artifact {}.{}, using manufactured information");
+        logger.error("getAppInfo - unable to find artifact for {}.{}, using manufactured information", GROUP_ID, ARTIFACT_ID);
         appInfo = new Artifact(GROUP_ID, ARTIFACT_ID, "UNKNOWN", 0, "smclient");
       }
     }

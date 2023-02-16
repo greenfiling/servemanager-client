@@ -16,21 +16,24 @@
 
 package com.greenfiling.smclient;
 
-import static com.greenfiling.smclient.TestHelper.log;
+import static com.greenfiling.smclient.util.TestHelper.log;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.greenfiling.smclient.internal.JsonHandle;
 import com.greenfiling.smclient.model.Account;
-import com.greenfiling.smclient.model.Links;
 import com.greenfiling.smclient.model.exchange.Show;
+import com.greenfiling.smclient.util.TestHelper;
 
-public class AccountClient_Manual {
+public class AccountClient_IntegrationTest {
   @SuppressWarnings("unused")
-  private static final Logger logger = LoggerFactory.getLogger(AccountClient_Manual.class);
+  private static final Logger logger = LoggerFactory.getLogger(AccountClient_IntegrationTest.class);
 
   private static ApiHandle apiHandle = null;
   private static AccountClient client = null;
@@ -46,11 +49,16 @@ public class AccountClient_Manual {
   @Test
   public void testShowAccount_HappyPath() throws Exception {
     Show<Account> response = client.show();
-    Links links = response.getData().getLinks();
-    log("links.self = %s", links.getSelf());
+
+    assertThat(response, not(equalTo(null)));
+    assertThat(response.getData(), not(equalTo(null)));
+    assertThat(response.getData().getLinks(), not(equalTo(null)));
+    assertThat(response.getData().getType(), equalTo("account"));
+    assertThat(response.getData().getId(), greaterThan(0));
+
+    log("links.self = %s", response.getData().getLinks().getSelf());
     log("type = %s", response.getData().getType());
     log("updated_at = %s", response.getData().getUpdatedAt().toString());
-    log("re-serialized: %s", JsonHandle.get().getGsonWithNulls().toJson(response));
+    // log("re-serialized: %s", JsonHandle.get().getGsonWithNulls().toJson(response));
   }
-
 }
