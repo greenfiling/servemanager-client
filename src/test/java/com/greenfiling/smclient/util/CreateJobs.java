@@ -16,6 +16,8 @@
 
 package com.greenfiling.smclient.util;
 
+import static com.greenfiling.smclient.TestHelper.fmt;
+
 import com.greenfiling.smclient.ApiHandle;
 import com.greenfiling.smclient.JobClient;
 import com.greenfiling.smclient.TestHelper;
@@ -26,13 +28,14 @@ import com.greenfiling.smclient.model.exchange.Show;
 public class CreateJobs {
 
   public static void main(String[] args) {
+    TestHelper.loadTestResources();
     final String VALID_API_KEY = TestHelper.VALID_API_KEY;
 
     for (int i = 0; i < 200; i++) {
       ApiHandle apiHandle = new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
       JobClient client = new JobClient(apiHandle);
 
-      Job newJob = new Job();
+      Job newJob = TestHelper.getTestJob(fmt("job %d", i));
 
       Show<Job> response = null;
       try {

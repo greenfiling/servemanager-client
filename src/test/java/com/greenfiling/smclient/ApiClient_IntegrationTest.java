@@ -45,7 +45,7 @@ public class ApiClient_IntegrationTest {
     ApiHandle handle = TestHelper.getApiHandle();
     JobClient client = new JobClient(handle);
 
-    Job newJob = new Job();
+    Job newJob = TestHelper.getTestJob();
 
     Show<Job> response = client.create(newJob);
     assertThat(response, not(equalTo(null)));

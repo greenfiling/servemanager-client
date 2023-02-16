@@ -72,7 +72,7 @@ public class JobClient_FlexUpload_Manual {
     doc.setFileName("file_name.pdf");
     docs.add(doc);
 
-    JobSubmit job = new JobSubmit();
+    JobSubmit job = TestHelper.getTestJobSubmit();
     job.setClientCompanyId(TestHelper.VALID_CLIENT_COMPANY_ID);
     job.setClientContactId(TestHelper.VALID_CLIENT_CONTACT_ID);
     job.setProcessServerCompanyId(TestHelper.VALID_PROCESS_SERVER_COMPANY_ID);
@@ -80,8 +80,8 @@ public class JobClient_FlexUpload_Manual {
     // job.setEmployeeProcessServerId(TestHelper.VALID_EMPLOYEE_PROCESS_SERVER_ID);
     job.setCourtCaseId(TestHelper.VALID_COURT_CASE_ID);
     job.setDueDate(LocalDate.parse("2021-12-01"));
-    job.setServiceInstructions("from testCreateJob_Full");
-    job.setClientJobNumber("A623948z");
+    job.setServiceInstructions(job.getServiceInstructions() + "\nfrom testCreateJob_Full");
+    job.setClientJobNumber(job.getClientJobNumber() + " A623948z");
     job.setRush(true);
     job.setJobStatus(Job.JOB_STATUS_FILED);
     job.setRecipientAttributes(r);
@@ -108,7 +108,7 @@ public class JobClient_FlexUpload_Manual {
       System.out.println("document_to_be_served, " + d.getUpload().getLinks().getDownloadUrl());
     }
 
-    // JobSubmit newJob = new JobSubmit();
+    // JobSubmit newJob = TestHelper.getTestJobSubmit("job 2")
     // job.setCourtCaseId(1234);
     // job.setRush(true);
     // job.setDueDate(LocalDate.parse("2021-11-15"));
@@ -127,7 +127,7 @@ public class JobClient_FlexUpload_Manual {
     // ServiceDocument docObj = resp.getData().getDocumentsToBeServed().get(0);
     // jobClient.completeUpload(docObj.getUpload(), "application/pdf", new File("/path/to/file_name.pdf"));
 
-    // JobSubmit newJob = new JobSubmit();
+    // JobSubmit newJob = TestHelper.getTestJobSubmit("job 3")
     // Recipient recipient = new Recipient();
     // recipient.setGender(Recipient.GENDER_MALE);
     // newJob.setRecipientAttributes(recipient);
@@ -158,14 +158,14 @@ public class JobClient_FlexUpload_Manual {
     doc.setExternalUrl("https://github.com/greenfiling/servemanager-client/raw/main/src/test/resources/small-1.pdf");
     docs.add(doc);
 
-    JobSubmit job = new JobSubmit();
+    JobSubmit job = TestHelper.getTestJobSubmit();
     job.setClientCompanyId(TestHelper.VALID_CLIENT_COMPANY_ID);
     job.setClientContactId(TestHelper.VALID_CLIENT_CONTACT_ID);
     job.setProcessServerCompanyId(TestHelper.VALID_PROCESS_SERVER_COMPANY_ID);
     job.setCourtCaseId(TestHelper.VALID_COURT_CASE_ID);
     job.setDueDate(LocalDate.parse("2021-12-01"));
-    job.setServiceInstructions("from testCreateJob_Full");
-    job.setClientJobNumber("A623948z");
+    job.setServiceInstructions(job.getServiceInstructions() + "\nfrom testCreateJob_ExternalUrl");
+    job.setClientJobNumber(job.getClientJobNumber() + " A623948z");
     job.setRush(true);
     job.setJobStatus(Job.JOB_STATUS_FILED);
     job.setRecipientAttributes(r);

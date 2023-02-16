@@ -51,7 +51,7 @@ public class Transactions_IntegrationTests {
     ApiHandle handle = TestHelper.getApiHandle();
     JobClient client = new JobClient(handle);
 
-    Job newJob = new Job();
+    Job newJob = TestHelper.getTestJob();
 
     Show<Job> response = client.create(newJob);
     assertThat(response, not(equalTo(null)));
@@ -109,7 +109,7 @@ public class Transactions_IntegrationTests {
     ApiHandle handle = TestHelper.getApiHandle();
     JobClient client = new JobClient(handle);
 
-    Job newJob = new Job();
+    Job newJob = TestHelper.getTestJob();
 
     // transaction 1 = POST to create the job
     Show<Job> response = client.create(newJob);
@@ -144,7 +144,7 @@ public class Transactions_IntegrationTests {
     ApiHandle handle = TestHelper.getApiHandle();
     JobClient client = new JobClient(handle);
 
-    Job newJob = new Job();
+    Job newJob = TestHelper.getTestJob();
 
     Show<Job> response = client.create(newJob);
     assertThat(response, not(equalTo(null)));
@@ -171,7 +171,7 @@ public class Transactions_IntegrationTests {
     doc.setFileName("file_name.pdf");
     docs.add(doc);
 
-    JobSubmit job = new JobSubmit();
+    JobSubmit job = TestHelper.getTestJobSubmit();
     job.setDocumentsToBeServedAttributes(docs);
     job.setMiscAttachmentsAttributes(null);
 
@@ -330,7 +330,7 @@ public class Transactions_IntegrationTests {
     ApiHandle handle = TestHelper.getApiHandle();
     JobClient client = new JobClient(handle);
 
-    Job newJob = new Job();
+    Job newJob = TestHelper.getTestJob();
 
     // transaction 1 = POST to create the job
     Show<Job> response = client.create(newJob);

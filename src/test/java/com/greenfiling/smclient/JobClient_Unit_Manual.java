@@ -97,14 +97,14 @@ public class JobClient_Unit_Manual {
     ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
-    Job newJob = new Job();
+    Job newJob = TestHelper.getTestJob();
 
     Show<Job> response = client.create(newJob);
     Links links = response.getData().getLinks();
     System.out.println("job created, links.self = " + links.getSelf());
 
     // JobClient jobClient = new JobClient(apiHandle);
-    // JobSubmit job = new JobSubmit();
+    // JobSubmit job = TestHelper.getTestJobSubmit("job 2");
     // job.setCourtCaseId(1234);
     // job.setRush(true);
     // job.setDueDate(LocalDate.parse("2021-11-15"));
@@ -119,7 +119,7 @@ public class JobClient_Unit_Manual {
     ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
-    Job newJob = new Job();
+    Job newJob = TestHelper.getTestJob();
     newJob.setJobTypeId(JobBase.JOB_TYPE_SOP);
 
     Show<Job> response = client.create(newJob);
@@ -127,7 +127,7 @@ public class JobClient_Unit_Manual {
     System.out.println("job created, links.self = " + links.getSelf());
 
     // JobClient jobClient = new JobClient(apiHandle);
-    // JobSubmit job = new JobSubmit();
+    // JobSubmit job = TestHelper.getTestJobSubmit("job 2");
     // job.setCourtCaseId(1234);
     // job.setRush(true);
     // job.setDueDate(LocalDate.parse("2021-11-15"));
@@ -153,7 +153,7 @@ public class JobClient_Unit_Manual {
     ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
-    Job newJob = new Job();
+    Job newJob = TestHelper.getTestJob();
 
     // Doesn't seem to actually do anything. Still haven't heard what good this is
     HashMap<String, String> custom = new HashMap<String, String>();
@@ -188,7 +188,7 @@ public class JobClient_Unit_Manual {
     AttemptSubmit attemptSubmit = new AttemptSubmit();
     attemptSubmit.setRecipientEthnicity(Recipient.ETHNICITY_CAUCASIAN);
 
-    Job job = new Job();
+    Job job = TestHelper.getTestJob();
     job.setJobStatus(Job.JOB_STATUS_CANCELED);
 
     Company company = new Company();
@@ -463,7 +463,7 @@ public class JobClient_Unit_Manual {
     ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
-    Job newJob = new Job();
+    Job newJob = TestHelper.getTestJob();
     Integer jobId = 8595080;
     newJob.setJobStatus(Job.JOB_STATUS_ON_HOLD);
     newJob.setRush(true);
@@ -473,7 +473,7 @@ public class JobClient_Unit_Manual {
     Links links = response.getData().getLinks();
     System.out.println("job created, links.self = " + links.getSelf());
 
-    // JobSubmit job = new JobSubmit();
+    // JobSubmit job = TestHelper.getTestJobSubmit("job 2");
     // job.setRush(true);
     //
     // JobClient jobClient = new JobClient(apiHandle);
@@ -497,7 +497,7 @@ public class JobClient_Unit_Manual {
     ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
 
-    Job newJob = new Job();
+    Job newJob = TestHelper.getTestJob();
 
     Show<Job> response = client.create(newJob);
     Links links = response.getData().getLinks();
@@ -523,7 +523,7 @@ public class JobClient_Unit_Manual {
         response.getData().getMiscAttachments().size()));
     // }
 
-    // JobSubmit job = new JobSubmit();
+    // JobSubmit job = TestHelper.getTestJobSubmit("job 2");
     // job.setCourtCaseId(1234);
     // job.setRush(true);
     // job.setDueDate(LocalDate.parse("2021-11-15"));

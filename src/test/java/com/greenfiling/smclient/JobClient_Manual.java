@@ -73,7 +73,7 @@ public class JobClient_Manual {
     a.setPrimary(false);
     addresses.add(a);
 
-    JobSubmit job = new JobSubmit();
+    JobSubmit job = TestHelper.getTestJobSubmit();
     job.setClientCompanyId(TestHelper.VALID_CLIENT_COMPANY_ID);
     job.setClientContactId(TestHelper.VALID_CLIENT_CONTACT_ID);
     job.setProcessServerCompanyId(TestHelper.VALID_PROCESS_SERVER_COMPANY_ID);
@@ -81,8 +81,8 @@ public class JobClient_Manual {
     // job.setEmployeeProcessServerId(TestHelper.VALID_EMPLOYEE_PROCESS_SERVER_ID);
     job.setCourtCaseId(TestHelper.VALID_COURT_CASE_ID);
     job.setDueDate(LocalDate.parse("2021-12-01"));
-    job.setServiceInstructions("from testCreateJob_Full");
-    job.setClientJobNumber("A623948z");
+    job.setServiceInstructions(job.getServiceInstructions() + "\nfrom testCreateJob_Full");
+    job.setClientJobNumber(job.getClientJobNumber() + " A623948z");
     job.setRush(true);
     job.setJobStatus(Job.JOB_STATUS_FILED);
     job.setRecipientAttributes(r);
