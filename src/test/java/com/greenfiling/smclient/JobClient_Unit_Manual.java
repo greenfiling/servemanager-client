@@ -16,6 +16,7 @@
 
 package com.greenfiling.smclient;
 
+import static com.greenfiling.smclient.TestHelper.log;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -101,7 +102,7 @@ public class JobClient_Unit_Manual {
 
     Show<Job> response = client.create(newJob);
     Links links = response.getData().getLinks();
-    System.out.println("job created, links.self = " + links.getSelf());
+    log("job created, links.self = %s", links.getSelf());
 
     // JobClient jobClient = new JobClient(apiHandle);
     // JobSubmit job = TestHelper.getTestJobSubmit("job 2");
@@ -109,7 +110,7 @@ public class JobClient_Unit_Manual {
     // job.setRush(true);
     // job.setDueDate(LocalDate.parse("2021-11-15"));
     // Show<Job> createdJob = jobClient.create(job);
-    // System.out.println("New job " + createdJob.getData().getId() + " visible at " + createdJob.getData().getLinks().getSelf());
+    // log("New job " + createdJob.getData().getId() + " visible at " + createdJob.getData().getLinks().getSelf());
 
   }
 
@@ -124,7 +125,7 @@ public class JobClient_Unit_Manual {
 
     Show<Job> response = client.create(newJob);
     Links links = response.getData().getLinks();
-    System.out.println("job created, links.self = " + links.getSelf());
+    log("job created, links.self = %s", links.getSelf());
 
     // JobClient jobClient = new JobClient(apiHandle);
     // JobSubmit job = TestHelper.getTestJobSubmit("job 2");
@@ -132,7 +133,7 @@ public class JobClient_Unit_Manual {
     // job.setRush(true);
     // job.setDueDate(LocalDate.parse("2021-11-15"));
     // Show<Job> createdJob = jobClient.create(job);
-    // System.out.println("New job " + createdJob.getData().getId() + " visible at " + createdJob.getData().getLinks().getSelf());
+    // log("New job " + createdJob.getData().getId() + " visible at " + createdJob.getData().getLinks().getSelf());
 
   }
 
@@ -144,8 +145,8 @@ public class JobClient_Unit_Manual {
   //
   // Show<Job> resp = client.show(11051692);
   //
-  // System.out.println("Job Number: " + resp.getData().getServeManagerJobNumber());
-  // System.out.println("Job Type ID: " + resp.getData().getJobTypeId());
+  // log("Job Number: %s", resp.getData().getServeManagerJobNumber());
+  // log("Job Type ID: %s", resp.getData().getJobTypeId());
   // }
 
   @Test
@@ -162,7 +163,7 @@ public class JobClient_Unit_Manual {
 
     Show<Job> response = client.create(newJob);
     Links links = response.getData().getLinks();
-    System.out.println("job created, links.self = " + links.getSelf());
+    log("job created, links.self = %s", links.getSelf());
   }
 
   @Test
@@ -173,11 +174,11 @@ public class JobClient_Unit_Manual {
     // format = "yyyy-MM-dd'T'HH:mm:ss";
     DateFormat dateFormat = new SimpleDateFormat(format, Locale.US);
     Date date = dateFormat.parse(dateString);
-    System.out.println("date = " + date.toString());
+    log("date = %s", date.toString());
 
     DateFormat dateFormatCur = new SimpleDateFormat(format, Locale.US);
     Date curDate = new Date();
-    System.out.println(dateFormatCur.format(curDate));
+    log(dateFormatCur.format(curDate));
   }
 
   @Test
@@ -205,7 +206,7 @@ public class JobClient_Unit_Manual {
     String localPath = System.getProperty("java.io.tmpdir") + "/test-file.out";
 
     client.getFile(url, localPath);
-    System.out.println("Downloaded to " + localPath);
+    log("Downloaded to %s", localPath);
   }
 
   @Test
@@ -219,8 +220,8 @@ public class JobClient_Unit_Manual {
     String localPath = System.getProperty("java.io.tmpdir") + "/" + doc.getUpload().getFileName();
 
     client.getFile(doc.getUpload().getLinks().getDownloadUrl(), localPath);
-    System.out.println("Downloaded from " + doc.getUpload().getLinks().getDownloadUrl());
-    System.out.println("Downloaded to " + localPath);
+    log("Downloaded from %s", doc.getUpload().getLinks().getDownloadUrl());
+    log("Downloaded to %s", localPath);
   }
 
   @Test
@@ -231,10 +232,10 @@ public class JobClient_Unit_Manual {
     Index<Job> response = client.index();
     while (response != null) {
       Links links = response.getLinks();
-      System.out.println("links.self = " + links.getSelf());
+      log("links.self = %s", links.getSelf());
 
       ArrayList<Job> jobs = response.getData();
-      System.out.println("Number of jobs in response: " + jobs.size());
+      log("Number of jobs in response: %s", jobs.size());
 
       response = client.getNext(response);
     }
@@ -249,7 +250,7 @@ public class JobClient_Unit_Manual {
     // total += resp.getData().size();
     // response = client.getNext(response);
     // }
-    // System.out.println(total + " total objects returned across " + pages + " pages");
+    // log(total + " total objects returned across " + pages + " pages");
 
   }
 
@@ -265,10 +266,10 @@ public class JobClient_Unit_Manual {
 
     Index<Job> response = client.index(filter);
     Links links = response.getLinks();
-    System.out.println("links.self = " + links.getSelf());
+    log("links.self = %s", links.getSelf());
 
     ArrayList<Job> jobs = response.getData();
-    System.out.println("Number of jobs in response: " + jobs.size());
+    log("Number of jobs in response: %s", jobs.size());
 
     // // Create a job filter that lists all jobs that have the test foobar in them and were created after October 1, 2021
     // JobFilter jobFilter = new JobFilter();
@@ -280,10 +281,10 @@ public class JobClient_Unit_Manual {
     // JobClient jobClient = new JobClient(apiHandle);
     // Index<Job> resp = jobClient.index(filter);
     //
-    // System.out.println("Matching jobs:");
+    // log("Matching jobs:");
     // while (resp != null) {
     // for (Job j : resp.getData()) {
-    // System.out.println(" - JobId: " + j.getId() + ", URL = " + j.getLinks().getSelf());
+    // log(" - JobId: " + j.getId() + ", URL = " + j.getLinks().getSelf());
     // }
     // resp = jobClient.getNext(resp);
     // }
@@ -298,10 +299,10 @@ public class JobClient_Unit_Manual {
 
     Index<Job> response = client.index();
     Links links = response.getLinks();
-    System.out.println("links.self = " + links.getSelf());
+    log("links.self = %s", links.getSelf());
 
     ArrayList<Job> jobs = response.getData();
-    System.out.println("Number of jobs in response: " + jobs.size());
+    log("Number of jobs in response: %s", jobs.size());
   }
 
   @Test
@@ -318,10 +319,10 @@ public class JobClient_Unit_Manual {
     Index<Job> response = client.index(filter);
 
     Links links = response.getLinks();
-    System.out.println("links.self = " + links.getSelf());
+    log("links.self = %s", links.getSelf());
 
     ArrayList<Job> jobs = response.getData();
-    System.out.println("Number of jobs in response: " + jobs.size());
+    log("Number of jobs in response: %s", jobs.size());
   }
 
   @Test
@@ -331,26 +332,26 @@ public class JobClient_Unit_Manual {
 
     Index<Job> response = client.index();
     Links links = response.getLinks();
-    System.out.println("links.self = " + links.getSelf());
+    log("links.self = %s", links.getSelf());
 
     ArrayList<Job> jobs = response.getData();
-    System.out.println("Number of jobs in response: " + jobs.size());
+    log("Number of jobs in response: %s", jobs.size());
 
     // JobClient jobClient = new JobClient(apiHandle);
     // Index<Job> resp = jobClient.index();
-    // System.out.println("Number of jobs in response: " + resp.getData().size());
-    // System.out.println("ServeManager Job Numbers: ");
+    // log("Number of jobs in response: %s", resp.getData().size());
+    // log("ServeManager Job Numbers: ");
     // for (Job j : resp.getData()) {
-    // System.out.println(" - " + j.getServeManagerJobNumber());
+    // log(" - %s", j.getServeManagerJobNumber());
     // }
 
   }
 
   @Test
   public void testLoadConfig() throws Exception {
-    System.out.println("VALID_API_KEY: " + TestHelper.VALID_API_KEY);
-    System.out.println("VALID_FILE_1: " + TestHelper.VALID_FILE_PATH_1);
-    System.out.println("VALID_FILE_2: " + TestHelper.VALID_FILE_PATH_2);
+    log("VALID_API_KEY: %s", TestHelper.VALID_API_KEY);
+    log("VALID_FILE_1: %s", TestHelper.VALID_FILE_PATH_1);
+    log("VALID_FILE_2: %s", TestHelper.VALID_FILE_PATH_2);
   }
 
   // because setEndPoint() is protected, we can't run this anymore. To test, do a custom extension of ApiClient that has the wrong endpoint
@@ -423,22 +424,22 @@ public class JobClient_Unit_Manual {
 
     Show<Job> response = client.show(8559826);
     Links links = response.getData().getLinks();
-    System.out.println("links.self = " + links.getSelf());
-    System.out.println("type = " + response.getData().getType());
-    System.out.println("updated_at = " + response.getData().getUpdatedAt());
-    System.out.println("recipient.name = " + response.getData().getRecipient().getName());
-    System.out.println("dueDate = " + response.getData().getDueDate());
-    // System.out.println(Util.printObject(response.getData()));
+    log("links.self = %s", links.getSelf());
+    log("type = %s", response.getData().getType());
+    log("updated_at = %s", response.getData().getUpdatedAt());
+    log("recipient.name = %s", response.getData().getRecipient().getName());
+    log("dueDate = %s", response.getData().getDueDate());
+    // log(Util.printObject(response.getData()));
 
     OffsetDateTime updatedAt = response.getData().getUpdatedAt().minusDays(3);
-    System.out.println("3 days before updatedAt = " + updatedAt);
+    log("3 days before updatedAt = %s", updatedAt);
 
     // JobClient jobClient = new JobClient(apiHandle);
     // Show<Job> resp = jobClient.show(123);
-    // System.out.println("Job Number: " + resp.getData().getServeManagerJobNumber());
-    // System.out.println("Documents for download: ");
+    // log("Job Number: %s", resp.getData().getServeManagerJobNumber());
+    // log("Documents for download: ");
     // for (Document d : resp.getData().getDocuments()) {
-    // System.out.println(" - " + d.getPdfDownloadUrl());
+    // log(" - %s", d.getPdfDownloadUrl());
     // }
 
   }
@@ -471,25 +472,25 @@ public class JobClient_Unit_Manual {
 
     Show<Job> response = client.update(jobId, newJob);
     Links links = response.getData().getLinks();
-    System.out.println("job created, links.self = " + links.getSelf());
+    log("job created, links.self = %s", links.getSelf());
 
     // JobSubmit job = TestHelper.getTestJobSubmit("job 2");
     // job.setRush(true);
     //
     // JobClient jobClient = new JobClient(apiHandle);
     // Show<Job> createdJob = jobClient.update(1234, job);
-    // System.out.println("Job " + createdJob.getData().getId() + " updated, new rush = " + createdJob.getData().getRush());
+    // log("Job " + createdJob.getData().getId() + " updated, new rush = " + createdJob.getData().getRush());
 
   }
 
   @Test
   public void testArtifactVersionService() throws Exception {
-    System.out.println("List of artifacts:");
+    log("List of artifacts:");
     for (Artifact artifact : ArtifactVersionCollector.collectArtifacts()) {
-      System.out.println("artifact = " + artifact);
+      log("artifact = %s", artifact);
     }
     Artifact smclient = ArtifactVersionCollector.findArtifact("com.greenfiling.smclient", "servemanager-client");
-    System.out.println(String.format("name = %s, version = %s", smclient.getName(), smclient.getVersion()));
+    log("name = %s, version = %s", smclient.getName(), smclient.getVersion());
   }
 
   @Test
@@ -528,11 +529,11 @@ public class JobClient_Unit_Manual {
     // job.setRush(true);
     // job.setDueDate(LocalDate.parse("2021-11-15"));
     // Show<Job> createdJob = client.create(job);
-    // System.out.println("New job " + createdJob.getData().getId() + " visible at " + createdJob.getData().getLinks().getSelf());
+    // log("New job " + createdJob.getData().getId() + " visible at " + createdJob.getData().getLinks().getSelf());
 
   }
 
   private void llog(String msg) {
-    System.err.println(LocalTime.now() + ": " + msg);
+    log("%s: %s", LocalTime.now(), msg);
   }
 }

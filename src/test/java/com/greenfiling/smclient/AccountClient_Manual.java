@@ -16,6 +16,8 @@
 
 package com.greenfiling.smclient;
 
+import static com.greenfiling.smclient.TestHelper.log;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -45,11 +47,10 @@ public class AccountClient_Manual {
   public void testShowAccount_HappyPath() throws Exception {
     Show<Account> response = client.show();
     Links links = response.getData().getLinks();
-    System.out.println("links.self = " + links.getSelf());
-    System.out.println("type = " + response.getData().getType());
-    System.out.println("updated_at = " + response.getData().getUpdatedAt());
-
-    System.out.println("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+    log("links.self = %s", links.getSelf());
+    log("type = %s", response.getData().getType());
+    log("updated_at = %s", response.getData().getUpdatedAt().toString());
+    log("re-serialized: %s", JsonHandle.get().getGsonWithNulls().toJson(response));
   }
 
 }

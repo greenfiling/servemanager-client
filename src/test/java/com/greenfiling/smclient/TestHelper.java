@@ -250,7 +250,7 @@ public class TestHelper {
 
   // public static void setLogLevel() {
   // if (LOG_AT_TRACE) {
-  // System.out.println("setting log level to TRACE");
+  // log("setting log level to TRACE");
   // System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "Trace");
   // }
   // }

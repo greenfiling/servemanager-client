@@ -16,6 +16,8 @@
 
 package com.greenfiling.smclient;
 
+import static com.greenfiling.smclient.TestHelper.log;
+
 import java.util.ArrayList;
 
 import org.junit.BeforeClass;
@@ -48,21 +50,21 @@ public class AttemptClient_Manual {
   public void testIndexAttempt_HappyPath() throws Exception {
     Index<Attempt> response = client.index();
     Links links = response.getLinks();
-    System.out.println("links.self = " + links.getSelf());
+    log("links.self = %s", links.getSelf());
 
     ArrayList<Attempt> attempts = response.getData();
-    System.out.println("Number of jobs in response: " + attempts.size());
+    log("Number of jobs in response: %s", attempts.size());
 
-    System.out.println("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+    log("re-serialized: %s", JsonHandle.get().getGsonWithNulls().toJson(response));
   }
 
   @Test
   public void testShowAttempt_HappyPath() throws Exception {
     Show<Attempt> response = client.show(9366284);
-    System.out.println("type = " + response.getData().getType());
-    System.out.println("updated_at = " + response.getData().getUpdatedAt());
+    log("type = %s", response.getData().getType());
+    log("updated_at = %s", response.getData().getUpdatedAt());
 
-    System.out.println("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+    log("re-serialized: %s", JsonHandle.get().getGsonWithNulls().toJson(response));
   }
 
 }

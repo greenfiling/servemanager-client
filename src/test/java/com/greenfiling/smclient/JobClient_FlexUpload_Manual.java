@@ -16,6 +16,8 @@
 
 package com.greenfiling.smclient;
 
+import static com.greenfiling.smclient.TestHelper.log;
+
 import java.io.File;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -91,21 +93,21 @@ public class JobClient_FlexUpload_Manual {
 
     Show<Job> response = client.create(job);
     Links links = response.getData().getLinks();
-    System.out.println("links.self = " + links.getSelf());
-    System.out.println("type = " + response.getData().getType());
-    System.out.println("updated_at = " + response.getData().getUpdatedAt());
-    System.out.println("recipient.name = " + response.getData().getRecipient().getName());
-    System.out.println("dueDate = " + response.getData().getDueDate());
-    // System.out.println(Util.printObject(response.getData()));
+    log("links.self = %s", links.getSelf());
+    log("type = %s", response.getData().getType());
+    log("updated_at = %s", response.getData().getUpdatedAt());
+    log("recipient.name = %s", response.getData().getRecipient().getName());
+    log("dueDate = %s", response.getData().getDueDate());
+    // log(Util.printObject(response.getData()));
 
     for (ServiceDocument d : response.getData().getDocumentsToBeServed()) {
       client.completeUpload(d.getUpload(), "application/pdf", new File(TestHelper.VALID_FILE_PATH_1));
     }
 
     response = client.show(response.getData().getId());
-    System.out.println("links.self = " + links.getSelf());
+    log("links.self = %s", links.getSelf());
     for (ServiceDocument d : response.getData().getDocumentsToBeServed()) {
-      System.out.println("document_to_be_served, " + d.getUpload().getLinks().getDownloadUrl());
+      log("document_to_be_served, %s", d.getUpload().getLinks().getDownloadUrl());
     }
 
     // JobSubmit newJob = TestHelper.getTestJobSubmit("job 2")
@@ -175,17 +177,17 @@ public class JobClient_FlexUpload_Manual {
 
     Show<Job> response = client.create(job);
     Links links = response.getData().getLinks();
-    System.out.println("links.self = " + links.getSelf());
-    System.out.println("type = " + response.getData().getType());
-    System.out.println("updated_at = " + response.getData().getUpdatedAt());
-    System.out.println("recipient.name = " + response.getData().getRecipient().getName());
-    System.out.println("dueDate = " + response.getData().getDueDate());
-    // System.out.println(Util.printObject(response.getData()));
+    log("links.self = %s", links.getSelf());
+    log("type = %s", response.getData().getType());
+    log("updated_at = %s", response.getData().getUpdatedAt());
+    log("recipient.name = %s", response.getData().getRecipient().getName());
+    log("dueDate = %s", response.getData().getDueDate());
+    // log(Util.printObject(response.getData()));
 
     response = client.show(response.getData().getId());
-    System.out.println("links.self = " + links.getSelf());
+    log("links.self = %s", links.getSelf());
     for (ServiceDocument d : response.getData().getDocumentsToBeServed()) {
-      System.out.println("document_to_be_served, " + d.getUpload().getLinks().getDownloadUrl());
+      log("document_to_be_served, %s", d.getUpload().getLinks().getDownloadUrl());
     }
   }
 

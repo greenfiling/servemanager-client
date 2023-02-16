@@ -92,47 +92,47 @@ public class JobClient_Manual {
 
     Show<Job> response = client.create(job);
     Links links = response.getData().getLinks();
-    System.out.println("links.self = " + links.getSelf());
-    System.out.println("type = " + response.getData().getType());
-    System.out.println("updated_at = " + response.getData().getUpdatedAt());
-    System.out.println("recipient.name = " + response.getData().getRecipient().getName());
-    System.out.println("dueDate = " + response.getData().getDueDate());
-    // System.out.println(Util.printObject(response.getData()));
+    log("links.self = %s", links.getSelf());
+    log("type = %s", response.getData().getType());
+    log("updated_at = %s", response.getData().getUpdatedAt());
+    log("recipient.name = %s", response.getData().getRecipient().getName());
+    log("dueDate = %s", response.getData().getDueDate());
+    // log(Util.printObject(response.getData()));
   }
 
   @Test
   public void testIndexJob_HappyPath() throws Exception {
     Index<Job> response = client.index();
     Links links = response.getLinks();
-    System.out.println("links.self = " + links.getSelf());
+    log("links.self = %s", links.getSelf());
 
     ArrayList<Job> courts = response.getData();
-    System.out.println("Number of jobs in response: " + courts.size());
+    log("Number of jobs in response: %s", courts.size());
 
-    System.out.println("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+    log("re-serialized: %s", JsonHandle.get().getGsonWithNulls().toJson(response));
   }
 
   @Test
   public void testIndexNotesJob_HappyPath() throws Exception {
     Index<Note> response = client.indexNotes(6566221);
     Links links = response.getLinks();
-    System.out.println("links.self = " + links.getSelf());
+    log("links.self = %s", links.getSelf());
 
     ArrayList<Note> courts = response.getData();
-    System.out.println("Number of jobs in response: " + courts.size());
+    log("Number of jobs in response: %s", courts.size());
 
-    System.out.println("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+    log("re-serialized: %s", JsonHandle.get().getGsonWithNulls().toJson(response));
   }
 
   @Test
   public void testShowJob_HappyPath() throws Exception {
     Show<Job> response = client.show(6566221);
     Links links = response.getData().getLinks();
-    System.out.println("links.self = " + links.getSelf());
-    System.out.println("type = " + response.getData().getType());
-    System.out.println("updated_at = " + response.getData().getUpdatedAt());
+    log("links.self = %s", links.getSelf());
+    log("type = %s", response.getData().getType());
+    log("updated_at = %s", response.getData().getUpdatedAt());
 
-    System.out.println("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+    log("re-serialized: %s", JsonHandle.get().getGsonWithNulls().toJson(response));
   }
 
   @Test

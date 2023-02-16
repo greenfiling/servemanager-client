@@ -16,6 +16,8 @@
 
 package com.greenfiling.smclient;
 
+import static com.greenfiling.smclient.TestHelper.log;
+
 import java.util.ArrayList;
 
 import org.junit.BeforeClass;
@@ -48,23 +50,23 @@ public class CourtCaseClient_Manual {
   public void testIndexCourtCase_HappyPath() throws Exception {
     Index<CourtCase> response = client.index();
     Links links = response.getLinks();
-    System.out.println("links.self = " + links.getSelf());
+    log("links.self = %s", links.getSelf());
 
     ArrayList<CourtCase> courts = response.getData();
-    System.out.println("Number of jobs in response: " + courts.size());
+    log("Number of jobs in response: %s", courts.size());
 
-    System.out.println("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+    log("re-serialized: %s", JsonHandle.get().getGsonWithNulls().toJson(response));
   }
 
   @Test
   public void testShowCourtCase_HappyPath() throws Exception {
     Show<CourtCase> response = client.show(3968864);
     Links links = response.getData().getLinks();
-    System.out.println("links.self = " + links.getSelf());
-    System.out.println("type = " + response.getData().getType());
-    System.out.println("updated_at = " + response.getData().getUpdatedAt());
+    log("links.self = %s", links.getSelf());
+    log("type = %s", response.getData().getType());
+    log("updated_at = %s", response.getData().getUpdatedAt());
 
-    System.out.println("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+    log("re-serialized: %s", JsonHandle.get().getGsonWithNulls().toJson(response));
   }
 
 }

@@ -16,6 +16,8 @@
 
 package com.greenfiling.smclient;
 
+import static com.greenfiling.smclient.TestHelper.log;
+
 import java.util.ArrayList;
 
 import org.junit.BeforeClass;
@@ -47,11 +49,11 @@ public class EmployeeClient_Manual {
   public void testIndexEmployee_HappyPath() throws Exception {
     Index<Employee> response = client.index();
     Links links = response.getLinks();
-    System.out.println("links.self = " + links.getSelf());
+    log("links.self = %s", links.getSelf());
 
     ArrayList<Employee> employees = response.getData();
-    System.out.println("Number of jobs in response: " + employees.size());
+    log("Number of jobs in response: %s", employees.size());
 
-    System.out.println("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+    log("re-serialized: %s", JsonHandle.get().getGsonWithNulls().toJson(response));
   }
 }

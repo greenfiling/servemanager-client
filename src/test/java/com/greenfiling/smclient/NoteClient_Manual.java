@@ -16,6 +16,8 @@
 
 package com.greenfiling.smclient;
 
+import static com.greenfiling.smclient.TestHelper.log;
+
 import java.util.ArrayList;
 
 import org.junit.BeforeClass;
@@ -51,12 +53,12 @@ public class NoteClient_Manual {
   public void testIndexNote_HappyPath() throws Exception {
     Index<Note> response = client.index();
     Links links = response.getLinks();
-    System.out.println("links.self = " + links.getSelf());
+    log("links.self = %s", links.getSelf());
 
     ArrayList<Note> notes = response.getData();
-    System.out.println("Number of notes in response: " + notes.size());
+    log("Number of notes in response: %s", notes.size());
 
-    System.out.println("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+    log("re-serialized: %s", JsonHandle.get().getGsonWithNulls().toJson(response));
   }
 
   @Test
@@ -64,12 +66,12 @@ public class NoteClient_Manual {
     Index<Note> response = jobClient.indexNotes(jobId);
 
     Links links = response.getLinks();
-    System.out.println("links.self = " + links.getSelf());
+    log("links.self = %s", links.getSelf());
 
     ArrayList<Note> notes = response.getData();
-    System.out.println("Number of notes in response: " + notes.size());
+    log("Number of notes in response: %s", notes.size());
 
-    System.out.println("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+    log("re-serialized: %s", JsonHandle.get().getGsonWithNulls().toJson(response));
   }
 
   @Test
@@ -80,14 +82,14 @@ public class NoteClient_Manual {
     note.setJobId(jobId);
 
     Index<Note> indexResponse = jobClient.indexNotes(jobId);
-    System.out.println("Number of notes before create: " + indexResponse.getData().size());
+    log("Number of notes before create: %s", indexResponse.getData().size());
 
     Show<Note> createResponse = jobClient.createNote(note);
-    System.out.println("re-serialized: " + JsonHandle.get().getGson().toJson(createResponse));
-    System.out.println("created note id = " + createResponse.getData().getId());
+    log("re-serialized: %s", JsonHandle.get().getGson().toJson(createResponse));
+    log("created note id = %s", createResponse.getData().getId());
 
     indexResponse = jobClient.indexNotes(jobId);
-    System.out.println("Number of notes after create: " + indexResponse.getData().size());
+    log("Number of notes after create: %s", indexResponse.getData().size());
   }
 
 }

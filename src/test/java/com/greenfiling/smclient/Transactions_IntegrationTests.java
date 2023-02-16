@@ -60,7 +60,7 @@ public class Transactions_IntegrationTests {
 
   private static void showTransaction(Transaction txn) {
     if (txn == null) {
-      System.err.println("txn was null, nothing to show");
+      logger.error("txn was null, nothing to show");
       return;
     }
 
