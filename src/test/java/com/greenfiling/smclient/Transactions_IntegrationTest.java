@@ -16,7 +16,7 @@
 
 package com.greenfiling.smclient;
 
-import static com.greenfiling.smclient.TestHelper.log;
+import static com.greenfiling.smclient.util.TestHelper.log;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -37,10 +37,11 @@ import com.greenfiling.smclient.model.JobSubmit;
 import com.greenfiling.smclient.model.Links;
 import com.greenfiling.smclient.model.ServiceDocument;
 import com.greenfiling.smclient.model.exchange.Show;
+import com.greenfiling.smclient.util.TestHelper;
 
-public class Transactions_IntegrationTests {
-  @SuppressWarnings("unused")
-  private static final Logger logger = LoggerFactory.getLogger(Transactions_IntegrationTests.class);
+public class Transactions_IntegrationTest {
+  // @SuppressWarnings("unused")
+  private static final Logger logger = LoggerFactory.getLogger(Transactions_IntegrationTest.class);
   public static Job job;
 
   @BeforeClass
@@ -51,7 +52,7 @@ public class Transactions_IntegrationTests {
     ApiHandle handle = TestHelper.getApiHandle();
     JobClient client = new JobClient(handle);
 
-    Job newJob = new Job();
+    Job newJob = TestHelper.getTestJob();
 
     Show<Job> response = client.create(newJob);
     assertThat(response, not(equalTo(null)));
@@ -60,7 +61,7 @@ public class Transactions_IntegrationTests {
 
   private static void showTransaction(Transaction txn) {
     if (txn == null) {
-      System.err.println("txn was null, nothing to show");
+      logger.error("txn was null, nothing to show");
       return;
     }
 
@@ -68,22 +69,6 @@ public class Transactions_IntegrationTests {
     log(" REQUEST BODY %s", txn.getRequestBody());
     log("RESPONSE  %d %s", txn.getResponseCode(), txn.getResponseLine());
     log("RESPONSE BODY %s", txn.getResponseBody());
-  }
-
-  @Test
-  public void testTransactions_GET_HappyPath() throws Exception {
-    ApiHandle handle = TestHelper.getApiHandle();
-    JobClient client = new JobClient(handle);
-
-    Show<Job> response = client.show(job.getId());
-    assertThat(response, not(equalTo(null)));
-    assertThat(response.getData(), not(equalTo(null)));
-
-    ArrayList<Transaction> txns = handle.getTransactions();
-    assertThat(txns, not(equalTo(null)));
-    assertThat(txns.size(), equalTo(1));
-    Transaction txn = txns.get(0);
-    showTransaction(txn);
   }
 
   @Test
@@ -105,11 +90,27 @@ public class Transactions_IntegrationTests {
   }
 
   @Test
+  public void testTransactions_GET_HappyPath() throws Exception {
+    ApiHandle handle = TestHelper.getApiHandle();
+    JobClient client = new JobClient(handle);
+
+    Show<Job> response = client.show(job.getId());
+    assertThat(response, not(equalTo(null)));
+    assertThat(response.getData(), not(equalTo(null)));
+
+    ArrayList<Transaction> txns = handle.getTransactions();
+    assertThat(txns, not(equalTo(null)));
+    assertThat(txns.size(), equalTo(1));
+    Transaction txn = txns.get(0);
+    showTransaction(txn);
+  }
+
+  @Test
   public void testTransactions_multipleTransactionsAreDistinct() throws Exception {
     ApiHandle handle = TestHelper.getApiHandle();
     JobClient client = new JobClient(handle);
 
-    Job newJob = new Job();
+    Job newJob = TestHelper.getTestJob();
 
     // transaction 1 = POST to create the job
     Show<Job> response = client.create(newJob);
@@ -144,7 +145,7 @@ public class Transactions_IntegrationTests {
     ApiHandle handle = TestHelper.getApiHandle();
     JobClient client = new JobClient(handle);
 
-    Job newJob = new Job();
+    Job newJob = TestHelper.getTestJob();
 
     Show<Job> response = client.create(newJob);
     assertThat(response, not(equalTo(null)));
@@ -171,7 +172,7 @@ public class Transactions_IntegrationTests {
     doc.setFileName("file_name.pdf");
     docs.add(doc);
 
-    JobSubmit job = new JobSubmit();
+    JobSubmit job = TestHelper.getTestJobSubmit();
     job.setDocumentsToBeServedAttributes(docs);
     job.setMiscAttachmentsAttributes(null);
 
@@ -330,7 +331,7 @@ public class Transactions_IntegrationTests {
     ApiHandle handle = TestHelper.getApiHandle();
     JobClient client = new JobClient(handle);
 
-    Job newJob = new Job();
+    Job newJob = TestHelper.getTestJob();
 
     // transaction 1 = POST to create the job
     Show<Job> response = client.create(newJob);

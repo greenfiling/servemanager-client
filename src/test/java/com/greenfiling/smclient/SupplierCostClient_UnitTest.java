@@ -33,6 +33,7 @@ import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
 import com.greenfiling.smclient.model.exchange.SupplierCostFilter;
 import com.greenfiling.smclient.model.internal.JobBase;
+import com.greenfiling.smclient.util.TestHelper;
 
 public class SupplierCostClient_UnitTest {
   private static ApiHandle apiHandle = null;
@@ -149,7 +150,7 @@ public class SupplierCostClient_UnitTest {
 
     assertThat(response.getData().size(), equalTo(100));
     assertThat(response.getData().get(0).getAmount(), notNullValue());
-    assertThat(response.getData().stream().filter(x -> x.getJobTypeId().equals("2")).count(), equalTo(Long.valueOf(0)));
+    assertThat(response.getData().stream().filter(x -> x.getJobTypeId().equals(2)).count(), equalTo(Long.valueOf(0)));
 
   }
 
@@ -164,7 +165,7 @@ public class SupplierCostClient_UnitTest {
 
     assertThat(response.getData().size(), equalTo(100));
     assertThat(response.getData().get(0).getAmount(), notNullValue());
-    assertThat(response.getData().stream().filter(x -> x.getSlaId().equals("2")).count(), equalTo(Long.valueOf(0)));
+    assertThat(response.getData().stream().filter(x -> x.getSlaId().equals(2)).count(), equalTo(Long.valueOf(0)));
 
   }
 
@@ -179,7 +180,7 @@ public class SupplierCostClient_UnitTest {
 
     assertThat(response.getData().size(), equalTo(100));
     assertThat(response.getData().get(0).getAmount(), notNullValue());
-    assertThat(response.getData().stream().filter(x -> x.getSlaId().equals("1")).count(), equalTo(Long.valueOf(0)));
+    assertThat(response.getData().stream().filter(x -> x.getSlaId().equals(1)).count(), equalTo(Long.valueOf(0)));
 
   }
 

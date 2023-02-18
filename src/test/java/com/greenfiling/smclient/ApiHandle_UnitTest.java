@@ -25,6 +25,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.greenfiling.smclient.util.TestHelper;
+
 public class ApiHandle_UnitTest {
   @SuppressWarnings("unused")
   private static final Logger logger = LoggerFactory.getLogger(ApiHandle_UnitTest.class);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.greenfiling.smclient;
+package com.greenfiling.smclient.util;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
@@ -25,13 +25,21 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.Properties;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.greenfiling.smclient.ApiHandle;
 import com.greenfiling.smclient.model.Address;
+import com.greenfiling.smclient.model.Job;
+import com.greenfiling.smclient.model.JobSubmit;
 import com.greenfiling.smclient.model.Recipient;
+import com.greenfiling.smclient.model.internal.JobBase;
 
 public class TestHelper {
   private static final Logger logger = LoggerFactory.getLogger(TestHelper.class);
@@ -44,12 +52,17 @@ public class TestHelper {
   private static final String DEFAULT_API_KEY = "REPLACE_WITH_WORKING_API_KEY";
   private static final String SOURCE_RESOURCE_PATH = "src/test/resources";
 
+  public static final String REMOTE_FILE = "https://github.com/greenfiling/servemanager-client/raw/main/src/test/resources/small-1.pdf";
+  public static final String DEFAULT_STATUS = "TestSuite";
+  public static final String PAGINATION_STATUS = "ForPaginationTest";
   public static final Integer VALID_CLIENT_COMPANY_ID = 783056;
   public static final Integer VALID_CLIENT_CONTACT_ID = 984328;
   public static final Integer VALID_PROCESS_SERVER_COMPANY_ID = 917465;
   public static final Integer VALID_PROCESS_SERVER_CONTACT_ID = null;
   public static final Integer VALID_EMPLOYEE_PROCESS_SERVER_ID = 289268;
   public static final Integer VALID_COURT_CASE_ID = 3109987;
+  public static final Integer TEST_RUN_ID = getRandom(); // will be unique for every test run, allowing results created in the same test run to be
+                                                         // grouped
 
   private static Properties properties = null;
   public static String VALID_API_KEY;
@@ -81,6 +94,10 @@ public class TestHelper {
     return new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
   }
 
+  public static Integer getRandom() {
+    return ThreadLocalRandom.current().nextInt(Integer.MAX_VALUE - 1);
+  }
+
   public static Recipient getRecipient() {
     Recipient r = new Recipient();
 
@@ -99,6 +116,34 @@ public class TestHelper {
     r.setPhone("111-111-1111");
 
     return r;
+  }
+
+  public static Job getTestJob() {
+    return getTestJob(null);
+  }
+
+  // Generate a standard Job with recipient, status, and due date populated
+  public static Job getTestJob(String desc) {
+    Job job = new Job();
+    job.setRecipient(getRecipient());
+    decorateTestJob(job, desc);
+    return job;
+  }
+
+  public static JobSubmit getTestJobSubmit() {
+    return getTestJobSubmit(null);
+  }
+
+  // Generate a standard JobSubit with recipient, status, and due date populated
+  public static JobSubmit getTestJobSubmit(String desc) {
+    JobSubmit job = new JobSubmit();
+    job.setRecipientAttributes(getRecipient());
+    decorateTestJob(job, desc);
+    return job;
+  }
+
+  public static String getUniqueString() {
+    return "FOO-BAR-" + getRandom() + "-RAB-OOF";
   }
 
   public static void loadTestResources() {
@@ -130,6 +175,7 @@ public class TestHelper {
     VALID_FILE_PATH_2 = getResourcePath(VALID_FILE_NAME_2);
     assertNotNull(fmt("unable to find required test resource %s", VALID_FILE_NAME_2), VALID_FILE_PATH_2);
     assertThat(fmt("unable to find required test resource %s", VALID_FILE_NAME_2), VALID_FILE_PATH_2, not(equalTo("")));
+
   }
 
   public static void log(String template, Object... args) {
@@ -137,6 +183,58 @@ public class TestHelper {
       return;
     }
     System.out.println(String.format(template, args));
+  }
+
+  public static void logt(String msg) {
+    log("%s: %s", LocalTime.now(), msg);
+  }
+
+  public static Integer pageToInt(String url) {
+    // breaking this out into multiple pieces so that if/when it breaks the stack trace will be useful
+    int index = url.lastIndexOf("page=");
+    if (index == -1) {
+      // The nature of this method assumes we're passing in a pagination link which should have a page= in it. Therefore, if there is no
+      // page=, assume we're on the response to the very first call, meaning this is page 1
+      return 1;
+    }
+    String pageStr = url.substring(index + 5);
+    Integer page = Integer.valueOf(pageStr);
+
+    return page;
+  }
+
+  private static void decorateTestJob(JobBase job, String desc) {
+    job.setJobStatus(DEFAULT_STATUS);
+    job.setDueDate(LocalDate.now().plusDays(1));
+    String details = fmt("created by %s during job run %d", getCallerInfo(), TEST_RUN_ID);
+    if (desc != null) {
+      details += fmt(", caller reference %s", desc);
+    }
+    job.setClientJobNumber(details);
+    job.setServiceInstructions(details);
+  }
+
+  private static String getCallerInfo() {
+    String thisClass = null;
+    StackTraceElement element = null;
+
+    for (StackTraceElement el : Arrays.asList(new Exception().getStackTrace())) {
+      if (thisClass == null) {
+        thisClass = el.getClassName();
+      }
+      if (!thisClass.equals(el.getClassName())) {
+        element = el;
+        break;
+      }
+    }
+
+    if (element != null) {
+      String clazz = element.getClassName().substring(element.getClassName().lastIndexOf(".") + 1);
+      return fmt("%s.%s()", clazz, element.getMethodName());
+    }
+
+    logger.error("getCallerInfo - unable to find last caller before class {}", thisClass);
+    return "[unknown caller]";
   }
 
   private static String getProperty(String string) {
@@ -178,7 +276,7 @@ public class TestHelper {
 
   // public static void setLogLevel() {
   // if (LOG_AT_TRACE) {
-  // System.out.println("setting log level to TRACE");
+  // log("setting log level to TRACE");
   // System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "Trace");
   // }
   // }
