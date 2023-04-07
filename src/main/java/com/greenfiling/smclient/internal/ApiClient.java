@@ -61,8 +61,32 @@ public abstract class ApiClient<BASE, READ, CREATE> {
     throw new UnsupportedOperationException("The extending class did not implement the create method");
   }
 
-  public void getFile(String Url, String filePath) throws Exception {
-    getHandle().doGetFile(Url, filePath);
+  /**
+   * Download an arbitrary URL as a file and save it to filePath
+   * 
+   * @param url
+   *          URL to download file from
+   * @param filePath
+   *          File on disk to save contents of download to
+   * @throws Exception
+   *           thrown if file cannot be downloaded for any reason
+   */
+  public void getFile(String url, String filePath) throws Exception {
+    getHandle().doGetFile(url, filePath);
+  }
+
+  /**
+   * Download a URL as a file with api authentication and save it to filePath
+   * 
+   * @param url
+   *          URL to download file from (assumed to be protected by ServeManager API authentication)
+   * @param filePath
+   *          File on disk to save contents of download to
+   * @throws Exception
+   *           thrown if file cannot be downloaded for any reason
+   */
+  public void getFileApi(String url, String filePath) throws Exception {
+    getHandle().doGetFileApi(url, filePath);
   }
 
   public Index<READ> getNext(Index<READ> index) throws Exception {

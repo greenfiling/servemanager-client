@@ -33,6 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import com.greenfiling.smclient.ApiHandle;
 import com.greenfiling.smclient.JobClient;
+import com.greenfiling.smclient.model.Document;
 import com.greenfiling.smclient.model.Job;
 import com.greenfiling.smclient.model.JobSubmit;
 import com.greenfiling.smclient.model.Links;
@@ -110,4 +111,64 @@ public class ApiHandle_Manual {
     assertThat("Downloaded file is not empty", (int) file.length(), greaterThan(0));
   }
 
+  // this tests downloading an affidavit from the API, which requires API auth (though as currently implemented it then redirects to AWS for
+  // download). Since you can't programmatically create an affidavit, you have to have a pre-existing job to test it with. As such, this test
+  // can't be run automatically.
+  // @Test
+  public void testGetFileApi() throws Exception {
+    Integer jobId = 12141464; // this is a servemanager job that has at least one affidavit associated with it
+
+    Show<Job> response = client.show(jobId);
+    assertThat(response, not(equalTo(null)));
+    assertThat(response.getData(), not(equalTo(null)));
+    assertThat(response.getData().getLinks(), not(equalTo(null)));
+    assertThat(response.getData().getId(), equalTo(jobId));
+
+    Job job = response.getData();
+    assertThat(job.getDocuments(), not(equalTo(null)));
+    assertThat(job.getDocuments().size(), not(equalTo(0)));
+
+    Document d = job.getDocuments().get(0);
+    assertThat(d, not(equalTo(null)));
+
+    String smUrl = d.getPdfDownloadUrl();
+    String localPath = System.getProperty("java.io.tmpdir") + "/" + d.getId().toString() + ".pdf";
+    log("Downloading from %s", smUrl);
+
+    client.getFileApi(smUrl, localPath);
+    log("Downloaded to %s", localPath);
+    File file = new File(localPath);
+    assertThat("Downloaded file does not exist", file.exists(), equalTo(true));
+    assertThat("Downloaded file is not empty", (int) file.length(), greaterThan(0));
+
+  }
+
+  // @Test
+  public void testGetFile() throws Exception {
+    // Integer jobId = 12141464; // this is a servemanager job that has at least one affidavit associated with it
+    //
+    // Show<Job> response = client.show(jobId);
+    // assertThat(response, not(equalTo(null)));
+    // assertThat(response.getData(), not(equalTo(null)));
+    // assertThat(response.getData().getLinks(), not(equalTo(null)));
+    // assertThat(response.getData().getId(), equalTo(jobId));
+    //
+    // Job job = response.getData();
+    // assertThat(job.getDocuments(), not(equalTo(null)));
+    // assertThat(job.getDocuments().size(), not(equalTo(0)));
+    //
+    // Document d = job.getDocuments().get(0);
+    // assertThat(d, not(equalTo(null)));
+
+    String smUrl = "https://sm-attachments.s3.amazonaws.com/rahdakdrd7tviertlgye4d226mi7?response-content-disposition=attachment%3B%20filename%3D%22smbc-1681060021-5132-image-6888662134da85aae764088b798d56b0.png%22%3B%20filename%2A%3DUTF-8%27%27smbc-1681060021-5132-image-6888662134da85aae764088b798d56b0.png&response-content-type=image%2Fpng&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAZKFIACFP4R3MB2O4%2F20230410%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230410T151344Z&X-Amz-Expires=1800&X-Amz-SignedHeaders=host&X-Amz-Signature=5b34bd7fec17dabc19861d2975d6c4b61d8b850d97668d2b2677b7c2d2e358f4";
+    String localPath = System.getProperty("java.io.tmpdir") + "/" + "test" + ".pdf";
+    log("Downloading from %s", smUrl);
+
+    client.getFile(smUrl, localPath);
+    log("Downloaded to %s", localPath);
+    File file = new File(localPath);
+    assertThat("Downloaded file does not exist", file.exists(), equalTo(true));
+    assertThat("Downloaded file is not empty", (int) file.length(), greaterThan(0));
+
+  }
 }
