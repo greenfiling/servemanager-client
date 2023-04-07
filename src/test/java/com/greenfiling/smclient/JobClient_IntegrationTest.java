@@ -369,10 +369,10 @@ public class JobClient_IntegrationTest {
     Integer jobId = createResponse.getData().getId();
 
     Show<Job> response = client.show(jobId);
-    assertThat(createResponse, not(equalTo(null)));
-    assertThat(createResponse.getData(), not(equalTo(null)));
-    assertThat(createResponse.getData().getLinks(), not(equalTo(null)));
-    assertThat(createResponse.getData().getId(), equalTo(jobId));
+    assertThat(response, not(equalTo(null)));
+    assertThat(response.getData(), not(equalTo(null)));
+    assertThat(response.getData().getLinks(), not(equalTo(null)));
+    assertThat(response.getData().getId(), equalTo(jobId));
 
     Links links = response.getData().getLinks();
     log("links.self = %s", links.getSelf());
