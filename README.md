@@ -19,7 +19,7 @@ Installing
 <dependency>
     <groupId>com.greenfiling.smclient</groupId>
     <artifactId>servemanager-client</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
 </dependency>
 ```
 
@@ -246,7 +246,9 @@ Example of how this would be set in live code:
 
 #### Downloading Files
 
-Every client class offers a `getFile()` method for downloading arbitrary files.  This action has nothing to do with the API, but is provided as a convenience since it is useful for downloading documents referenced by the API.
+The ApiHandle class offers two methods for downloading files from URLs, `doGetFile()` and `doGetFileApi()`.  Every client class also inherits convenience interfaces to these methods, `getFile()` and `getFileApi()`.  These two methods are equivalent; `apiHandle.doGetFile(url, file);` and `jobClient.getFile(url, file);` are identical.
+
+The `doGetFile()` method is for downloading arbitrary files.  This action has nothing to do with the ServeManager API, but is provided as a convenience since it is useful for downloading documents referenced by the API.
 
 ```java
 JobClient client = new JobClient(apiHandle);
@@ -257,6 +259,18 @@ String localPath = System.getProperty("java.io.tmpdir") + "/" + doc.getUpload().
 String url = doc.getUpload().getLinks().getDownloadUrl();
 
 client.getFile(url, localPath);
+System.out.println("Downloaded from " + url);
+System.out.println("Downloaded to " + localPath);
+```
+
+The `doGetFileApi()` method is for downloading files that require API authentication to access.  It behaves identically, it just ensures that API credentials are added to the call.  Notably, while most objects present a URL that does not require authentication, the Document object (which is used to return affidavits related to the job) uses URLs which present as part of the API and require authentication.
+
+```java
+Document affidavit = job.getDocuments().get(0);
+String url = affidavit.getPdfDownloadUrl();
+String localPath = System.getProperty("java.io.tmpdir") + "/" + affidavit.getId().toString() + ".pdf";
+
+client.getFileApi(url, localPath);
 System.out.println("Downloaded from " + url);
 System.out.println("Downloaded to " + localPath);
 ```

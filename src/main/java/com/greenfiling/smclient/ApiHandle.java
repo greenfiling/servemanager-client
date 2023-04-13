@@ -40,6 +40,7 @@ import com.greenfiling.smclient.internal.RequestEnclosure;
 import com.greenfiling.smclient.internal.Transaction;
 import com.greenfiling.smclient.internal.UserAgentHandle;
 import com.greenfiling.smclient.internal.UserAgentInterceptor;
+import com.greenfiling.smclient.model.Upload;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -381,8 +382,48 @@ public class ApiHandle {
 
   }
 
-  public void doGetFile(String Url, String filePath) throws Exception {
-    Request request = new Request.Builder().url(Url).build();
+  /**
+   * Download any arbitrary file and save to disk.
+   * <P>
+   * Does not use API authentication, useful for grabbing short term, non-api-protected files from {@link Upload} objects.
+   *
+   * @param url
+   *          URL to download file from
+   * @param filePath
+   *          File on disk to save contents of download to
+   * @throws Exception
+   *           thrown if file cannot be downloaded for any reason
+   */
+  public void doGetFile(String url, String filePath) throws Exception {
+    Request request = new Request.Builder().url(url).build();
+    Response response = client.newCall(request).execute();
+
+    if (!response.isSuccessful()) {
+      throw new IOException("Couldn't download file: " + response);
+    }
+
+    FileOutputStream stream = new FileOutputStream(filePath);
+    stream.write(response.body().bytes());
+    stream.close();
+  }
+
+  /**
+   * Download any arbitrary file that requires API authentication and save to disk.
+   * <P>
+   * Uses API authentication, useful for grabbing short term, api-protected files, e.g. from {@link com.greenfiling.smclient.model.Document Document}
+   * objects.
+   * 
+   * @param url
+   *          URL to download file from (assumed to be protected by ServeManager API authentication)
+   * @param filePath
+   *          File on disk to save contents of download to
+   * @throws Exception
+   *           thrown if file cannot be downloaded for any reason
+   */
+  public void doGetFileApi(String url, String filePath) throws Exception {
+    Request.Builder builder = new Request.Builder().url(url);
+    addApiHeaderAuthorization(builder);
+    Request request = builder.build();
     Response response = client.newCall(request).execute();
 
     if (!response.isSuccessful()) {
@@ -481,11 +522,20 @@ public class ApiHandle {
     return transactions;
   }
 
+  private void addApiHeaderAccept(Request.Builder builder) {
+    builder.addHeader("accept", "application/json");
+  }
+
+  private void addApiHeaderAuthorization(Request.Builder builder) {
+    builder.addHeader("Authorization", "Basic " + this.basicAuth);
+  }
+
   /**
    * Adds headers to a Request.Builder object needed to communicate with the API
    */
   private RequestEnclosure addApiHeaders(RequestEnclosure enclosure) {
-    enclosure.getBuilder().addHeader("accept", "application/json").addHeader("Authorization", "Basic " + this.basicAuth);
+    addApiHeaderAccept(enclosure.getBuilder());
+    addApiHeaderAuthorization(enclosure.getBuilder());
     return enclosure;
   }
 

@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.greenfiling.smclient</groupId>
   <artifactId>servemanager-client</artifactId>
-  <version>1.0.6-SNAPSHOT</version>
+  <version>1.0.6</version>
   <name>ServeManager Api Client</name>
   <description>Java implementation of client for ServeManager API (https://www.servemanager.com/)</description>
   <url>https://www.github.com/greenfiling/servemanager-client</url>

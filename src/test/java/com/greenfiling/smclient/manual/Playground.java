@@ -41,7 +41,10 @@ import com.greenfiling.smclient.ApiHandle;
 import com.greenfiling.smclient.JobClient;
 import com.greenfiling.smclient.model.Attachment;
 import com.greenfiling.smclient.model.Job;
+import com.greenfiling.smclient.model.JobSubmit;
 import com.greenfiling.smclient.model.Links;
+import com.greenfiling.smclient.model.exchange.Index;
+import com.greenfiling.smclient.model.exchange.JobFilter;
 import com.greenfiling.smclient.model.exchange.Show;
 import com.greenfiling.smclient.util.TestHelper;
 
@@ -94,6 +97,17 @@ public class Playground {
 
     apiHandle = TestHelper.getApiHandle();
     client = new JobClient(apiHandle);
+  }
+
+  // "custom" is in their API but I have no idea how to use it or why. This was a failed attempt to interact with it
+  @Test
+  public void testFoo() throws Exception {
+    ApiHandle apiHandle = TestHelper.getApiHandle();
+    JobClient client = new JobClient(apiHandle);
+
+    JobSubmit jobUpdate = new JobSubmit();
+    jobUpdate.setJobStatus("Pending Archive");
+    client.update(11749867, jobUpdate);
   }
 
   @Test
@@ -161,6 +175,43 @@ public class Playground {
     log("VALID_API_KEY: %s", TestHelper.VALID_API_KEY);
     log("VALID_FILE_1: %s", TestHelper.VALID_FILE_PATH_1);
     log("VALID_FILE_2: %s", TestHelper.VALID_FILE_PATH_2);
+  }
+
+  // This is a test demonstrating how different filter types relate to each other (and vs or)
+  @Test
+  public void testIndexJob_Filter_HappyPath() throws Exception {
+    ApiHandle apiHandle = TestHelper.getApiHandle();
+    JobClient client = new JobClient(apiHandle);
+
+    JobFilter filter = new JobFilter();
+    filter.getJobStatus().add("Pending Archive");
+    filter.setQ(", Type: service of process");
+
+    Index<Job> response = client.index(filter);
+    assertThat(response, not(equalTo(null)));
+    assertThat(response.getData(), not(equalTo(null)));
+    assertThat(response.getLinks(), not(equalTo(null)));
+
+    Links links = response.getLinks();
+    log("links.self = %s", links.getSelf());
+
+    for (Job j : response.getData()) {
+      System.out.println(String.format("%s / %s :: %s", j.getJobStatus(), j.getServiceStatus(), j.getClientJobNumber()));
+    }
+
+    filter.setQ(", Type: courtesy copy");
+    response = client.index(filter);
+    assertThat(response, not(equalTo(null)));
+    assertThat(response.getData(), not(equalTo(null)));
+    assertThat(response.getLinks(), not(equalTo(null)));
+
+    links = response.getLinks();
+    log("links.self = %s", links.getSelf());
+
+    for (Job j : response.getData()) {
+      log("%s / %s :: %s", j.getJobStatus(), j.getServiceStatus(), j.getClientJobNumber());
+    }
+
   }
 
   @Test
