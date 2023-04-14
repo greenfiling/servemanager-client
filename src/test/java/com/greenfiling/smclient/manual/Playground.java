@@ -86,7 +86,7 @@ public class Playground {
   }
 
   @SuppressWarnings("unused")
-  private static final Logger logger = LoggerFactory.getLogger(ApiHandle_Manual.class);
+  private static final Logger logger = LoggerFactory.getLogger(Playground.class);
 
   private static ApiHandle apiHandle = null;
   private static JobClient client = null;

@@ -93,7 +93,7 @@ public class ApiHandle_Manual {
       if (d.getUpload().getLinks().getDownloadUrl() != null) {
         break;
       }
-      logger.info("testCreateJob_RemoteUrl - download_url not yet populated, sleeping");
+      logger.info("testGetFile_FromServeManager - download_url not yet populated, sleeping");
       Thread.sleep(5000);
     }
     log("links.self = %s", links.getSelf());
