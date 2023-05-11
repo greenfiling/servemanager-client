@@ -110,6 +110,19 @@ public class Playground {
     client.update(11749867, jobUpdate);
   }
 
+  // The affidavit and signed fields don't appear to be settable via the API, so for now do a manual set in the UI and then confirm we see the change.
+  // See github issue #54 to get rid of this test and make it automated when the API is fixed
+  @Test
+  public void testMiscDocFields() throws Exception {
+    ApiHandle apiHandle = TestHelper.getApiHandle();
+    JobClient client = new JobClient(apiHandle);
+
+    Show<Job> job = client.show(12412788);
+    for (Attachment a : job.getData().getMiscAttachments()) {
+      log("name = %s, affidavit = %s, signed = %s", a.getTitle(), a.getAffidavit(), a.getSigned());
+    }
+  }
+
   @Test
   public void testArtifactVersionService() throws Exception {
     log("List of artifacts:");

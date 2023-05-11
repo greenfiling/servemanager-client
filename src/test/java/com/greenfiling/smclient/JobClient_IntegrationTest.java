@@ -91,6 +91,12 @@ public class JobClient_IntegrationTest {
     miscDoc.setTitle("Attachment Title");
     miscDoc.setFileName("file_name.pdf");
     miscDocs.add(miscDoc);
+    Attachment affidavit = new Attachment();
+    affidavit.setTitle("Attachment Title (affidavit)");
+    affidavit.setFileName("file_name2.pdf");
+    affidavit.setAffidavit(true);
+    affidavit.setSigned(true);
+    miscDocs.add(affidavit);
 
     Integer transactionRef = TestHelper.getRandom();
     Integer supplierCostId = 28551; // 90210, sla_id=1, zone_id=1, job_type_id=1
@@ -183,11 +189,18 @@ public class JobClient_IntegrationTest {
     assertThat(job.getDocumentsToBeServed().get(0), not(equalTo(null)));
     assertThat(job.getDocumentsToBeServed().get(0).getTitle(), equalTo(serveDoc.getTitle()));
 
-    assertThat(job.getMiscAttachmentsCount(), equalTo(1));
+    assertThat(job.getMiscAttachmentsCount(), equalTo(2));
     assertThat(job.getMiscAttachments(), not(equalTo(null)));
-    assertThat(job.getMiscAttachments().size(), equalTo(1));
+    assertThat(job.getMiscAttachments().size(), equalTo(2));
     assertThat(job.getMiscAttachments().get(0), not(equalTo(null)));
     assertThat(job.getMiscAttachments().get(0).getTitle(), equalTo(miscDoc.getTitle()));
+    assertThat(job.getMiscAttachments().get(0).getAffidavit(), equalTo(miscDoc.getAffidavit()));
+    assertThat(job.getMiscAttachments().get(0).getSigned(), equalTo(miscDoc.getSigned()));
+    assertThat(job.getMiscAttachments().get(1), not(equalTo(null)));
+    assertThat(job.getMiscAttachments().get(1).getTitle(), equalTo(affidavit.getTitle()));
+    // These two tests should be turned back on when these fields are settable in the API, see github issue #54
+    // assertThat(job.getMiscAttachments().get(1).getAffidavit(), equalTo(affidavit.getAffidavit()));
+    // assertThat(job.getMiscAttachments().get(1).getSigned(), equalTo(affidavit.getSigned()));
   }
 
   @Test

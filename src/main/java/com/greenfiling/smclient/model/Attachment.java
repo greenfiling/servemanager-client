@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2023 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,14 +22,32 @@ public class Attachment extends DocumentBase {
   public static final String TYPE = "misc_attachment";
 
   private Upload upload;
+  private boolean affidavit;
+  private boolean signed;
 
   public Attachment() {
     super();
     setType(TYPE);
   }
 
+  public boolean getAffidavit() {
+    return this.affidavit;
+  }
+
+  public boolean getSigned() {
+    return this.signed;
+  }
+
   public Upload getUpload() {
     return this.upload;
+  }
+
+  public void setAffidavit(boolean affidavit) {
+    this.affidavit = affidavit;
+  }
+
+  public void setSigned(boolean signed) {
+    this.signed = signed;
   }
 
   public void setUpload(Upload upload) {
