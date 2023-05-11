@@ -1,4 +1,14 @@
 #######################
+## 1.0.7
+## 2023-05-11
+
+  * Implement Attachment.affidavit and .signed fields (#53)
+  * Implement Recipient.type and .agent_for_service fields (#48)
+  * Implement Job.quoted_supplier_cost_id, .quoted_retail_price,
+    .quoted_page_count, and .client_transaction_ref fields (#47, #49)
+  * Minor logging tweaks
+
+#######################
 ## 1.0.6
 ## 2023-04-13
 
