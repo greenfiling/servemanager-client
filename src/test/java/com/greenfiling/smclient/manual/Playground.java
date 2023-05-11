@@ -86,7 +86,7 @@ public class Playground {
   }
 
   @SuppressWarnings("unused")
-  private static final Logger logger = LoggerFactory.getLogger(ApiHandle_Manual.class);
+  private static final Logger logger = LoggerFactory.getLogger(Playground.class);
 
   private static ApiHandle apiHandle = null;
   private static JobClient client = null;
@@ -108,6 +108,19 @@ public class Playground {
     JobSubmit jobUpdate = new JobSubmit();
     jobUpdate.setJobStatus("Pending Archive");
     client.update(11749867, jobUpdate);
+  }
+
+  // The affidavit and signed fields don't appear to be settable via the API, so for now do a manual set in the UI and then confirm we see the change.
+  // See github issue #54 to get rid of this test and make it automated when the API is fixed
+  @Test
+  public void testMiscDocFields() throws Exception {
+    ApiHandle apiHandle = TestHelper.getApiHandle();
+    JobClient client = new JobClient(apiHandle);
+
+    Show<Job> job = client.show(12412788);
+    for (Attachment a : job.getData().getMiscAttachments()) {
+      log("name = %s, affidavit = %s, signed = %s", a.getTitle(), a.getAffidavit(), a.getSigned());
+    }
   }
 
   @Test

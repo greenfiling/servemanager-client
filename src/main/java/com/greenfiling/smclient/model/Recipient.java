@@ -95,6 +95,9 @@ public class Recipient {
   public static final String RELATIONSHIP_OTHER = "Other";
   public static final String RELATIONSHIP_BLANK = "";
 
+  public static final String RECIPIENT_TYPE_INDIVIDUAL = "individual";
+  public static final String RECIPIENT_TYPE_ORGANIZATION = "organization";
+
   private String name;
   private String description;
   private String age;
@@ -108,9 +111,15 @@ public class Recipient {
   private String eyes;
   private String email;
   private String phone;
+  private String type;
+  private String agentForService;
 
   public String getAge() {
     return this.age;
+  }
+
+  public String getAgentForService() {
+    return this.agentForService;
   }
 
   public String getDescription() {
@@ -157,12 +166,29 @@ public class Recipient {
     return this.relationship;
   }
 
+  public String getType() {
+    return this.type;
+  }
+
   public String getWeight() {
     return this.weight;
   }
 
   public void setAge(String age) {
     this.age = age;
+  }
+
+  /**
+   * Sets the registered agent for this service
+   * <P>
+   * If the recipient <code>type</code> is RECIPIENT_TYPE_ORGANIZATION and the recipient of the service is a registered agent, the name of the
+   * registered agent can be set via this interface.
+   * 
+   * @param agentForService
+   *          agentForService
+   */
+  public void setAgentForService(String agentForService) {
+    this.agentForService = agentForService;
   }
 
   public void setDescription(String description) {
@@ -350,6 +376,22 @@ public class Recipient {
    */
   public void setRelationship(String relationship) {
     this.relationship = relationship;
+  }
+
+  /**
+   * Sets the type of the recipient
+   * <P>
+   * This field uses pre-defined values. Allowed values are:
+   * <UL>
+   * <LI>{@link #RECIPIENT_TYPE_INDIVIDUAL}</LI>
+   * <LI>{@link #RECIPIENT_TYPE_ORGANIZATION}</LI>
+   * </UL>
+   * 
+   * @param type
+   *          type
+   */
+  public void setType(String type) {
+    this.type = type;
   }
 
   public void setWeight(String weight) {

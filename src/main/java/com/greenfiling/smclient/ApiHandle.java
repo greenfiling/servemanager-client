@@ -496,9 +496,9 @@ public class ApiHandle {
    * @since 1.0.0
    */
   public String doPutFile(String url, RequestBody requestBody) throws Exception {
-    logger.trace("doPutFile - url = {}, request = {}", url);
-
     String dataString = "<" + requestBody.contentLength() + " bytes of file data>";
+    logger.trace("doPutFile - url = {}, request = {}", url, dataString);
+
     return doRequest(new RequestEnclosure(new Request.Builder().url(url).put(requestBody), dataString));
   }
 

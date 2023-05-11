@@ -36,6 +36,10 @@ public abstract class JobBase {
   private String serviceInstructions;
   private LocalDate dueDate;
   private Boolean rush;
+  private Integer quotedSupplierCostId;
+  private Double quotedRetailPrice;
+  private Integer quotedPageCount;
+  private Integer clientTransactionRef;
   // custom?
 
   public JobBase() {
@@ -59,6 +63,10 @@ public abstract class JobBase {
     return this.clientJobNumber;
   }
 
+  public Integer getClientTransactionRef() {
+    return clientTransactionRef;
+  }
+
   public LocalDate getDueDate() {
     return this.dueDate;
   }
@@ -69,6 +77,18 @@ public abstract class JobBase {
 
   public Integer getJobTypeId() {
     return this.jobTypeId;
+  }
+
+  public Integer getQuotedPageCount() {
+    return quotedPageCount;
+  }
+
+  public Double getQuotedRetailPrice() {
+    return quotedRetailPrice;
+  }
+
+  public Integer getQuotedSupplierCostId() {
+    return quotedSupplierCostId;
   }
 
   public Boolean getRush() {
@@ -85,6 +105,10 @@ public abstract class JobBase {
 
   public void setClientJobNumber(String clientJobNumber) {
     this.clientJobNumber = clientJobNumber;
+  }
+
+  public void setClientTransactionRef(Integer clientTransactionRef) {
+    this.clientTransactionRef = clientTransactionRef;
   }
 
   public void setDueDate(LocalDate dueDate) {
@@ -111,6 +135,18 @@ public abstract class JobBase {
 
   public void setJobTypeId(Integer jobTypeId) {
     this.jobTypeId = jobTypeId;
+  }
+
+  public void setQuotedPageCount(Integer quoted_page_count) {
+    this.quotedPageCount = quoted_page_count;
+  }
+
+  public void setQuotedRetailPrice(Double quotedRetailPrice) {
+    this.quotedRetailPrice = quotedRetailPrice;
+  }
+
+  public void setQuotedSupplierCostId(Integer quotedSupplierCodeId) {
+    this.quotedSupplierCostId = quotedSupplierCodeId;
   }
 
   public void setRush(Boolean rush) {

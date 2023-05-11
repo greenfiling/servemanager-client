@@ -152,7 +152,7 @@ public class JobClient_FlexUpload_Manual {
       try {
         client.completeUpload(d.getUpload(), "application/pdf", new File(TestHelper.VALID_FILE_PATH_1));
       } catch (Exception e) {
-        logger.error(String.format("Caught an error in completeUpload for document %s", d.getFileName()), e);
+        logger.error("Caught an error in completeUpload for document {}", d.getFileName(), e);
         caughtException = true;
       }
     }
@@ -171,7 +171,7 @@ public class JobClient_FlexUpload_Manual {
       if (d.getUpload().getLinks().getDownloadUrl() != null) {
         break;
       }
-      logger.info("testCreateJob_RemoteUrl - download_url not yet populated, sleeping");
+      logger.info("testCreateJob_SeparateUpload - download_url not yet populated, sleeping");
       Thread.sleep(5000);
     }
     log("links.self = %s", links.getSelf());

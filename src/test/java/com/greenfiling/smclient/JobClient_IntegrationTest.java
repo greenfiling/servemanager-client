@@ -91,6 +91,17 @@ public class JobClient_IntegrationTest {
     miscDoc.setTitle("Attachment Title");
     miscDoc.setFileName("file_name.pdf");
     miscDocs.add(miscDoc);
+    Attachment affidavit = new Attachment();
+    affidavit.setTitle("Attachment Title (affidavit)");
+    affidavit.setFileName("file_name2.pdf");
+    affidavit.setAffidavit(true);
+    affidavit.setSigned(true);
+    miscDocs.add(affidavit);
+
+    Integer transactionRef = TestHelper.getRandom();
+    Integer supplierCostId = 28551; // 90210, sla_id=1, zone_id=1, job_type_id=1
+    Integer pageCount = 101;
+    Double retailPrice = 202.02;
 
     JobSubmit newJob = TestHelper.getTestJobSubmit();
     newJob.setClientCompanyId(TestHelper.VALID_CLIENT_COMPANY_ID);
@@ -107,6 +118,10 @@ public class JobClient_IntegrationTest {
     newJob.setAddressesAttributes(addresses);
     newJob.setDocumentsToBeServedAttributes(serveDocs);
     newJob.setMiscAttachmentsAttributes(miscDocs);
+    newJob.setClientTransactionRef(transactionRef);
+    newJob.setQuotedSupplierCostId(supplierCostId);
+    newJob.setQuotedRetailPrice(retailPrice);
+    newJob.setQuotedPageCount(pageCount);
 
     Show<Job> response = client.create(newJob);
     assertThat(response, not(equalTo(null)));
@@ -128,9 +143,19 @@ public class JobClient_IntegrationTest {
     assertThat(job.getDueDate(), equalTo(newJob.getDueDate()));
     assertThat(job.getRush(), equalTo(newJob.getRush()));
 
+    assertThat(job.getClientTransactionRef(), equalTo(transactionRef));
+    assertThat(job.getQuotedSupplierCostId(), equalTo(supplierCostId));
+    assertThat(job.getQuotedPageCount(), equalTo(pageCount));
+    // There is a bug in the API such that the value returned for quoted_retail_price us that QRP from the supplier_cost_id, NOT the value provided.
+    // Per chad the correct value is set in the DB, the API just displays the wrong value. When this issue is fixed, re-enable this test (see github
+    // issue #55
+    // assertThat(job.getQuotedRetailPrice(), equalTo(retailPrice));
+
     assertThat(job.getRecipient(), not(equalTo(null)));
     assertThat(job.getRecipient().getAge(), equalTo(newJob.getRecipientAttributes().getAge()));
     assertThat(job.getRecipient().getName(), equalTo(newJob.getRecipientAttributes().getName()));
+    assertThat(job.getRecipient().getType(), equalTo(newJob.getRecipientAttributes().getType()));
+    assertThat(job.getRecipient().getAgentForService(), equalTo(newJob.getRecipientAttributes().getAgentForService()));
 
     assertThat(job.getClientCompany(), not(equalTo(null)));
     assertThat(job.getClientCompany().getLinks(), not(equalTo(null)));
@@ -164,11 +189,18 @@ public class JobClient_IntegrationTest {
     assertThat(job.getDocumentsToBeServed().get(0), not(equalTo(null)));
     assertThat(job.getDocumentsToBeServed().get(0).getTitle(), equalTo(serveDoc.getTitle()));
 
-    assertThat(job.getMiscAttachmentsCount(), equalTo(1));
+    assertThat(job.getMiscAttachmentsCount(), equalTo(2));
     assertThat(job.getMiscAttachments(), not(equalTo(null)));
-    assertThat(job.getMiscAttachments().size(), equalTo(1));
+    assertThat(job.getMiscAttachments().size(), equalTo(2));
     assertThat(job.getMiscAttachments().get(0), not(equalTo(null)));
     assertThat(job.getMiscAttachments().get(0).getTitle(), equalTo(miscDoc.getTitle()));
+    assertThat(job.getMiscAttachments().get(0).getAffidavit(), equalTo(miscDoc.getAffidavit()));
+    assertThat(job.getMiscAttachments().get(0).getSigned(), equalTo(miscDoc.getSigned()));
+    assertThat(job.getMiscAttachments().get(1), not(equalTo(null)));
+    assertThat(job.getMiscAttachments().get(1).getTitle(), equalTo(affidavit.getTitle()));
+    // These two tests should be turned back on when these fields are settable in the API, see github issue #54
+    // assertThat(job.getMiscAttachments().get(1).getAffidavit(), equalTo(affidavit.getAffidavit()));
+    // assertThat(job.getMiscAttachments().get(1).getSigned(), equalTo(affidavit.getSigned()));
   }
 
   @Test
@@ -426,7 +458,6 @@ public class JobClient_IntegrationTest {
 
   // TODO should create a copy of testCreateJob_Full_JobSubmit called testCreateJob_Full_Job which uses Job object instead of JobSubmit object to
   // create the job to test the conversion of Job -> JobSubmit for the purposes of creation
-
   @Test
   public void testUpdateJob_HappyPath() throws Exception {
     ApiHandle apiHandle = TestHelper.getApiHandle();
