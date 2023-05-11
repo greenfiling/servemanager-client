@@ -148,6 +148,8 @@ public class JobClient_IntegrationTest {
     assertThat(job.getRecipient(), not(equalTo(null)));
     assertThat(job.getRecipient().getAge(), equalTo(newJob.getRecipientAttributes().getAge()));
     assertThat(job.getRecipient().getName(), equalTo(newJob.getRecipientAttributes().getName()));
+    assertThat(job.getRecipient().getType(), equalTo(newJob.getRecipientAttributes().getType()));
+    assertThat(job.getRecipient().getAgentForService(), equalTo(newJob.getRecipientAttributes().getAgentForService()));
 
     assertThat(job.getClientCompany(), not(equalTo(null)));
     assertThat(job.getClientCompany().getLinks(), not(equalTo(null)));

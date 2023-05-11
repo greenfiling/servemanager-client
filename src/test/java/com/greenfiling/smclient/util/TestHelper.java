@@ -114,6 +114,8 @@ public class TestHelper {
     r.setRelationship(Recipient.RELATIONSHIP_GRANDFATHER);
     r.setEmail("foo@bar.com");
     r.setPhone("111-111-1111");
+    r.setType(Recipient.RECIPIENT_TYPE_ORGANIZATION);
+    r.setAgentForService("Name of Agent");
 
     return r;
   }
