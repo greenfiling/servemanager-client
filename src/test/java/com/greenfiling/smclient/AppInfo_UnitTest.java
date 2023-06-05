@@ -39,6 +39,6 @@ public class AppInfo_UnitTest {
     // The artifact is built by maven. There are some times it won't be available (for instance 'mvn clean tests'). But if this fails during deploy,
     // something is actually wrong
     // the library uses 0 as its uninitialized value, so that's the flag that we didn't find what we were looking for
-    assertThat("artifact info was not able to be looked up", (int) a.getTimestamp(), greaterThan(0));
+    assertThat("artifact info was not able to be looked up", a.getTimestamp(), greaterThan((long) 0));
   }
 }
