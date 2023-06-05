@@ -28,6 +28,7 @@ public class SupplierCostFilter extends FilterBase {
 
   private Integer jobType;
   private Integer serviceLevel;
+  private Integer pageCount;
   private ArrayList<String> zipCodes = null;
   private OffsetDateTime updatedSince;
 
@@ -40,12 +41,19 @@ public class SupplierCostFilter extends FilterBase {
     if (getServiceLevel() != null) {
       pairs.add(new FilterPair("sla_id", String.valueOf(getServiceLevel())));
     }
+    if (getPageCount() != null) {
+      pairs.add(new FilterPair("page_count", String.valueOf(getPageCount())));
+    }
     pairs.addAll(addListFilter("zipcodes[]", getZipCodes()));
     return pairs;
   }
 
   public Integer getJobType() {
     return jobType;
+  }
+
+  public Integer getPageCount() {
+    return pageCount;
   }
 
   public Integer getServiceLevel() {
@@ -77,6 +85,10 @@ public class SupplierCostFilter extends FilterBase {
    */
   public void setJobType(Integer jobType) {
     this.jobType = jobType;
+  }
+
+  public void setPageCount(Integer pageCount) {
+    this.pageCount = pageCount;
   }
 
   /**

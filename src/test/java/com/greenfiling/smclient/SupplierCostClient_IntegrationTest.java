@@ -17,6 +17,7 @@ package com.greenfiling.smclient;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.net.URLDecoder;
@@ -35,7 +36,7 @@ import com.greenfiling.smclient.model.exchange.SupplierCostFilter;
 import com.greenfiling.smclient.model.internal.JobBase;
 import com.greenfiling.smclient.util.TestHelper;
 
-public class SupplierCostClient_UnitTest {
+public class SupplierCostClient_IntegrationTest {
   private static ApiHandle apiHandle = null;
   private static SupplierCostClient client = null;
 
@@ -170,7 +171,7 @@ public class SupplierCostClient_UnitTest {
   }
 
   @Test
-  public void testIndex_WitServiceTypeFilterRush_HappyPath() throws Exception {
+  public void testIndex_WithServiceTypeFilterRush_HappyPath() throws Exception {
 
     SupplierCostFilter request = new SupplierCostFilter();
     request.setServiceLevel(SupplierCostFilter.SERVICE_LEVEL_RUSH);
@@ -185,9 +186,28 @@ public class SupplierCostClient_UnitTest {
   }
 
   @Test
+  public void testIndex_WithSpecificFilter_HappyPath() throws Exception {
+
+    SupplierCostFilter request = new SupplierCostFilter();
+    request.setPageCount(275);
+    request.setJobType(JobBase.JOB_TYPE_SOP);
+    request.setServiceLevel(SupplierCostFilter.SERVICE_LEVEL_RUSH);
+    request.getZipCodes().add("90210");
+
+    Index<SupplierCost> response = client.index(request);
+    // TestHelper.log("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+
+    assertThat(response.getData().size(), equalTo(1));
+    assertThat(response.getData().get(0).getAmount(), notNullValue());
+    assertThat(response.getData().get(0).getPageCountPrice(), notNullValue());
+
+    TestHelper.log("page_count_price = " + response.getData().get(0).getPageCountPrice());
+  }
+
+  @Test
   public void testShowCost_HappyPath() throws Exception {
 
-    Show<SupplierCost> response = client.show(39901);
+    Show<SupplierCost> response = client.show(28551);
 
     TestHelper.log("testShowCost_HappyPath re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
 
@@ -196,9 +216,13 @@ public class SupplierCostClient_UnitTest {
     assertThat(response.getData().getSlaId(), equalTo(1));
     assertThat(response.getData().getType(), equalTo("supplier_cost"));
     assertThat(response.getData().getZipcode(), notNullValue());
+    assertThat(response.getData().getSuggestedRetailPrice(), notNullValue());
+    assertThat(response.getData().getPageCountPrice(), nullValue());
     assertThat(response.getData().getZipcodeZoneId(), notNullValue());
 
     TestHelper.log("amount = " + response.getData().getAmount());
+    TestHelper.log("suggested_retail_price = " + response.getData().getSuggestedRetailPrice());
+    TestHelper.log("page_count_price = " + response.getData().getPageCountPrice());
     TestHelper.log("updated_at = " + response.getData().getUpdatedAt());
     TestHelper.log("created_at = " + response.getData().getCreatedAt());
     TestHelper.log("zipcode = " + response.getData().getZipcode());
@@ -219,21 +243,18 @@ public class SupplierCostClient_UnitTest {
     assertThat(showResp, equalTo(null));
   }
 
-  // /**
-  // * disabling the test - CCD data isn't yet loaded
-  // */
-  // @Test
-  // public void testIndex_WitJobTypeFilterCCD_HappyPath() throws Exception {
-  //
-  // SupplierCostFilter request = new SupplierCostFilter();
-  // request.setJobType(SupplierCostFilter.JOB_TYPE_CCD);
-  //
-  // Index<SupplierCost> response = client.index(request);
-  // TestHelper.log("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
-  //
-  // assertThat(response.getData().size(), equalTo(100));
-  // assertThat(response.getData().get(0).getAmount(), notNullValue());
-  // assertThat(response.getData().stream().filter(x -> x.getJobTypeId().equals("1")).count(), equalTo(Long.valueOf(0)));
-  //
-  // }
+  @Test
+  public void testIndex_WitJobTypeFilterCCD_HappyPath() throws Exception {
+
+    SupplierCostFilter request = new SupplierCostFilter();
+    request.setJobType(JobBase.JOB_TYPE_CCD);
+
+    Index<SupplierCost> response = client.index(request);
+    TestHelper.log("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+
+    assertThat(response.getData().size(), equalTo(100));
+    assertThat(response.getData().get(0).getAmount(), notNullValue());
+    assertThat(response.getData().stream().filter(x -> x.getJobTypeId().equals(JobBase.JOB_TYPE_SOP)).count(), equalTo(Long.valueOf(0)));
+
+  }
 }

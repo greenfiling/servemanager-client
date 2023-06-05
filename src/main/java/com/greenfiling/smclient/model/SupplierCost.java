@@ -27,6 +27,7 @@ public class SupplierCost {
   private Integer jobTypeId;
   private Integer slaId;
   private Double amount;
+  private Double pageCountPrice;
   private Double suggestedRetailPrice;
   private OffsetDateTime createdAt;
   private OffsetDateTime updatedAt;
@@ -50,6 +51,10 @@ public class SupplierCost {
 
   public Integer getJobTypeId() {
     return this.jobTypeId;
+  }
+
+  public Double getPageCountPrice() {
+    return pageCountPrice;
   }
 
   public Integer getSlaId() {
@@ -101,6 +106,10 @@ public class SupplierCost {
 
   public void setJobTypeId(Integer jobTypeId) {
     this.jobTypeId = jobTypeId;
+  }
+
+  public void setPageCountPrice(Double pageCountPrice) {
+    this.pageCountPrice = pageCountPrice;
   }
 
   public void setSlaId(Integer slaId) {
