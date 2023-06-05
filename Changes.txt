@@ -1,4 +1,11 @@
 #######################
+## 1.0.8
+## 2023-06-05
+
+  * implement pageCount filter and pageCountPrice model value in
+    supplier_cost API
+
+#######################
 ## 1.0.7
 ## 2023-05-11
 
