@@ -241,6 +241,25 @@ public class JobClient_IntegrationTest {
   }
 
   @Test
+  public void testCreateJob_DueDate() throws Exception {
+
+    ApiHandle apiHandle = TestHelper.getApiHandle();
+    JobClient client = new JobClient(apiHandle);
+
+    Job newJob = TestHelper.getTestJob();
+    newJob.setDueDate(LocalDate.parse("2021-07-18"));
+
+    Show<Job> response = client.create(newJob);
+    assertThat(response, not(equalTo(null)));
+    assertThat(response.getData(), not(equalTo(null)));
+    assertThat(response.getData().getLinks(), not(equalTo(null)));
+    assertThat(response.getData().getDueDate(), equalTo("2021-07-18"));
+
+    Links links = response.getData().getLinks();
+    log("job created, links.self = %s", links.getSelf());
+  }
+
+  @Test
   public void testIndexJob_Filter_DateRange() throws Exception {
     ApiHandle apiHandle = TestHelper.getApiHandle();
     JobClient client = new JobClient(apiHandle);
