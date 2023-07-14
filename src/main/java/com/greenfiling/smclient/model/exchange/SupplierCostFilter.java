@@ -30,7 +30,12 @@ public class SupplierCostFilter extends FilterBase {
   private Integer serviceLevel;
   private Integer pageCount;
   private ArrayList<String> zipCodes = null;
+  private Integer courtId;
   private OffsetDateTime updatedSince;
+
+  public Integer getCourtId() {
+    return courtId;
+  }
 
   public ArrayList<FilterPair> getFilters() {
     ArrayList<FilterPair> pairs = super.getFilters();
@@ -45,6 +50,9 @@ public class SupplierCostFilter extends FilterBase {
       pairs.add(new FilterPair("page_count", String.valueOf(getPageCount())));
     }
     pairs.addAll(addListFilter("zipcodes[]", getZipCodes()));
+    if (getCourtId() != null) {
+      pairs.add(new FilterPair("court_id", String.valueOf(getCourtId())));
+    }
     return pairs;
   }
 
@@ -69,6 +77,10 @@ public class SupplierCostFilter extends FilterBase {
       zipCodes = new ArrayList<String>();
     }
     return zipCodes;
+  }
+
+  public void setCourtId(Integer courtId) {
+    this.courtId = courtId;
   }
 
   /**
