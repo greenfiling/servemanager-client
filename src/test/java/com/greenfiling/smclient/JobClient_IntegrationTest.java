@@ -148,10 +148,7 @@ public class JobClient_IntegrationTest {
     assertThat(job.getClientTransactionRef(), equalTo(transactionRef));
     assertThat(job.getQuotedSupplierCostId(), equalTo(supplierCostId));
     assertThat(job.getQuotedPageCount(), equalTo(pageCount));
-    // There is a bug in the API such that the value returned for quoted_retail_price us that QRP from the supplier_cost_id, NOT the value provided.
-    // Per chad the correct value is set in the DB, the API just displays the wrong value. When this issue is fixed, re-enable this test (see github
-    // issue #55
-    // assertThat(job.getQuotedRetailPrice(), equalTo(retailPrice));
+    assertThat(job.getQuotedRetailPrice(), equalTo(retailPrice));
 
     assertThat(job.getRecipient(), not(equalTo(null)));
     assertThat(job.getRecipient().getAge(), equalTo(newJob.getRecipientAttributes().getAge()));
