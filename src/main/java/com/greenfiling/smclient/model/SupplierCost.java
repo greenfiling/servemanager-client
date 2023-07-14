@@ -27,8 +27,12 @@ public class SupplierCost {
   private Integer jobTypeId;
   private Integer slaId;
   private Double amount;
+  private String productName;
   private Double pageCountPrice;
+  private Double pageBandPrice;
+  private String pageBandName;
   private Double suggestedRetailPrice;
+  private Integer courtId;
   private OffsetDateTime createdAt;
   private OffsetDateTime updatedAt;
 
@@ -39,6 +43,10 @@ public class SupplierCost {
 
   public Double getAmount() {
     return this.amount;
+  }
+
+  public Integer getCourtId() {
+    return this.courtId;
   }
 
   public OffsetDateTime getCreatedAt() {
@@ -53,8 +61,25 @@ public class SupplierCost {
     return this.jobTypeId;
   }
 
+  public String getPageBandName() {
+    return this.pageBandName;
+  }
+
+  public Double getPageBandPrice() {
+    return this.pageBandPrice;
+  }
+
+  /**
+   * @deprecated This method has been deprecated. Use {@link #getPageBandPrice()} instead.
+   * @return add on price for the current page band
+   */
+  @Deprecated
   public Double getPageCountPrice() {
     return pageCountPrice;
+  }
+
+  public String getProductName() {
+    return this.productName;
   }
 
   public Integer getSlaId() {
@@ -96,6 +121,10 @@ public class SupplierCost {
     this.amount = amount;
   }
 
+  public void setCourtId(Integer courtId) {
+    this.courtId = courtId;
+  }
+
   public void setCreatedAt(OffsetDateTime createdAt) {
     this.createdAt = createdAt;
   }
@@ -108,8 +137,26 @@ public class SupplierCost {
     this.jobTypeId = jobTypeId;
   }
 
+  public void setPageBandName(String pageBandName) {
+    this.pageBandName = pageBandName;
+  }
+
+  public void setPageBandPrice(Double pageBandPrice) {
+    this.pageBandPrice = pageBandPrice;
+  }
+
+  /**
+   * @deprecated This method has been deprecated. Use {@link #setPageBandPrice(Double)} instead.
+   * @param pageCountPrice
+   *          - the markup for the current pricing band
+   */
+  @Deprecated
   public void setPageCountPrice(Double pageCountPrice) {
     this.pageCountPrice = pageCountPrice;
+  }
+
+  public void setProductName(String productName) {
+    this.productName = productName;
   }
 
   public void setSlaId(Integer slaId) {

@@ -1,8 +1,16 @@
 #######################
+## 1.0.9
+## 2023-07-14
+
+  * Implement productName, pageBandPrice, pageBandName, and courtId in
+    SupplierCost model, implement filtering on courtId.
+  * Deprecate pageCountPrice in SupplierCost model.
+
+#######################
 ## 1.0.8
 ## 2023-06-05
 
-  * implement pageCount filter and pageCountPrice model value in
+  * Implement pageCount filter and pageCountPrice model value in
     supplier_cost API
 
 #######################

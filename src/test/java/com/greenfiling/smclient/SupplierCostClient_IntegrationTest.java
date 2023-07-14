@@ -61,6 +61,8 @@ public class SupplierCostClient_IntegrationTest {
     assertThat(response.getData().get(0).getType(), equalTo("supplier_cost"));
     assertThat(response.getData().get(0).getZipcode(), notNullValue());
     assertThat(response.getData().get(0).getZipcodeZoneId(), notNullValue());
+    assertThat(response.getData().get(0).getSuggestedRetailPrice(), notNullValue());
+    assertThat(response.getData().get(0).getProductName(), notNullValue());
 
     TestHelper.log("list length = " + response.getData().size());
   }
@@ -141,7 +143,37 @@ public class SupplierCostClient_IntegrationTest {
   }
 
   @Test
-  public void testIndex_WitJobTypeFilterSOP_HappyPath() throws Exception {
+  public void testIndex_WithCourtIdFilter_HappyPath() throws Exception {
+    SupplierCostFilter request = new SupplierCostFilter();
+    Integer courtId = 768560;
+    request.setCourtId(courtId);
+
+    Index<SupplierCost> response = client.index(request);
+    TestHelper.log("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+
+    assertThat(response.getData().size(), equalTo(2));
+    assertThat(response.getData().get(0).getAmount(), notNullValue());
+    assertThat(response.getData().stream().filter(x -> !x.getCourtId().equals(courtId)).count(), equalTo(Long.valueOf(0)));
+
+  }
+
+  @Test
+  public void testIndex_WithJobTypeFilterCCD_HappyPath() throws Exception {
+
+    SupplierCostFilter request = new SupplierCostFilter();
+    request.setJobType(JobBase.JOB_TYPE_CCD);
+
+    Index<SupplierCost> response = client.index(request);
+    TestHelper.log("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+
+    assertThat(response.getData().size(), equalTo(100));
+    assertThat(response.getData().get(0).getAmount(), notNullValue());
+    assertThat(response.getData().stream().filter(x -> x.getJobTypeId().equals(JobBase.JOB_TYPE_SOP)).count(), equalTo(Long.valueOf(0)));
+
+  }
+
+  @Test
+  public void testIndex_WithJobTypeFilterSOP_HappyPath() throws Exception {
 
     SupplierCostFilter request = new SupplierCostFilter();
     request.setJobType(JobBase.JOB_TYPE_SOP);
@@ -156,7 +188,7 @@ public class SupplierCostClient_IntegrationTest {
   }
 
   @Test
-  public void testIndex_WitServiceTypeFilterRoutine_HappyPath() throws Exception {
+  public void testIndex_WithServiceTypeFilterRoutine_HappyPath() throws Exception {
 
     SupplierCostFilter request = new SupplierCostFilter();
     request.setServiceLevel(SupplierCostFilter.SERVICE_LEVEL_ROUTINE);
@@ -199,9 +231,10 @@ public class SupplierCostClient_IntegrationTest {
 
     assertThat(response.getData().size(), equalTo(1));
     assertThat(response.getData().get(0).getAmount(), notNullValue());
-    assertThat(response.getData().get(0).getPageCountPrice(), notNullValue());
+    assertThat(response.getData().get(0).getPageBandPrice(), notNullValue());
+    assertThat(response.getData().get(0).getPageBandName(), notNullValue());
 
-    TestHelper.log("page_count_price = " + response.getData().get(0).getPageCountPrice());
+    TestHelper.log("page_count_price = " + response.getData().get(0).getPageBandPrice());
   }
 
   @Test
@@ -217,12 +250,12 @@ public class SupplierCostClient_IntegrationTest {
     assertThat(response.getData().getType(), equalTo("supplier_cost"));
     assertThat(response.getData().getZipcode(), notNullValue());
     assertThat(response.getData().getSuggestedRetailPrice(), notNullValue());
-    assertThat(response.getData().getPageCountPrice(), nullValue());
+    assertThat(response.getData().getPageBandPrice(), nullValue());
     assertThat(response.getData().getZipcodeZoneId(), notNullValue());
 
     TestHelper.log("amount = " + response.getData().getAmount());
     TestHelper.log("suggested_retail_price = " + response.getData().getSuggestedRetailPrice());
-    TestHelper.log("page_count_price = " + response.getData().getPageCountPrice());
+    TestHelper.log("page_band_price = " + response.getData().getPageBandPrice());
     TestHelper.log("updated_at = " + response.getData().getUpdatedAt());
     TestHelper.log("created_at = " + response.getData().getCreatedAt());
     TestHelper.log("zipcode = " + response.getData().getZipcode());
@@ -241,20 +274,5 @@ public class SupplierCostClient_IntegrationTest {
     }
     assertThat(caughtException, equalTo(true));
     assertThat(showResp, equalTo(null));
-  }
-
-  @Test
-  public void testIndex_WitJobTypeFilterCCD_HappyPath() throws Exception {
-
-    SupplierCostFilter request = new SupplierCostFilter();
-    request.setJobType(JobBase.JOB_TYPE_CCD);
-
-    Index<SupplierCost> response = client.index(request);
-    TestHelper.log("re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
-
-    assertThat(response.getData().size(), equalTo(100));
-    assertThat(response.getData().get(0).getAmount(), notNullValue());
-    assertThat(response.getData().stream().filter(x -> x.getJobTypeId().equals(JobBase.JOB_TYPE_SOP)).count(), equalTo(Long.valueOf(0)));
-
   }
 }
