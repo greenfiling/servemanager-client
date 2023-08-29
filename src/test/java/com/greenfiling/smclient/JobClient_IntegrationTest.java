@@ -140,16 +140,15 @@ public class JobClient_IntegrationTest {
     assertThat(job.getClientJobNumber(), equalTo(newJob.getClientJobNumber()));
     assertThat(job.getServiceInstructions(), equalTo(newJob.getServiceInstructions()));
 
-    assertThat(job.getDueDate(), equalTo(newJob.getDueDate()));
+    // TODO disabled for now because setting due date doesn't work for ITX partner accounts. See
+    // https://github.com/greenfiling/servemanager-client/issues/60
+    // assertThat(job.getDueDate(), equalTo(newJob.getDueDate()));
     assertThat(job.getRush(), equalTo(newJob.getRush()));
 
     assertThat(job.getClientTransactionRef(), equalTo(transactionRef));
     assertThat(job.getQuotedSupplierCostId(), equalTo(supplierCostId));
     assertThat(job.getQuotedPageCount(), equalTo(pageCount));
-    // There is a bug in the API such that the value returned for quoted_retail_price us that QRP from the supplier_cost_id, NOT the value provided.
-    // Per chad the correct value is set in the DB, the API just displays the wrong value. When this issue is fixed, re-enable this test (see github
-    // issue #55
-    // assertThat(job.getQuotedRetailPrice(), equalTo(retailPrice));
+    assertThat(job.getQuotedRetailPrice(), equalTo(retailPrice));
 
     assertThat(job.getRecipient(), not(equalTo(null)));
     assertThat(job.getRecipient().getAge(), equalTo(newJob.getRecipientAttributes().getAge()));
@@ -240,24 +239,26 @@ public class JobClient_IntegrationTest {
     log("job created, links.self = %s", links.getSelf());
   }
 
-  @Test
-  public void testCreateJob_DueDate() throws Exception {
-
-    ApiHandle apiHandle = TestHelper.getApiHandle();
-    JobClient client = new JobClient(apiHandle);
-
-    Job newJob = TestHelper.getTestJob();
-    newJob.setDueDate(LocalDate.parse("2021-07-18"));
-
-    Show<Job> response = client.create(newJob);
-    assertThat(response, not(equalTo(null)));
-    assertThat(response.getData(), not(equalTo(null)));
-    assertThat(response.getData().getLinks(), not(equalTo(null)));
-    assertThat(response.getData().getDueDate(), equalTo("2021-07-18"));
-
-    Links links = response.getData().getLinks();
-    log("job created, links.self = %s", links.getSelf());
-  }
+  // TODO disabled for now because setting due date doesn't work for ITX partner accounts. See
+  // https://github.com/greenfiling/servemanager-client/issues/60
+  // @Test
+  // public void testCreateJob_DueDate() throws Exception {
+  //
+  // ApiHandle apiHandle = TestHelper.getApiHandle();
+  // JobClient client = new JobClient(apiHandle);
+  //
+  // Job newJob = TestHelper.getTestJob();
+  // newJob.setDueDate(LocalDate.parse("2021-07-18"));
+  //
+  // Show<Job> response = client.create(newJob);
+  // assertThat(response, not(equalTo(null)));
+  // assertThat(response.getData(), not(equalTo(null)));
+  // assertThat(response.getData().getLinks(), not(equalTo(null)));
+  // assertThat(response.getData().getDueDate(), equalTo("2021-07-18"));
+  //
+  // Links links = response.getData().getLinks();
+  // log("job created, links.self = %s", links.getSelf());
+  // }
 
   @Test
   public void testIndexJob_Filter_DateRange() throws Exception {
