@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2023 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,8 @@ public class Court extends CourtBase {
   private OffsetDateTime updatedAt;
   private OffsetDateTime createdAt;
   private Address address;
+  private Integer oneLegalRef;
+  private boolean production;
 
   public Court() {
     super();
@@ -48,6 +50,14 @@ public class Court extends CourtBase {
     return this.links;
   }
 
+  public Integer getOneLegalRef() {
+    return oneLegalRef;
+  }
+
+  public boolean getProduction() {
+    return production;
+  }
+
   public OffsetDateTime getUpdatedAt() {
     return this.updatedAt;
   }
@@ -66,6 +76,14 @@ public class Court extends CourtBase {
 
   public void setLinks(Links links) {
     this.links = links;
+  }
+
+  public void setOneLegalRef(Integer oneLegalRef) {
+    this.oneLegalRef = oneLegalRef;
+  }
+
+  public void setProduction(boolean production) {
+    this.production = production;
   }
 
   public void setUpdatedAt(OffsetDateTime updatedAt) {
