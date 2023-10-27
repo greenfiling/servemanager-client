@@ -24,12 +24,12 @@ import com.greenfiling.smclient.manual.ApiHandle_Manual;
 
 @RunWith(Suite.class)
 
-//@formatter:off
+// @formatter:off
 @Suite.SuiteClasses({
   ApiHandle_Manual.class,
   JobClient_FlexUpload_Manual.class
 })
-//@formatter:on
+// @formatter:on
 
 public class AllManual_Suite {
 
