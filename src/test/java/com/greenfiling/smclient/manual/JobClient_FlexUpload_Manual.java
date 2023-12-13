@@ -96,10 +96,11 @@ public class JobClient_FlexUpload_Manual {
       ServiceDocument d = response.getData().getDocumentsToBeServed().get(0);
       assertThat(d.getUpload(), not(equalTo(null)));
       assertThat(d.getUpload().getLinks(), not(equalTo(null)));
-      if (d.getUpload().getLinks().getDownloadUrl() != null) {
+      log("in loop, filename = %s, download url = %s", d.getUpload().getFileName(), d.getUpload().getLinks().getDownloadUrl());
+      if (d.getUpload().getLinks().getDownloadUrl() != null && d.getUpload().getFileName() != null && !d.getUpload().getFileName().isEmpty()) {
         break;
       }
-      logger.info("testCreateJob_ExternalUrl - download_url not yet populated, sleeping");
+      logger.info("testCreateJob_ExternalUrl - download_url or file_name not yet populated, sleeping");
       Thread.sleep(5000);
     }
     log("links.self = %s", links.getSelf());
@@ -168,10 +169,11 @@ public class JobClient_FlexUpload_Manual {
       ServiceDocument d = response.getData().getDocumentsToBeServed().get(0);
       assertThat(d.getUpload(), not(equalTo(null)));
       assertThat(d.getUpload().getLinks(), not(equalTo(null)));
-      if (d.getUpload().getLinks().getDownloadUrl() != null) {
+      log("in loop, filename = %s, download url = %s", d.getUpload().getFileName(), d.getUpload().getLinks().getDownloadUrl());
+      if (d.getUpload().getLinks().getDownloadUrl() != null && d.getUpload().getFileName() != null && !d.getUpload().getFileName().isEmpty()) {
         break;
       }
-      logger.info("testCreateJob_SeparateUpload - download_url not yet populated, sleeping");
+      logger.info("testCreateJob_SeparateUpload - download_url or file_name not yet populated, sleeping");
       Thread.sleep(5000);
     }
     log("links.self = %s", links.getSelf());

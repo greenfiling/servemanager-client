@@ -69,16 +69,27 @@ public class NoteClient_IntegrationTest {
     note.setLabel("Job Details");
     note.setBody("this is\nthe\nbody");
     note.setJobId(thisJobId);
+    note.setCategoryId(Note.NOTE_CATEGORY_CANCEL);
+    note.setCreatedBy("Created By Smith");
+    note.setUserId(289268); // this is a magic number, it's the user id of sm_dev
+    note.setSharedFrom("Shared From String");
+
+    ArrayList<String> visibility = new ArrayList<String>();
+    visibility.add("client");
+    visibility.add("server");
+    note.setVisibility(visibility);
+
+    ArrayList<ArrayList<String>> emailedTo = new ArrayList<ArrayList<String>>();
+    emailedTo.add(new ArrayList<String>());
+    emailedTo.get(0).add("Emailed To Jones");
+    emailedTo.get(0).add("joe@example.com");
+    note.setEmailedTo(emailedTo);
 
     Index<Note> indexResponse = jobClient.indexNotes(thisJobId);
     assertThat(indexResponse, not(equalTo(null)));
     assertThat(indexResponse.getData(), not(equalTo(null)));
     assertThat(indexResponse.getLinks(), not(equalTo(null)));
 
-    // Integer sizeBefore = 0;
-    // do {
-    // sizeBefore += indexResponse.getData().size();
-    // } while ((indexResponse = client.getNext(indexResponse)) != null);
     Integer sizeBefore = indexResponse.getData().size();
     log("Number of notes on jobId %s before create: %s", thisJobId, sizeBefore);
 
@@ -86,17 +97,28 @@ public class NoteClient_IntegrationTest {
     assertThat(createResponse, not(equalTo(null)));
     assertThat(createResponse.getData(), not(equalTo(null)));
     // log("re-serialized: %s", JsonHandle.get().getGson().toJson(createResponse));
-    log("created note id = %s", createResponse.getData().getId());
+    Note newNote = createResponse.getData();
+    log("created note id = %s", newNote.getId());
+    assertThat(newNote.getCategoryId(), equalTo(Note.NOTE_CATEGORY_CANCEL));
+    assertThat(newNote.getUserId(), equalTo(289268));
+    assertThat(newNote.getCreatedBy(), equalTo("Eric Eastman")); // magic, username associated with 289268
+    assertThat(newNote.getSharedFrom(), equalTo(null)); // This field RO, error if it starts being honored and we can update javadoc
+
+    ArrayList<ArrayList<String>> newEmailedTo = newNote.getEmailedTo();
+    assertThat(newEmailedTo, not(equalTo(null)));
+    assertThat(newEmailedTo.size(), equalTo(0)); // This field is read only, add this test as a canary in case they change it
+
+    ArrayList<String> newVis = newNote.getVisibility();
+    assertThat(newVis, not(equalTo(null)));
+    assertThat(newVis.size(), equalTo(2));
+    assertThat(newVis.get(0), equalTo("client"));
+    assertThat(newVis.get(1), equalTo("server"));
 
     indexResponse = jobClient.indexNotes(thisJobId);
     assertThat(indexResponse, not(equalTo(null)));
     assertThat(indexResponse.getData(), not(equalTo(null)));
     assertThat(indexResponse.getLinks(), not(equalTo(null)));
 
-    // Integer sizeAfter = 0;
-    // do {
-    // sizeAfter += indexResponse.getData().size();
-    // } while ((indexResponse = client.getNext(indexResponse)) != null);
     Integer sizeAfter = indexResponse.getData().size();
     log("Number of notes on jobId %s after create: %s", thisJobId, sizeAfter);
 

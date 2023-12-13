@@ -49,7 +49,7 @@ public class ApiHandle_UnitTest {
     assertThat(client, not(equalTo(null)));
   }
 
-  @SuppressWarnings("null")
+  // @SuppressWarnings("null")
   @Test
   public void testConstructor_MissingApiEndpoint() throws Exception {
     boolean caughtException = false;

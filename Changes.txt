@@ -1,4 +1,11 @@
 #######################
+## 1.0.11
+## 2023-12-13
+
+  * Implement categoryId, createdBy, emailedTo, sharedFrom, userId, and
+    visibility in Note model.
+
+#######################
 ## 1.0.10
 ## 2023-09-19
 
