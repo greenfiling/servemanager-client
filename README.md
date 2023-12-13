@@ -19,7 +19,7 @@ Installing
 <dependency>
     <groupId>com.greenfiling.smclient</groupId>
     <artifactId>servemanager-client</artifactId>
-    <version>1.0.11</version>
+    <version>1.0.12-SNAPSHOT</version>
 </dependency>
 ```
 
