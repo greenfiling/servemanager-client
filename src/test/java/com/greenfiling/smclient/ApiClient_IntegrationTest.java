@@ -157,7 +157,7 @@ public class ApiClient_IntegrationTest {
     assertThat(currentPage, equalTo(lastPage));
   }
 
-  @SuppressWarnings("null")
+  // @SuppressWarnings("null")
   @Test
   public void testMakeUpdateUrl_nullId() throws Exception {
     ApiHandle handle = TestHelper.getApiHandle();
