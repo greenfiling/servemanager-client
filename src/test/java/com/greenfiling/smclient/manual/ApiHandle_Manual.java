@@ -90,10 +90,11 @@ public class ApiHandle_Manual {
       ServiceDocument d = response.getData().getDocumentsToBeServed().get(0);
       assertThat(d.getUpload(), not(equalTo(null)));
       assertThat(d.getUpload().getLinks(), not(equalTo(null)));
-      if (d.getUpload().getLinks().getDownloadUrl() != null) {
+      log("in loop, filename = %s, download url = %s", d.getUpload().getFileName(), d.getUpload().getLinks().getDownloadUrl());
+      if (d.getUpload().getLinks().getDownloadUrl() != null && d.getUpload().getFileName() != null && !d.getUpload().getFileName().isEmpty()) {
         break;
       }
-      logger.info("testGetFile_FromServeManager - download_url not yet populated, sleeping");
+      logger.info("testGetFile_FromServeManager - download_url or file_name not yet populated, sleeping");
       Thread.sleep(5000);
     }
     log("links.self = %s", links.getSelf());
@@ -103,6 +104,7 @@ public class ApiHandle_Manual {
 
     String localPath = System.getProperty("java.io.tmpdir") + "/" + smDoc.getUpload().getFileName();
     log("Downloading from %s", smUrl);
+    log("Downloading to %s", localPath);
 
     client.getFile(smUrl, localPath);
     log("Downloaded to %s", localPath);
