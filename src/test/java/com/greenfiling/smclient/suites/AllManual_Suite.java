@@ -19,8 +19,8 @@ package com.greenfiling.smclient.suites;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import com.greenfiling.smclient.manual.JobClient_FlexUpload_Manual;
 import com.greenfiling.smclient.manual.ApiHandle_Manual;
+import com.greenfiling.smclient.manual.JobClient_FlexUpload_Manual;
 
 @RunWith(Suite.class)
 

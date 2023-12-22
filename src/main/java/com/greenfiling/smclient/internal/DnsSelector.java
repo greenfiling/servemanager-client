@@ -50,8 +50,12 @@ public class DnsSelector implements okhttp3.Dns {
    * </UL>
    */
   public enum IpMode {
-    SYSTEM, IPV6_FIRST, IPV4_FIRST, IPV6_ONLY, IPV4_ONLY
-  };
+    SYSTEM,
+    IPV6_FIRST,
+    IPV4_FIRST,
+    IPV6_ONLY,
+    IPV4_ONLY
+  }
 
   private static final Logger logger = LoggerFactory.getLogger(DnsSelector.class);
   private IpMode ipMode;

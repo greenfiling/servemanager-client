@@ -27,6 +27,7 @@ public class CourtCaseFilter extends FilterBase {
     return companyId;
   }
 
+  @Override
   public ArrayList<FilterPair> getFilters() {
     ArrayList<FilterPair> pairs = super.getFilters();
 

@@ -99,30 +99,6 @@ public class Playground {
     client = new JobClient(apiHandle);
   }
 
-  // "custom" is in their API but I have no idea how to use it or why. This was a failed attempt to interact with it
-  @Test
-  public void testFoo() throws Exception {
-    ApiHandle apiHandle = TestHelper.getApiHandle();
-    JobClient client = new JobClient(apiHandle);
-
-    JobSubmit jobUpdate = new JobSubmit();
-    jobUpdate.setJobStatus("Pending Archive");
-    client.update(11749867, jobUpdate);
-  }
-
-  // The affidavit and signed fields don't appear to be settable via the API, so for now do a manual set in the UI and then confirm we see the change.
-  // See github issue #54 to get rid of this test and make it automated when the API is fixed
-  @Test
-  public void testMiscDocFields() throws Exception {
-    ApiHandle apiHandle = TestHelper.getApiHandle();
-    JobClient client = new JobClient(apiHandle);
-
-    Show<Job> job = client.show(12412788);
-    for (Attachment a : job.getData().getMiscAttachments()) {
-      log("name = %s, affidavit = %s, signed = %s", a.getTitle(), a.getAffidavit(), a.getSigned());
-    }
-  }
-
   @Test
   public void testArtifactVersionService() throws Exception {
     log("List of artifacts:");
@@ -183,11 +159,15 @@ public class Playground {
     log("re-encoded json: %s", newJson);
   }
 
+  // "custom" is in their API but I have no idea how to use it or why. This was a failed attempt to interact with it
   @Test
-  public void testLoadConfig() throws Exception {
-    log("VALID_API_KEY: %s", TestHelper.VALID_API_KEY);
-    log("VALID_FILE_1: %s", TestHelper.VALID_FILE_PATH_1);
-    log("VALID_FILE_2: %s", TestHelper.VALID_FILE_PATH_2);
+  public void testFoo() throws Exception {
+    ApiHandle apiHandle = TestHelper.getApiHandle();
+    JobClient client = new JobClient(apiHandle);
+
+    JobSubmit jobUpdate = new JobSubmit();
+    jobUpdate.setJobStatus("Pending Archive");
+    client.update(11749867, jobUpdate);
   }
 
   // This is a test demonstrating how different filter types relate to each other (and vs or)
@@ -225,6 +205,26 @@ public class Playground {
       log("%s / %s :: %s", j.getJobStatus(), j.getServiceStatus(), j.getClientJobNumber());
     }
 
+  }
+
+  @Test
+  public void testLoadConfig() throws Exception {
+    log("VALID_API_KEY: %s", TestHelper.VALID_API_KEY);
+    log("VALID_FILE_1: %s", TestHelper.VALID_FILE_PATH_1);
+    log("VALID_FILE_2: %s", TestHelper.VALID_FILE_PATH_2);
+  }
+
+  // The affidavit and signed fields don't appear to be settable via the API, so for now do a manual set in the UI and then confirm we see the change.
+  // See github issue #54 to get rid of this test and make it automated when the API is fixed
+  @Test
+  public void testMiscDocFields() throws Exception {
+    ApiHandle apiHandle = TestHelper.getApiHandle();
+    JobClient client = new JobClient(apiHandle);
+
+    Show<Job> job = client.show(12412788);
+    for (Attachment a : job.getData().getMiscAttachments()) {
+      log("name = %s, affidavit = %s, signed = %s", a.getTitle(), a.getAffidavit(), a.getSigned());
+    }
   }
 
   @Test
