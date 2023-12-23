@@ -77,6 +77,7 @@ public class JobFilter extends FilterBase {
     return this.dateRange;
   }
 
+  @Override
   public ArrayList<FilterPair> getFilters() {
     ArrayList<FilterPair> pairs = super.getFilters();
 

@@ -37,6 +37,7 @@ public class SupplierCostFilter extends FilterBase {
     return courtId;
   }
 
+  @Override
   public ArrayList<FilterPair> getFilters() {
     ArrayList<FilterPair> pairs = super.getFilters();
 
