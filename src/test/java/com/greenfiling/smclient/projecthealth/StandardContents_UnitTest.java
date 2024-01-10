@@ -53,11 +53,12 @@ public class StandardContents_UnitTest {
 
     Process process = Runtime.getRuntime().exec(script.getPath());
     assertNotNull("failed to execute script", process);
-    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-    assertNotNull("failed to get buffered reader for script stderr", reader);
-    String s;
-    while ((s = reader.readLine()) != null) {
-      logger.error("copyright errors: {}", s);
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
+      assertNotNull("failed to get buffered reader for script stderr", reader);
+      String s;
+      while ((s = reader.readLine()) != null) {
+        logger.error("copyright errors: {}", s);
+      }
     }
 
     process.waitFor();
