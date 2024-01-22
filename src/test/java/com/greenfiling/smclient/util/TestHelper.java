@@ -23,6 +23,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
@@ -261,18 +262,22 @@ public class TestHelper {
   }
 
   private static Properties loadProperties() {
-    InputStream in = TestHelper.class.getClassLoader().getResourceAsStream(TESTING_PROPERTIES_FILE);
-    assertNotNull(fmt("unable to locate and open testing resource %s", TESTING_PROPERTIES_FILE), in);
+    try (InputStream in = TestHelper.class.getClassLoader().getResourceAsStream(TESTING_PROPERTIES_FILE)) {
+      assertNotNull(fmt("unable to locate and open testing resource %s", TESTING_PROPERTIES_FILE), in);
 
-    properties = new Properties();
-    assertNotNull("unable to instantiate properties object", properties);
-    try {
-      properties.load(in);
-    } catch (Exception e) {
-      logger.error("loadProperties - exception loading {}: {}, {}", TESTING_PROPERTIES_FILE, e.getClass(), e.getMessage());
-      fail("unable to load properties from file");
+      properties = new Properties();
+      assertNotNull("unable to instantiate properties object", properties);
+      try {
+        properties.load(in);
+      } catch (Exception e) {
+        logger.error("loadProperties - exception loading {}: {}, {}", TESTING_PROPERTIES_FILE, e.getClass(), e.getMessage());
+        fail("unable to load properties from file");
+      }
+
+    } catch (IOException e) {
+      logger.error("loadProperties - exception closing {}: {}, {}", TESTING_PROPERTIES_FILE, e.getClass(), e.getMessage());
+      fail("unable to autoclose properties file");
     }
-
     return properties;
   }
 

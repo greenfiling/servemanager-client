@@ -396,15 +396,16 @@ public class ApiHandle {
    */
   public void doGetFile(String url, String filePath) throws Exception {
     Request request = new Request.Builder().url(url).build();
-    Response response = client.newCall(request).execute();
+    try (Response response = client.newCall(request).execute()) {
 
-    if (!response.isSuccessful()) {
-      throw new IOException("Couldn't download file: " + response);
+      if (!response.isSuccessful()) {
+        throw new IOException("Couldn't download file: " + response);
+      }
+
+      try (FileOutputStream stream = new FileOutputStream(filePath)) {
+        stream.write(response.body().bytes());
+      }
     }
-
-    FileOutputStream stream = new FileOutputStream(filePath);
-    stream.write(response.body().bytes());
-    stream.close();
   }
 
   /**
@@ -424,15 +425,16 @@ public class ApiHandle {
     Request.Builder builder = new Request.Builder().url(url);
     addApiHeaderAuthorization(builder);
     Request request = builder.build();
-    Response response = client.newCall(request).execute();
+    try (Response response = client.newCall(request).execute()) {
 
-    if (!response.isSuccessful()) {
-      throw new IOException("Couldn't download file: " + response);
+      if (!response.isSuccessful()) {
+        throw new IOException("Couldn't download file: " + response);
+      }
+
+      try (FileOutputStream stream = new FileOutputStream(filePath)) {
+        stream.write(response.body().bytes());
+      }
     }
-
-    FileOutputStream stream = new FileOutputStream(filePath);
-    stream.write(response.body().bytes());
-    stream.close();
   }
 
   /**
