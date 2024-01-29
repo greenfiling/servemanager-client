@@ -1,0 +1,16 @@
+---
+name: Add to Project
+run-name: 🚀 Adding ticket to PRs Project
+on:
+  pull_request:
+    types:
+      - opened
+jobs:
+   add-to-project:
+    name: Add pull request to project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v0.5.0
+        with:
+          project-url: https://github.com/orgs/greenfiling/projects/1/
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
