@@ -1,5 +1,5 @@
 /**
- * Copyright 2021-2023 Green Filing, LLC
+ * Copyright 2021-2024 Green Filing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,9 +35,9 @@ import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
 import com.greenfiling.smclient.util.TestHelper;
 
-public class CourtClient_IntegrationTests {
+public class CourtClient_IntegrationTest {
   @SuppressWarnings("unused")
-  private static final Logger logger = LoggerFactory.getLogger(CourtClient_IntegrationTests.class);
+  private static final Logger logger = LoggerFactory.getLogger(CourtClient_IntegrationTest.class);
 
   private static ApiHandle apiHandle = null;
   private static CourtClient client = null;
