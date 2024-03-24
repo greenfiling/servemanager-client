@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.greenfiling.smclient</groupId>
   <artifactId>servemanager-client</artifactId>
-  <version>1.0.12-SNAPSHOT</version>
+  <version>1.0.13-SNAPSHOT</version>
   <name>ServeManager Api Client</name>
   <description>Java implementation of client for ServeManager API (https://www.servemanager.com/)</description>
   <url>https://www.github.com/greenfiling/servemanager-client</url>
@@ -173,26 +173,6 @@
           </goals>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-toolchains-plugin</artifactId>
-        <version>3.1.0</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>toolchain</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <toolchains>
-            <jdk>
-              <version>1.8</version>
-              <vendor>sun</vendor>
-            </jdk>
-          </toolchains>
-        </configuration>
       </plugin>
     </plugins>
     <pluginManagement>
