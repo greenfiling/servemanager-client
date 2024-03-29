@@ -6,7 +6,7 @@ on:
     types:
       - opened
 jobs:
-   add-to-project:
+  add-to-project:
     name: Add pull request to project
     runs-on: ubuntu-latest
     steps:
