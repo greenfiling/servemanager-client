@@ -1,0 +1,16 @@
+# commits which should not be considered relevant in the context of git blame.  ie, commits which only change formatting
+# See also https://greenfiling.atlassian.net/wiki/spaces/DEV/pages/911736840/How+to+configure+a+local+development+environment#Enable-git-blame-ignore-file
+
+# RM-3917 Run prettier prior to branching for release (3/29/2024
+b9caa036e79bb3498d9e3205c0b2c21e81042737
+
+# RM-3917 Run prettier prior to branching for release (12/22/2023)
+230e8b48e7aa7ee97367ed4bc064d031f38e4b07
+
+# RM-3917 Eclipse Source>Code Cleanup prior to branching for release (12/22/2023)
+7f420f152a2b692738eda123e81bebc35c96ae92
+
+# RM-6584 Fix consistency issues in unformatted code blocks (10/30/2023)
+260d5aa0eb56ed964eda61f8106fc6d36863883c
+
+## start of repo
