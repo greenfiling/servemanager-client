@@ -90,10 +90,14 @@ public class JobClient_IntegrationTest {
     Attachment miscDoc = new Attachment();
     miscDoc.setTitle("Attachment Title");
     miscDoc.setFileName("file_name.pdf");
+    miscDoc.setExternalUrl(TestHelper.REMOTE_FILE);
+    miscDoc.setReferenceNumber(1234);
     miscDocs.add(miscDoc);
     Attachment affidavit = new Attachment();
     affidavit.setTitle("Attachment Title (affidavit)");
     affidavit.setFileName("file_name2.pdf");
+    affidavit.setExternalUrl(TestHelper.REMOTE_FILE);
+    affidavit.setReferenceNumber(5678);
     affidavit.setAffidavit(true);
     affidavit.setSigned(true);
     miscDocs.add(affidavit);
@@ -195,8 +199,10 @@ public class JobClient_IntegrationTest {
     assertThat(job.getMiscAttachments().get(0).getTitle(), equalTo(miscDoc.getTitle()));
     assertThat(job.getMiscAttachments().get(0).getAffidavit(), equalTo(miscDoc.getAffidavit()));
     assertThat(job.getMiscAttachments().get(0).getSigned(), equalTo(miscDoc.getSigned()));
+    assertThat(job.getMiscAttachments().get(0).getReferenceNumber(), equalTo(miscDoc.getReferenceNumber()));
     assertThat(job.getMiscAttachments().get(1), not(equalTo(null)));
     assertThat(job.getMiscAttachments().get(1).getTitle(), equalTo(affidavit.getTitle()));
+    assertThat(job.getMiscAttachments().get(1).getReferenceNumber(), equalTo(affidavit.getReferenceNumber()));
     // These two tests should be turned back on when these fields are settable in the API, see github issue #54
     // assertThat(job.getMiscAttachments().get(1).getAffidavit(), equalTo(affidavit.getAffidavit()));
     // assertThat(job.getMiscAttachments().get(1).getSigned(), equalTo(affidavit.getSigned()));
