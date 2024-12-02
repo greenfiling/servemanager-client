@@ -24,6 +24,8 @@ public class Attachment extends DocumentBase {
   private Upload upload;
   private boolean affidavit;
   private boolean signed;
+  private String externalUrl;
+  private Integer referenceNumber;
 
   public Attachment() {
     super();
@@ -32,6 +34,14 @@ public class Attachment extends DocumentBase {
 
   public boolean getAffidavit() {
     return this.affidavit;
+  }
+
+  public String getExternalUrl() {
+    return externalUrl;
+  }
+
+  public Integer getReferenceNumber() {
+    return this.referenceNumber;
   }
 
   public boolean getSigned() {
@@ -44,6 +54,14 @@ public class Attachment extends DocumentBase {
 
   public void setAffidavit(boolean affidavit) {
     this.affidavit = affidavit;
+  }
+
+  public void setExternalUrl(String externalUrl) {
+    this.externalUrl = externalUrl;
+  }
+
+  public void setReferenceNumber(Integer referenceNumber) {
+    this.referenceNumber = referenceNumber;
   }
 
   public void setSigned(boolean signed) {
