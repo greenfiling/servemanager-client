@@ -1,4 +1,10 @@
 #######################
+## 1.0.13
+## 2024-12-02
+
+  * Implement externalUrl and referenceNumber in Attachment model.
+
+#######################
 ## 1.0.12
 ## 2024-03-24
 
