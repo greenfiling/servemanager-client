@@ -1,5 +1,5 @@
 /**
- * Copyright 2021-2023 Green Filing, LLC
+ * Copyright 2021-2024 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ package com.greenfiling.smclient.model;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
-public class Note {
+public class Note extends Data {
   public static final String TYPE = "note";
 
   public static final Integer NOTE_CATEGORY_NONE = null;
@@ -33,7 +33,6 @@ public class Note {
   public static final Integer NOTE_CATEGORY_OTHER = 8;
 
   private Links links;
-  private String type;
   private Integer id;
   private String label;
   private String body;
@@ -102,10 +101,6 @@ public class Note {
 
   public String getSharedFrom() {
     return this.sharedFrom;
-  }
-
-  public String getType() {
-    return this.type;
   }
 
   public OffsetDateTime getUpdatedAt() {
@@ -198,10 +193,6 @@ public class Note {
    */
   public void setSharedFrom(String sharedFrom) {
     this.sharedFrom = sharedFrom;
-  }
-
-  public void setType(String type) {
-    this.type = type;
   }
 
   public void setUpdatedAt(OffsetDateTime updatedAt) {

@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2024 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import java.time.OffsetDateTime;
 public abstract class DocumentBase {
   private String type;
   private Integer id;
+  private boolean signed;
   private String title;
   private String fileName; // This is only used in creating or updating jobs. So, kludgy, but not worth splitting into a dedicated object
   private OffsetDateTime updatedAt;
@@ -36,6 +37,10 @@ public abstract class DocumentBase {
 
   public Integer getId() {
     return this.id;
+  }
+
+  public boolean getSigned() {
+    return this.signed;
   }
 
   public String getTitle() {
@@ -60,6 +65,10 @@ public abstract class DocumentBase {
 
   public void setId(Integer id) {
     this.id = id;
+  }
+
+  public void setSigned(boolean signed) {
+    this.signed = signed;
   }
 
   public void setTitle(String title) {

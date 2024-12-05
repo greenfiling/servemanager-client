@@ -1,5 +1,5 @@
 /**
- * Copyright 2021-2023 Green Filing, LLC
+ * Copyright 2021-2024 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,9 @@ package com.greenfiling.smclient.model.internal;
 
 import java.time.LocalDate;
 
-public abstract class JobBase {
+import com.greenfiling.smclient.model.Data;
+
+public abstract class JobBase extends Data {
   public static final String TYPE = "job";
 
   public static final String JOB_STATUS_CANCELED = "Canceled";
@@ -29,9 +31,10 @@ public abstract class JobBase {
   public static final Integer JOB_TYPE_SOP = 1;
   public static final Integer JOB_TYPE_CCD = 2;
 
-  private String type;
   private String jobStatus;
   private Integer jobTypeId;
+  private String instructionsFromClient;
+  private Boolean requireServerAcceptance;
   private String clientJobNumber;
   private String serviceInstructions;
   private LocalDate dueDate;
@@ -79,6 +82,14 @@ public abstract class JobBase {
     return this.jobTypeId;
   }
 
+  public String getInstructionsFromClient() {
+    return this.instructionsFromClient;
+  }
+
+  public Boolean getRequireServerAcceptance() {
+    return this.requireServerAcceptance;
+  }
+
   public Integer getQuotedPageCount() {
     return quotedPageCount;
   }
@@ -97,10 +108,6 @@ public abstract class JobBase {
 
   public String getServiceInstructions() {
     return this.serviceInstructions;
-  }
-
-  public String getType() {
-    return this.type;
   }
 
   public void setClientJobNumber(String clientJobNumber) {
@@ -137,6 +144,14 @@ public abstract class JobBase {
     this.jobTypeId = jobTypeId;
   }
 
+  public void setInstructionsFromClient(String instructionsFromClient) {
+    this.instructionsFromClient = instructionsFromClient;
+  }
+
+  public void setRequireServerAcceptance(Boolean requireServerAcceptance) {
+    this.requireServerAcceptance = requireServerAcceptance;
+  }
+
   public void setQuotedPageCount(Integer quoted_page_count) {
     this.quotedPageCount = quoted_page_count;
   }
@@ -155,10 +170,6 @@ public abstract class JobBase {
 
   public void setServiceInstructions(String serviceInstructions) {
     this.serviceInstructions = serviceInstructions;
-  }
-
-  public void setType(String type) {
-    this.type = type;
   }
 
 }

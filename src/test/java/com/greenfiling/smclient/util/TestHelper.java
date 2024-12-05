@@ -181,6 +181,13 @@ public class TestHelper {
 
   }
 
+  public static void log(String msg) {
+    if (QUIET_TESTS) {
+      return;
+    }
+    System.out.println(msg);
+  }
+
   public static void log(String template, Object... args) {
     if (QUIET_TESTS) {
       return;

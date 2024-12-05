@@ -1,0 +1,426 @@
+{
+  "meta": {
+    "webhook_id": "84ca113a-a28e-47c4-86ba-6bab77b92728",
+    "webhook_name": "My test hook",
+    "reference": "dcb74aad-5c01-46f2-bfd3-1b1827341609",
+    "created_at": "2023-07-20T16:18:07-06:00",
+    "event_count": 12,
+    "target_url": "https://webhook.site/c025f1ee-f751-45a7-a09d-b87dcf75ce6a",
+    "account_id": 270207,
+    "delivered_at": "2023-07-20T16:19:10-06:00"
+  },
+  "links": {
+    "jobs": "http://localhost:3000/api/jobs?q=jobs%3A3679689%2C3679689%2C3679689%2C3679689%2C3679689%2C3679689%2C3679689%2C3679689%2C3679689%2C3679689%2C3679689%2C3679689"
+  },
+  "data": [
+    {
+      "links": {},
+      "type": "note",
+      "id": 1962368,
+      "label": "Making a note",
+      "body": "this is a note i'm making",
+      "job_id": 736182,
+      "updated_at": "2023-07-20T16:18:06-06:00",
+      "created_at": "2023-07-20T16:18:06-06:00",
+      "user_id": 4476652,
+      "created_by": "Nathan Benes",
+      "visibility": [
+        "server"
+      ],
+      "shared_from": null,
+      "emailed_to": [],
+      "webhook_events": [
+        {
+          "type": "note",
+          "id": 1962368,
+          "event": "notes:created",
+          "event_reference": "3a8bd7ae-b77d-48b3-819d-7ffe8824f311",
+          "action": "create",
+          "changed": [],
+          "created_at": "2023-07-20T16:18:07-06:00"
+        }
+      ]
+    },
+    {
+      "links": {
+        "self": "http://localhost:3000/api/jobs/736182"
+      },
+      "type": "job",
+      "id": 736182,
+      "servemanager_job_number": "3679689",
+      "server_acceptance": {
+          "decline_description": null,
+          "decline_reason": null,
+          "declined_at": null,
+          "response": "accepted"
+      },
+      "archived_at": null,
+      "job_status": null,
+      "assigned_by_collaborating_server": false,
+      "service_status": "Served",
+      "client_job_number": "",
+      "service_instructions": null,
+      "due_date": null,
+      "rush": false,
+      "updated_at": "2023-07-20T16:18:55-06:00",
+      "created_at": "2023-07-20T16:11:19-06:00",
+      "recipient": null,
+      "created_by_id": 4476671,
+      "duped_from_job_id": 99997,
+      "duped_to_job_ids": [99999, 99998],
+      "job_type_id": null,
+      "mailing_date": "2023-07-20T16:11:19-06:00",
+      "mailed_by_id": 99990,
+      "mailing_location": "Test description",
+      "mailing_required": false,
+      "client_company": null,
+      "client_contact": null,
+      "process_server_company": {
+        "links": {
+          "self": "http://localhost:3000/api/companies/858782"
+        },
+        "type": "company",
+        "id": 858782,
+        "name": "Acme Process Serving",
+        "collaborating": true,
+        "collaboration_account_id": 271978,
+        "collab_status": "collaborating"
+      },
+      "process_server_contact": {
+        "id": 981430,
+        "first_name": "Kanisha",
+        "last_name": "Will",
+        "title": null,
+        "email": "info@acmeps.com",
+        "phone": null,
+        "license_number": null,
+        "license_expiration": null,
+        "dob": null,
+        "primary": true,
+        "created_at": "2023-07-20T12:38:33-06:00",
+        "updated_at": "2023-07-20T12:38:33-06:00"
+      },
+      "employee_process_server": null,
+      "court_case": null,
+      "invoice": null,
+      "process_server_invoice": {
+        "type": "invoice",
+        "id": 2269207,
+        "balance_due": "0.0",
+        "issued_on": "2023-07-20",
+        "total_paid": "0.0",
+        "total": "0.0",
+        "terms": "Thanks for your business. Please pay the \"Balance Due\" within 21 days.",
+        "paid_on": null,
+        "job_id": 736181,
+        "token": "RYWl8ZcWzVC5HoZ4rVwBwA",
+        "taxes_enabled": false,
+        "last_issued_at": "2023-07-20T16:11:44-06:00",
+        "updated_at": "2023-07-20T16:11:44-06:00",
+        "created_at": "2023-07-20T16:11:32-06:00",
+        "client_id": 858783,
+        "servemanager_job_number": 3679689,
+        "pdf_download_url": "http://localhost:3000/api/v2/invoices/2269207/download",
+        "line_items": [
+          {
+            "type": "line_item",
+            "id": 2576025,
+            "name": "This is an invoice line",
+            "description": "Duuuude",
+            "unit_cost": "0.0",
+            "quantity": "1.0",
+            "tax_rate": "0.0",
+            "tax_amount": "0.0",
+            "subtotal": "0.0",
+            "total": "0.0",
+            "updated_at": "2023-07-20T16:11:32-06:00",
+            "created_at": "2023-07-20T16:11:32-06:00"
+          }
+        ],
+        "payments": []
+      },
+      "addresses_count": 1,
+      "addresses": [
+        {
+          "type": "address",
+          "id": 368437,
+          "label": "",
+          "address1": "3739 Banyan Ct",
+          "address2": "",
+          "city": "Loveland",
+          "state": "CO",
+          "postal_code": "80538",
+          "county": null,
+          "lat": 40.4299,
+          "lng": -105.09311,
+          "created_at": "2023-07-20T16:18:51-06:00",
+          "updated_at": "2023-07-20T16:18:52-06:00",
+          "primary": true
+        }
+      ],
+      "affidavit_count": 1,
+      "documents": [
+        {
+          "type": "document",
+          "id": 1594428,
+          "title": "Nationwide Affidavit",
+          "pdf_download_url": "http://localhost:3000/api/v2/documents/1594428/download",
+          "signed": true,
+          "created_at": "2023-07-20T16:18:55-06:00",
+          "updated_at": "2023-07-20T16:18:55-06:00"
+        }
+      ],
+      "document_to_be_served_count": 0,
+      "document_to_be_served_total_page_count": 0,
+      "documents_to_be_served": [],
+      "misc_attachments_count": 2,
+      "misc_attachments": [
+        {
+          "type": "misc_attachment",
+          "id": 551917,
+          "title": "summon_complaint.png",
+          "affidavit": false,
+          "signed": false,
+          "updated_at": "2023-07-20T16:18:17-06:00",
+          "created_at": "2023-07-20T16:18:17-06:00",
+          "upload": {
+            "file_name": "summon_complaint.png",
+            "content_type": "image/png",
+            "file_size": 6646,
+            "record_type": "job",
+            "record_id": 736182,
+            "links": {
+              "download_url": "https://servemanager-dev-storage.s3.amazonaws.com/0r0ct4u78sdikqz7xeivgv30zspm?response-content-disposition=attachment%3B%20filename%3D%22summon_complaint.png%22%3B%20filename%2A%3DUTF-8%27%27summon_complaint.png&response-content-type=image%2Fpng&X-Amz-Algorithm=SM-HMAC-SHA256&X-Amz-Credential=05NSPAYVZHNPZJ6W1F82%2F20230720%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230720T221910Z&X-Amz-Expires=1800&X-Amz-SignedHeaders=host&X-Amz-Signature=63c8cbd1fcc9b42150fd5fdbddd8639f1c5f6946f3a36d1949860a66b311c704"
+            }
+          }
+        },
+        {
+          "type": "misc_attachment",
+          "id": 551918,
+          "title": "sm_logo.svg",
+          "affidavit": false,
+          "signed": false,
+          "updated_at": "2023-07-20T16:18:51-06:00",
+          "created_at": "2023-07-20T16:18:51-06:00",
+          "upload": {
+            "file_name": "sm_logo.svg",
+            "content_type": "image/svg+xml",
+            "file_size": 4631,
+            "record_type": "attempt",
+            "record_id": 613440,
+            "links": {
+              "download_url": "https://servemanager-dev-storage.s3.amazonaws.com/e3yv0j1oes2eumwsf3x6erkfsl1b?response-content-disposition=attachment%3B%20filename%3D%22sm_logo.svg%22%3B%20filename%2A%3DUTF-8%27%27sm_logo.svg&response-content-type=application%2Foctet-stream&X-Amz-Algorithm=SM-HMAC-SHA256&X-Amz-Credential=05NSPAYVZHNPZJ6W1F82%2F20230720%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230720T221910Z&X-Amz-Expires=1800&X-Amz-SignedHeaders=host&X-Amz-Signature=62141b4eb3c4b9ddfded387238c5e1e4dc636aa79c170f707af549bc68c5eb0b"
+            }
+          }
+        }
+      ],
+      "attempt_count": 1,
+      "last_attempt_served_at": "2023-07-20T16:18:00-06:00",
+      "last_attempt_served_at_timezone": "America/Denver",
+      "attempts": [
+        {
+          "type": "attempt",
+          "id": 613440,
+          "job_id": 736182,
+          "description": "New attempt",
+          "lat": null,
+          "lng": null,
+          "serve_type": "Personal/Individual",
+          "gps_timestamp": null,
+          "device_timestamp": null,
+          "gps_accuracy": null,
+          "gps_heading": null,
+          "gps_speed": null,
+          "gps_altitude": null,
+          "gps_altitude_accuracy": null,
+          "gps_user_agent": null,
+          "success": true,
+          "created_at": "2023-07-20T16:18:51-06:00",
+          "updated_at": "2023-07-20T16:18:51-06:00",
+          "mobile_app_attempt": null,
+          "attachments": [
+            {
+              "type": "attachment",
+              "id": 551918,
+              "title": "sm_logo.svg",
+              "updated_at": "2023-07-20T16:18:51-06:00",
+              "created_at": "2023-07-20T16:18:51-06:00",
+              "upload": {
+                "file_name": "sm_logo.svg",
+                "content_type": "image/svg+xml",
+                "file_size": 4631,
+                "record_type": "attempt",
+                "record_id": 613440,
+                "links": {
+                  "download_url": "https://servemanager-dev-storage.s3.amazonaws.com/e3yv0j1oes2eumwsf3x6erkfsl1b?response-content-disposition=attachment%3B%20filename%3D%22sm_logo.svg%22%3B%20filename%2A%3DUTF-8%27%27sm_logo.svg&response-content-type=application%2Foctet-stream&X-Amz-Algorithm=SM-HMAC-SHA256&X-Amz-Credential=05NSPAYVZHNPZJ6W1F82%2F20230720%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230720T221910Z&X-Amz-Expires=1800&X-Amz-SignedHeaders=host&X-Amz-Signature=62141b4eb3c4b9ddfded387238c5e1e4dc636aa79c170f707af549bc68c5eb0b"
+                }
+              }
+            }
+          ],
+          "servemanager_job_number": 3679689,
+          "service_status": "Served",
+          "server_name": "Kanisha Will",
+          "served_at": "2023-07-20T16:18:00-06:00",
+          "recipient_full_description": "Other: asdf",
+          "mobile": false,
+          "recipient": {
+            "name": "Dudeface",
+            "age": "",
+            "ethnicity": "",
+            "gender": "",
+            "weight": "",
+            "height1": "",
+            "height2": "",
+            "hair": "",
+            "relationship": "",
+            "eyes": "",
+            "description": "asdf",
+            "email": "",
+            "phone": ""
+          },
+          "address": {
+            "type": "address",
+            "id": 368437,
+            "label": "",
+            "address1": "3739 Banyan Ct",
+            "address2": "",
+            "city": "Loveland",
+            "state": "CO",
+            "postal_code": "80538",
+            "county": null,
+            "lat": 40.4299,
+            "lng": -105.09311,
+            "created_at": "2023-07-20T16:18:51-06:00",
+            "updated_at": "2023-07-20T16:18:52-06:00",
+            "primary": true
+          },
+          "process_server": null,
+          "visibility": [
+            "server"
+          ],
+          "shared_from": null,
+          "emailed_to": []
+        }
+      ],
+      "custom": {},
+      "quoted_supplier_cost_id": null,
+      "quoted_page_count": null,
+      "quoted_retail_price": null,
+      "quoted_percent_discount": null,
+      "client_transaction_ref": null,
+      "webhook_events": [
+        {
+          "type": "misc_attachment",
+          "id": 551917,
+          "event": "attachments:created",
+          "event_reference": "4ebb67cd-8b5f-4116-9359-581320100bcc",
+          "action": "create",
+          "changed": [],
+          "created_at": "2023-07-20T16:18:17-06:00"
+        },
+        {
+          "type": "address",
+          "id": 368437,
+          "event": "jobs:updated",
+          "event_reference": "3b93d59c-9531-43cd-a86d-280505abad10",
+          "action": "create",
+          "changed": [],
+          "created_at": "2023-07-20T16:18:54-06:00"
+        },
+        {
+          "type": "attachment",
+          "id": 551918,
+          "event": "attempts:updated",
+          "event_reference": "12c77d0f-b262-4930-9266-67b2509b8b99",
+          "action": "create",
+          "changed": [],
+          "created_at": "2023-07-20T16:18:54-06:00"
+        },
+        {
+          "type": "attempt",
+          "id": 613440,
+          "event": "attempts:created",
+          "event_reference": "9c50eae4-b931-48dd-8a1d-bcfe5a79af88",
+          "action": "create",
+          "changed": [],
+          "created_at": "2023-07-20T16:18:54-06:00"
+        },
+        {
+          "type": "job",
+          "id": 736182,
+          "event": "jobs:updated",
+          "event_reference": "90b753b0-3cf2-4eee-890e-3f1abee3dba3",
+          "action": "update",
+          "changed": [
+            "last_attempt_served_at",
+            "last_attempt_served_at_timezone"
+          ],
+          "created_at": "2023-07-20T16:18:54-06:00"
+        },
+        {
+          "type": "job",
+          "id": 736182,
+          "event": "jobs:updated",
+          "event_reference": "0763d0fe-dbfa-4972-b6a3-51792ca5182c",
+          "action": "update",
+          "changed": [
+            "attempt_count"
+          ],
+          "created_at": "2023-07-20T16:18:54-06:00"
+        },
+        {
+          "type": "job",
+          "id": 736182,
+          "event": "jobs:updated",
+          "event_reference": "3606801a-5863-45f4-9bf7-9f9b9385e856",
+          "action": "update",
+          "changed": [
+            "status"
+          ],
+          "created_at": "2023-07-20T16:18:54-06:00"
+        },
+        {
+          "type": "address",
+          "id": 368437,
+          "event": "jobs:updated",
+          "event_reference": "bdc35a1e-cb8a-42fa-885b-8a5faf8b8c62",
+          "action": "update",
+          "changed": [
+            "primary"
+          ],
+          "created_at": "2023-07-20T16:18:54-06:00"
+        },
+        {
+          "type": "document",
+          "id": 1594428,
+          "event": "documents:created",
+          "event_reference": "40039c6a-efd1-401a-9990-f00cd80b70e7",
+          "action": "create",
+          "changed": [],
+          "created_at": "2023-07-20T16:18:59-06:00"
+        },
+        {
+          "type": "document",
+          "id": 1594428,
+          "event": "affidavits:signed",
+          "event_reference": "8ee75506-d515-4266-8f9e-08e664c3a3f1",
+          "action": "create",
+          "changed": [],
+          "created_at": "2023-07-20T16:18:59-06:00"
+        },
+        {
+          "type": "job",
+          "id": 736182,
+          "event": "jobs:updated",
+          "event_reference": "c662a031-3445-47c8-9bc7-4f0be2791180",
+          "action": "update",
+          "changed": [
+            "affidavit_count",
+            "signed_affidavit"
+          ],
+          "created_at": "2023-07-20T16:19:00-06:00"
+        }
+      ]
+    }
+  ]
+}

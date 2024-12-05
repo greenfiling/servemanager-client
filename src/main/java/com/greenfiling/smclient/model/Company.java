@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2024 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ public class Company extends CompanyBase {
   private OffsetDateTime createdAt;
   private OffsetDateTime updatedAt;
   private Boolean collaborating;
+  private Integer collaborationAccountId;
   private ArrayList<PhoneNumber> phoneNumbers;
   private ArrayList<EmailAddress> emailAddresses;
   private ArrayList<Address> addresses;
@@ -43,6 +44,10 @@ public class Company extends CompanyBase {
 
   public Boolean getCollaborating() {
     return this.collaborating;
+  }
+
+  public Integer getCollaborationAccountId() {
+    return this.collaborationAccountId;
   }
 
   public ArrayList<Contact> getContacts() {
@@ -79,6 +84,10 @@ public class Company extends CompanyBase {
 
   public void setCollaborating(Boolean collaborating) {
     this.collaborating = collaborating;
+  }
+
+  public void setCollaborationAccountId(Integer collaborationAccountId) {
+    this.collaborationAccountId = collaborationAccountId;
   }
 
   public void setContacts(ArrayList<Contact> contacts) {
