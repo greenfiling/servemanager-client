@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2024 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Invoice {
   public static final String TYPE = "invoice";
 
@@ -28,8 +30,15 @@ public class Invoice {
   private String balanceDue;
   private LocalDate issuedOn;
   private String totalPaid;
+  private String total;
   private String terms;
   private LocalDate paidOn;
+  private String token;
+  private Boolean taxesEnabled;
+  private OffsetDateTime lastIssuedAt;
+  private Integer clientId;
+  @SerializedName(value = "servemanager_job_number")
+  private Integer serveManagerJobNumber;
   private String pdfDownloadUrl;
   private OffsetDateTime updatedAt;
   private OffsetDateTime createdAt;
@@ -69,6 +78,26 @@ public class Invoice {
     return this.payments;
   }
 
+  public String getToken() {
+    return this.token;
+  }
+
+  public Boolean getTaxesEnabled() {
+    return this.taxesEnabled;
+  }
+
+  public OffsetDateTime getLastIssuedAt() {
+    return this.lastIssuedAt;
+  }
+
+  public Integer getClientId() {
+    return this.clientId;
+  }
+
+  public Integer getServeManagerJobNumber() {
+    return this.serveManagerJobNumber;
+  }
+
   public String getPdfDownloadUrl() {
     return this.pdfDownloadUrl;
   }
@@ -79,6 +108,10 @@ public class Invoice {
 
   public String getTotalPaid() {
     return this.totalPaid;
+  }
+
+  public String getTotal() {
+    return this.total;
   }
 
   public String getType() {
@@ -117,6 +150,26 @@ public class Invoice {
     this.payments = payments;
   }
 
+  public void setToken(String token) {
+    this.token = token;
+  }
+
+  public void setTaxesEnabled(Boolean taxesEnabled) {
+    this.taxesEnabled = taxesEnabled;
+  }
+
+  public void setLastIssuedAt(OffsetDateTime lastIssuedAt) {
+    this.lastIssuedAt = lastIssuedAt;
+  }
+
+  public void setClientId(Integer clientId) {
+    this.clientId = clientId;
+  }
+
+  public void setServeManagerJobNumber(Integer serveManagerJobNumber) {
+    this.serveManagerJobNumber = serveManagerJobNumber;
+  }
+
   public void setPdfDownloadUrl(String pdfDownloadUrl) {
     this.pdfDownloadUrl = pdfDownloadUrl;
   }
@@ -127,6 +180,10 @@ public class Invoice {
 
   public void setTotalPaid(String totalPaid) {
     this.totalPaid = totalPaid;
+  }
+
+  public void setTotal(String total) {
+    this.total = total;
   }
 
   public void setType(String type) {

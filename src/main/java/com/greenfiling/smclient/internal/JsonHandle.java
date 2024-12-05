@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2024 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +32,10 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.greenfiling.smclient.model.Data;
+import com.greenfiling.smclient.model.Job;
+import com.greenfiling.smclient.model.JobSubmit;
+import com.greenfiling.smclient.model.Note;
 
 /**
  * Class for handling JSON de/serialization for the Serve Manager API
@@ -106,6 +110,50 @@ public class JsonHandle {
     }
   }
 
+  public class DataGsonTypeAdapter implements JsonSerializer<Data>, JsonDeserializer<Data> {
+    // Must be new different gson object, or we'll have a circular reference to ourselves
+    // @formatter:off
+    Gson gson = new GsonBuilder()
+        .registerTypeAdapter(LocalDate.class, new GsonLocalDateAdapter())
+        .registerTypeAdapter(OffsetDateTime.class, new GsonOffsetDateTimeAdapter())
+        .setFieldNamingPolicy(com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        .create();
+    // @formatter:on
+
+    /**
+     * method for deserializing Data Interface objects into {@link Data} Interface objects
+     */
+    @Override
+    public synchronized Data deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+      String type = json.getAsJsonObject().get("type").getAsString();
+
+      if ("job".equals(type)) {
+        return gson.fromJson(json, Job.class);
+      } else if ("note".equals(type)) {
+        return gson.fromJson(json, Note.class);
+      }
+      throw new JsonParseException("Type object not implemented Type=" + type);
+    }
+
+    /**
+     * method for serializing {@link Data} objects into Data Interface
+     */
+    @Override
+    public synchronized JsonElement serialize(Data data, Type type, JsonSerializationContext jsonSerializationContext) {
+      if (data instanceof Job) {
+        return gson.toJsonTree((Job) data);
+      }
+      if (data instanceof JobSubmit) {
+        return gson.toJsonTree((JobSubmit) data);
+      }
+      if (data instanceof Note) {
+        return gson.toJsonTree((Note) data);
+      }
+
+      throw new JsonParseException("data object not implemented =" + data.getClass().getCanonicalName());
+    }
+  }
+
   private static JsonHandle handle = new JsonHandle();
 
   /**
@@ -157,6 +205,7 @@ public class JsonHandle {
     return new GsonBuilder()
         .registerTypeAdapter(LocalDate.class, new GsonLocalDateAdapter())
         .registerTypeAdapter(OffsetDateTime.class, new GsonOffsetDateTimeAdapter())
+        .registerTypeHierarchyAdapter(Data.class, new DataGsonTypeAdapter())
         .setFieldNamingPolicy(com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
     // @formatter:on
   }

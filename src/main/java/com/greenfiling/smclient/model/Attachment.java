@@ -23,7 +23,6 @@ public class Attachment extends DocumentBase {
 
   private Upload upload;
   private boolean affidavit;
-  private boolean signed;
   private String externalUrl;
   private Integer referenceNumber;
 
@@ -44,10 +43,6 @@ public class Attachment extends DocumentBase {
     return this.referenceNumber;
   }
 
-  public boolean getSigned() {
-    return this.signed;
-  }
-
   public Upload getUpload() {
     return this.upload;
   }
@@ -62,10 +57,6 @@ public class Attachment extends DocumentBase {
 
   public void setReferenceNumber(Integer referenceNumber) {
     this.referenceNumber = referenceNumber;
-  }
-
-  public void setSigned(boolean signed) {
-    this.signed = signed;
   }
 
   public void setUpload(Upload upload) {

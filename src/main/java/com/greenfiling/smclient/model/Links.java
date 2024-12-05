@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2024 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,6 +43,14 @@ public class Links {
    * In a pagination scenario, contains the URL of the last page, or null if already on the last page
    */
   private String next;
+  /**
+   * URL of the api call to retrieve this current result
+   */
+  private String jobs;
+  /**
+   * URL of the current content
+   */
+  private String downloadUrl;
 
   public String getFirst() {
     return this.first;
@@ -64,6 +72,14 @@ public class Links {
     return this.self;
   }
 
+  public String getJobs() {
+    return this.jobs;
+  }
+
+  public String getDownloadUrl() {
+    return this.downloadUrl;
+  }
+
   public void setFirst(String first) {
     this.first = first;
   }
@@ -82,5 +98,13 @@ public class Links {
 
   public void setSelf(String self) {
     this.self = self;
+  }
+
+  public void setJobs(String jobs) {
+    this.jobs = jobs;
+  }
+
+  public void setDownloadUrl(String downloadUrl) {
+    this.downloadUrl = downloadUrl;
   }
 }

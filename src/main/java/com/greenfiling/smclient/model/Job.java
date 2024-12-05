@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2024 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,18 +24,25 @@ import com.google.gson.annotations.SerializedName;
 import com.greenfiling.smclient.model.internal.JobBase;
 
 public class Job extends JobBase {
-  public static final String TYPE = "job";
 
   private Links links;
   private Integer id;
   @SerializedName(value = "servemanager_job_number")
   private String serveManagerJobNumber;
+  private Boolean assignedByCollaboratingServer;
   private OffsetDateTime archivedAt;
   private String serviceStatus;
   private OffsetDateTime updatedAt;
   private OffsetDateTime createdAt;
   private Integer createdById;
   private Recipient recipient;
+  private Integer dupedFromJobId;
+  private ArrayList<Integer> dupedToJobIds;
+  private OffsetDateTime mailingDate;
+  private Integer mailedById;
+  private String mailingLocation;
+  private Boolean mailingRequired;
+  private ServerAcceptance serverAcceptance;
   private Company clientCompany;
   private Contact clientContact;
   private Company processServerCompany;
@@ -51,6 +58,7 @@ public class Job extends JobBase {
   private ArrayList<Document> documents;
   @SerializedName(value = "document_to_be_served_count")
   private Integer documentsToBeServedCount;
+  private Integer documentToBeServedTotalPageCount;
   private ArrayList<ServiceDocument> documentsToBeServed;
   private Integer miscAttachmentsCount;
   private ArrayList<Attachment> miscAttachments;
@@ -125,6 +133,10 @@ public class Job extends JobBase {
     return this.documentsToBeServedCount;
   }
 
+  public Integer getDocumentToBeServedTotalPageCount() {
+    return this.documentToBeServedTotalPageCount;
+  }
+
   public Employee getEmployeeProcessServer() {
     return this.employeeProcessServer;
   }
@@ -171,6 +183,41 @@ public class Job extends JobBase {
 
   public Recipient getRecipient() {
     return this.recipient;
+  }
+
+  public Integer getDupedFromJobId() {
+    return this.dupedFromJobId;
+  }
+
+  public ArrayList<Integer> getDupedToJobIds() {
+    if (this.dupedToJobIds == null) {
+      this.dupedToJobIds = new ArrayList<Integer>();
+    }
+    return this.dupedToJobIds;
+  }
+
+  public OffsetDateTime getMailingDate() {
+    return this.mailingDate;
+  }
+
+  public Integer getMailedById() {
+    return this.mailedById;
+  }
+
+  public String getMailingLocation() {
+    return this.mailingLocation;
+  }
+
+  public Boolean getMailingRequired() {
+    return this.mailingRequired;
+  }
+
+  public ServerAcceptance getServerAcceptance() {
+    return this.serverAcceptance;
+  }
+
+  public Boolean getAssignedByCollaboratingServer() {
+    return this.assignedByCollaboratingServer;
   }
 
   public String getServeManagerJobNumber() {
@@ -245,6 +292,10 @@ public class Job extends JobBase {
     this.documentsToBeServedCount = documentsToBeServedCount;
   }
 
+  public void setDocumentToBeServedTotalPageCount(Integer documentToBeServedTotalPageCount) {
+    this.documentToBeServedTotalPageCount = documentToBeServedTotalPageCount;
+  }
+
   public void setEmployeeProcessServer(Employee employeeProcessServer) {
     this.employeeProcessServer = employeeProcessServer;
   }
@@ -291,6 +342,38 @@ public class Job extends JobBase {
 
   public void setRecipient(Recipient recipient) {
     this.recipient = recipient;
+  }
+
+  public void setDupedFromJobId(Integer dupedFromJobId) {
+    this.dupedFromJobId = dupedFromJobId;
+  }
+
+  public void setDupedToJobIds(ArrayList<Integer> dupedToJobIds) {
+    this.dupedToJobIds = dupedToJobIds;
+  }
+
+  public void setMailingDate(OffsetDateTime mailingDate) {
+    this.mailingDate = mailingDate;
+  }
+
+  public void setMailedById(Integer mailedById) {
+    this.mailedById = mailedById;
+  }
+
+  public void setMailingLocation(String mailingLocation) {
+    this.mailingLocation = mailingLocation;
+  }
+
+  public void setMailingRequired(Boolean mailingRequired) {
+    this.mailingRequired = mailingRequired;
+  }
+
+  public void setServerAcceptance(ServerAcceptance serverAcceptance) {
+    this.serverAcceptance = serverAcceptance;
+  }
+
+  public void setAssignedByCollaboratingServer(Boolean assignedByCollaboratingServer) {
+    this.assignedByCollaboratingServer = assignedByCollaboratingServer;
   }
 
   public void setServeManagerJobNumber(String serveManagerJobNumber) {
