@@ -1,4 +1,20 @@
 #######################
+## 1.0.14
+## 2024-12-09
+
+  * Add model support for webhooks
+  * Implement collaborationAccountId in Company model
+  * Implement total, token, taxesEnabled, lastIssuedAt, clientId,
+    and serveManagerJobNumber in Invoice model
+  * Implement assignedByCollaboratingServer, dupedFromJobIds, mailingDate,
+    mailedById, mailingLocation, mailingRequired, and serverAcceptance
+    in Job model
+  * Implemented jobs and downloadUrl in Links model
+  * Implemented instructionsFromClient and requireServerAcceptance in
+    JobBase model
+  * Updating library dependencies
+
+#######################
 ## 1.0.13
 ## 2024-12-02
 
