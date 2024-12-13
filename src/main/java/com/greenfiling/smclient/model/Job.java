@@ -68,6 +68,9 @@ public class Job extends JobBase {
   private OffsetDateTime lastAttemptServedAt;
   private String lastAttemptServedAtTimezone;
   private HashMap<String, String> custom; // I have no idea what might be in this field
+  private String attorneyName;
+  private String attorneyEmail;
+  private String sbn;
 
   public Job() {
     super();
@@ -85,12 +88,24 @@ public class Job extends JobBase {
     return this.archivedAt;
   }
 
+  public Boolean getAssignedByCollaboratingServer() {
+    return this.assignedByCollaboratingServer;
+  }
+
   public ArrayList<Attempt> getAttempts() {
     return this.attempts;
   }
 
   public Integer getAttemptsCount() {
     return this.attemptsCount;
+  }
+
+  public String getAttorneyEmail() {
+    return attorneyEmail;
+  }
+
+  public String getAttorneyName() {
+    return attorneyName;
   }
 
   public Company getClientCompany() {
@@ -137,6 +152,17 @@ public class Job extends JobBase {
     return this.documentToBeServedTotalPageCount;
   }
 
+  public Integer getDupedFromJobId() {
+    return this.dupedFromJobId;
+  }
+
+  public ArrayList<Integer> getDupedToJobIds() {
+    if (this.dupedToJobIds == null) {
+      this.dupedToJobIds = new ArrayList<Integer>();
+    }
+    return this.dupedToJobIds;
+  }
+
   public Employee getEmployeeProcessServer() {
     return this.employeeProcessServer;
   }
@@ -159,6 +185,22 @@ public class Job extends JobBase {
 
   public Links getLinks() {
     return this.links;
+  }
+
+  public Integer getMailedById() {
+    return this.mailedById;
+  }
+
+  public OffsetDateTime getMailingDate() {
+    return this.mailingDate;
+  }
+
+  public String getMailingLocation() {
+    return this.mailingLocation;
+  }
+
+  public Boolean getMailingRequired() {
+    return this.mailingRequired;
   }
 
   public ArrayList<Attachment> getMiscAttachments() {
@@ -185,43 +227,16 @@ public class Job extends JobBase {
     return this.recipient;
   }
 
-  public Integer getDupedFromJobId() {
-    return this.dupedFromJobId;
-  }
-
-  public ArrayList<Integer> getDupedToJobIds() {
-    if (this.dupedToJobIds == null) {
-      this.dupedToJobIds = new ArrayList<Integer>();
-    }
-    return this.dupedToJobIds;
-  }
-
-  public OffsetDateTime getMailingDate() {
-    return this.mailingDate;
-  }
-
-  public Integer getMailedById() {
-    return this.mailedById;
-  }
-
-  public String getMailingLocation() {
-    return this.mailingLocation;
-  }
-
-  public Boolean getMailingRequired() {
-    return this.mailingRequired;
-  }
-
-  public ServerAcceptance getServerAcceptance() {
-    return this.serverAcceptance;
-  }
-
-  public Boolean getAssignedByCollaboratingServer() {
-    return this.assignedByCollaboratingServer;
+  public String getSbn() {
+    return sbn;
   }
 
   public String getServeManagerJobNumber() {
     return this.serveManagerJobNumber;
+  }
+
+  public ServerAcceptance getServerAcceptance() {
+    return this.serverAcceptance;
   }
 
   public String getServiceStatus() {
@@ -244,12 +259,24 @@ public class Job extends JobBase {
     this.archivedAt = archivedAt;
   }
 
+  public void setAssignedByCollaboratingServer(Boolean assignedByCollaboratingServer) {
+    this.assignedByCollaboratingServer = assignedByCollaboratingServer;
+  }
+
   public void setAttempts(ArrayList<Attempt> attempts) {
     this.attempts = attempts;
   }
 
   public void setAttemptsCount(Integer attemptsCount) {
     this.attemptsCount = attemptsCount;
+  }
+
+  public void setAttorneyEmail(String attorneyEmail) {
+    this.attorneyEmail = attorneyEmail;
+  }
+
+  public void setAttorneyName(String attorneyName) {
+    this.attorneyName = attorneyName;
   }
 
   public void setClientCompany(Company clientCompany) {
@@ -296,6 +323,14 @@ public class Job extends JobBase {
     this.documentToBeServedTotalPageCount = documentToBeServedTotalPageCount;
   }
 
+  public void setDupedFromJobId(Integer dupedFromJobId) {
+    this.dupedFromJobId = dupedFromJobId;
+  }
+
+  public void setDupedToJobIds(ArrayList<Integer> dupedToJobIds) {
+    this.dupedToJobIds = dupedToJobIds;
+  }
+
   public void setEmployeeProcessServer(Employee employeeProcessServer) {
     this.employeeProcessServer = employeeProcessServer;
   }
@@ -318,6 +353,22 @@ public class Job extends JobBase {
 
   public void setLinks(Links links) {
     this.links = links;
+  }
+
+  public void setMailedById(Integer mailedById) {
+    this.mailedById = mailedById;
+  }
+
+  public void setMailingDate(OffsetDateTime mailingDate) {
+    this.mailingDate = mailingDate;
+  }
+
+  public void setMailingLocation(String mailingLocation) {
+    this.mailingLocation = mailingLocation;
+  }
+
+  public void setMailingRequired(Boolean mailingRequired) {
+    this.mailingRequired = mailingRequired;
   }
 
   public void setMiscAttachments(ArrayList<Attachment> miscAttachments) {
@@ -344,40 +395,16 @@ public class Job extends JobBase {
     this.recipient = recipient;
   }
 
-  public void setDupedFromJobId(Integer dupedFromJobId) {
-    this.dupedFromJobId = dupedFromJobId;
-  }
-
-  public void setDupedToJobIds(ArrayList<Integer> dupedToJobIds) {
-    this.dupedToJobIds = dupedToJobIds;
-  }
-
-  public void setMailingDate(OffsetDateTime mailingDate) {
-    this.mailingDate = mailingDate;
-  }
-
-  public void setMailedById(Integer mailedById) {
-    this.mailedById = mailedById;
-  }
-
-  public void setMailingLocation(String mailingLocation) {
-    this.mailingLocation = mailingLocation;
-  }
-
-  public void setMailingRequired(Boolean mailingRequired) {
-    this.mailingRequired = mailingRequired;
-  }
-
-  public void setServerAcceptance(ServerAcceptance serverAcceptance) {
-    this.serverAcceptance = serverAcceptance;
-  }
-
-  public void setAssignedByCollaboratingServer(Boolean assignedByCollaboratingServer) {
-    this.assignedByCollaboratingServer = assignedByCollaboratingServer;
+  public void setSbn(String sbn) {
+    this.sbn = sbn;
   }
 
   public void setServeManagerJobNumber(String serveManagerJobNumber) {
     this.serveManagerJobNumber = serveManagerJobNumber;
+  }
+
+  public void setServerAcceptance(ServerAcceptance serverAcceptance) {
+    this.serverAcceptance = serverAcceptance;
   }
 
   public void setServiceStatus(String serviceStatus) {

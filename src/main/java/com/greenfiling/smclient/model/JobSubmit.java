@@ -31,6 +31,9 @@ public class JobSubmit extends JobBase {
   private ArrayList<Address> addressesAttributes;
   private ArrayList<ServiceDocument> documentsToBeServedAttributes;
   private ArrayList<Attachment> miscAttachmentsAttributes;
+  private String attorneyName;
+  private String attorneyEmail;
+  private String sbn;
 
   public JobSubmit() {
     super();
@@ -64,10 +67,21 @@ public class JobSubmit extends JobBase {
     if (job.getCourtCase() != null) {
       setCourtCaseId(job.getCourtCase().getId());
     }
+    setAttorneyName(job.getAttorneyName());
+    setAttorneyEmail(job.getAttorneyEmail());
+    setSbn(job.getSbn());
   }
 
   public ArrayList<Address> getAddressesAttributes() {
     return this.addressesAttributes;
+  }
+
+  public String getAttorneyEmail() {
+    return attorneyEmail;
+  }
+
+  public String getAttorneyName() {
+    return attorneyName;
   }
 
   public Integer getClientCompanyId() {
@@ -106,8 +120,20 @@ public class JobSubmit extends JobBase {
     return recipientAttributes;
   }
 
+  public String getSbn() {
+    return sbn;
+  }
+
   public void setAddressesAttributes(ArrayList<Address> addressesAttributes) {
     this.addressesAttributes = addressesAttributes;
+  }
+
+  public void setAttorneyEmail(String attorneyEmail) {
+    this.attorneyEmail = attorneyEmail;
+  }
+
+  public void setAttorneyName(String attorneyName) {
+    this.attorneyName = attorneyName;
   }
 
   public void setClientCompanyId(Integer clientCompanyId) {
@@ -144,6 +170,10 @@ public class JobSubmit extends JobBase {
 
   public void setRecipientAttributes(Recipient recipientAttributes) {
     this.recipientAttributes = recipientAttributes;
+  }
+
+  public void setSbn(String sbn) {
+    this.sbn = sbn;
   }
 
 }
