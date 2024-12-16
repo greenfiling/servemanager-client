@@ -43,6 +43,9 @@ public abstract class JobBase extends Data {
   private Double quotedRetailPrice;
   private Integer quotedPageCount;
   private Integer clientTransactionRef;
+  private String attorneyName;
+  private String attorneyEmail;
+  private String sbn;
   // custom?
 
   public JobBase() {
@@ -60,6 +63,14 @@ public abstract class JobBase extends Data {
     setDueDate(job.getDueDate());
     setRush(job.getRush());
     setJobTypeId(job.getJobTypeId());
+  }
+
+  public String getAttorneyEmail() {
+    return attorneyEmail;
+  }
+
+  public String getAttorneyName() {
+    return attorneyName;
   }
 
   public String getClientJobNumber() {
@@ -106,8 +117,20 @@ public abstract class JobBase extends Data {
     return this.rush;
   }
 
+  public String getSbn() {
+    return sbn;
+  }
+
   public String getServiceInstructions() {
     return this.serviceInstructions;
+  }
+
+  public void setAttorneyEmail(String attorneyEmail) {
+    this.attorneyEmail = attorneyEmail;
+  }
+
+  public void setAttorneyName(String attorneyName) {
+    this.attorneyName = attorneyName;
   }
 
   public void setClientJobNumber(String clientJobNumber) {
@@ -166,6 +189,10 @@ public abstract class JobBase extends Data {
 
   public void setRush(Boolean rush) {
     this.rush = rush;
+  }
+
+  public void setSbn(String sbn) {
+    this.sbn = sbn;
   }
 
   public void setServiceInstructions(String serviceInstructions) {
