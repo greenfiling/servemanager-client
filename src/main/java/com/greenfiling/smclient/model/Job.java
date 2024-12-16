@@ -68,9 +68,6 @@ public class Job extends JobBase {
   private OffsetDateTime lastAttemptServedAt;
   private String lastAttemptServedAtTimezone;
   private HashMap<String, String> custom; // I have no idea what might be in this field
-  private String attorneyName;
-  private String attorneyEmail;
-  private String sbn;
 
   public Job() {
     super();
@@ -98,14 +95,6 @@ public class Job extends JobBase {
 
   public Integer getAttemptsCount() {
     return this.attemptsCount;
-  }
-
-  public String getAttorneyEmail() {
-    return attorneyEmail;
-  }
-
-  public String getAttorneyName() {
-    return attorneyName;
   }
 
   public Company getClientCompany() {
@@ -227,10 +216,6 @@ public class Job extends JobBase {
     return this.recipient;
   }
 
-  public String getSbn() {
-    return sbn;
-  }
-
   public String getServeManagerJobNumber() {
     return this.serveManagerJobNumber;
   }
@@ -269,14 +254,6 @@ public class Job extends JobBase {
 
   public void setAttemptsCount(Integer attemptsCount) {
     this.attemptsCount = attemptsCount;
-  }
-
-  public void setAttorneyEmail(String attorneyEmail) {
-    this.attorneyEmail = attorneyEmail;
-  }
-
-  public void setAttorneyName(String attorneyName) {
-    this.attorneyName = attorneyName;
   }
 
   public void setClientCompany(Company clientCompany) {
@@ -393,10 +370,6 @@ public class Job extends JobBase {
 
   public void setRecipient(Recipient recipient) {
     this.recipient = recipient;
-  }
-
-  public void setSbn(String sbn) {
-    this.sbn = sbn;
   }
 
   public void setServeManagerJobNumber(String serveManagerJobNumber) {

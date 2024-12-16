@@ -54,6 +54,10 @@ public class Invoice {
     return this.balanceDue;
   }
 
+  public Integer getClientId() {
+    return this.clientId;
+  }
+
   public OffsetDateTime getCreatedAt() {
     return this.createdAt;
   }
@@ -64,6 +68,10 @@ public class Invoice {
 
   public LocalDate getIssuedOn() {
     return this.issuedOn;
+  }
+
+  public OffsetDateTime getLastIssuedAt() {
+    return this.lastIssuedAt;
   }
 
   public ArrayList<LineItem> getLineItems() {
@@ -78,40 +86,32 @@ public class Invoice {
     return this.payments;
   }
 
-  public String getToken() {
-    return this.token;
-  }
-
-  public Boolean getTaxesEnabled() {
-    return this.taxesEnabled;
-  }
-
-  public OffsetDateTime getLastIssuedAt() {
-    return this.lastIssuedAt;
-  }
-
-  public Integer getClientId() {
-    return this.clientId;
+  public String getPdfDownloadUrl() {
+    return this.pdfDownloadUrl;
   }
 
   public Integer getServeManagerJobNumber() {
     return this.serveManagerJobNumber;
   }
 
-  public String getPdfDownloadUrl() {
-    return this.pdfDownloadUrl;
+  public Boolean getTaxesEnabled() {
+    return this.taxesEnabled;
   }
 
   public String getTerms() {
     return this.terms;
   }
 
-  public String getTotalPaid() {
-    return this.totalPaid;
+  public String getToken() {
+    return this.token;
   }
 
   public String getTotal() {
     return this.total;
+  }
+
+  public String getTotalPaid() {
+    return this.totalPaid;
   }
 
   public String getType() {
@@ -126,6 +126,10 @@ public class Invoice {
     this.balanceDue = balanceDue;
   }
 
+  public void setClientId(Integer clientId) {
+    this.clientId = clientId;
+  }
+
   public void setCreatedAt(OffsetDateTime createdAt) {
     this.createdAt = createdAt;
   }
@@ -136,6 +140,10 @@ public class Invoice {
 
   public void setIssuedOn(LocalDate issuedOn) {
     this.issuedOn = issuedOn;
+  }
+
+  public void setLastIssuedAt(OffsetDateTime lastIssuedAt) {
+    this.lastIssuedAt = lastIssuedAt;
   }
 
   public void setLineItems(ArrayList<LineItem> lineItems) {
@@ -150,40 +158,32 @@ public class Invoice {
     this.payments = payments;
   }
 
-  public void setToken(String token) {
-    this.token = token;
-  }
-
-  public void setTaxesEnabled(Boolean taxesEnabled) {
-    this.taxesEnabled = taxesEnabled;
-  }
-
-  public void setLastIssuedAt(OffsetDateTime lastIssuedAt) {
-    this.lastIssuedAt = lastIssuedAt;
-  }
-
-  public void setClientId(Integer clientId) {
-    this.clientId = clientId;
+  public void setPdfDownloadUrl(String pdfDownloadUrl) {
+    this.pdfDownloadUrl = pdfDownloadUrl;
   }
 
   public void setServeManagerJobNumber(Integer serveManagerJobNumber) {
     this.serveManagerJobNumber = serveManagerJobNumber;
   }
 
-  public void setPdfDownloadUrl(String pdfDownloadUrl) {
-    this.pdfDownloadUrl = pdfDownloadUrl;
+  public void setTaxesEnabled(Boolean taxesEnabled) {
+    this.taxesEnabled = taxesEnabled;
   }
 
   public void setTerms(String terms) {
     this.terms = terms;
   }
 
-  public void setTotalPaid(String totalPaid) {
-    this.totalPaid = totalPaid;
+  public void setToken(String token) {
+    this.token = token;
   }
 
   public void setTotal(String total) {
     this.total = total;
+  }
+
+  public void setTotalPaid(String totalPaid) {
+    this.totalPaid = totalPaid;
   }
 
   public void setType(String type) {

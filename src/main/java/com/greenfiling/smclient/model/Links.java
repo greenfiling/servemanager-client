@@ -52,8 +52,16 @@ public class Links {
    */
   private String downloadUrl;
 
+  public String getDownloadUrl() {
+    return this.downloadUrl;
+  }
+
   public String getFirst() {
     return this.first;
+  }
+
+  public String getJobs() {
+    return this.jobs;
   }
 
   public String getLast() {
@@ -72,16 +80,16 @@ public class Links {
     return this.self;
   }
 
-  public String getJobs() {
-    return this.jobs;
-  }
-
-  public String getDownloadUrl() {
-    return this.downloadUrl;
+  public void setDownloadUrl(String downloadUrl) {
+    this.downloadUrl = downloadUrl;
   }
 
   public void setFirst(String first) {
     this.first = first;
+  }
+
+  public void setJobs(String jobs) {
+    this.jobs = jobs;
   }
 
   public void setLast(String last) {
@@ -98,13 +106,5 @@ public class Links {
 
   public void setSelf(String self) {
     this.self = self;
-  }
-
-  public void setJobs(String jobs) {
-    this.jobs = jobs;
-  }
-
-  public void setDownloadUrl(String downloadUrl) {
-    this.downloadUrl = downloadUrl;
   }
 }

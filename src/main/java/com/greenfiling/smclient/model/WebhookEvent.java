@@ -28,22 +28,6 @@ public class WebhookEvent {
   public ArrayList<String> changed;
   public OffsetDateTime createdAt;
 
-  public String getType() {
-    return type;
-  }
-
-  public int getId() {
-    return id;
-  }
-
-  public String getEvent() {
-    return event;
-  }
-
-  public String getEventReference() {
-    return eventReference;
-  }
-
   public String getAction() {
     return action;
   }
@@ -56,20 +40,20 @@ public class WebhookEvent {
     return createdAt;
   }
 
-  public void setType(String type) {
-    this.type = type;
+  public String getEvent() {
+    return event;
   }
 
-  public void setId(int id) {
-    this.id = id;
+  public String getEventReference() {
+    return eventReference;
   }
 
-  public void setEvent(String event) {
-    this.event = event;
+  public int getId() {
+    return id;
   }
 
-  public void setEventReference(String eventReference) {
-    this.eventReference = eventReference;
+  public String getType() {
+    return type;
   }
 
   public void setAction(String action) {
@@ -82,5 +66,21 @@ public class WebhookEvent {
 
   public void setCreatedAt(OffsetDateTime createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public void setEvent(String event) {
+    this.event = event;
+  }
+
+  public void setEventReference(String eventReference) {
+    this.eventReference = eventReference;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 }

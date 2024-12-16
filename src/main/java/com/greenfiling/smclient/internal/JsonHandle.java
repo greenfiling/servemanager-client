@@ -46,6 +46,50 @@ import com.greenfiling.smclient.model.Note;
  * @since 1.0.0
  */
 public class JsonHandle {
+  public class DataGsonTypeAdapter implements JsonSerializer<Data>, JsonDeserializer<Data> {
+    // Must be new different gson object, or we'll have a circular reference to ourselves
+    // @formatter:off
+    Gson gson = new GsonBuilder()
+        .registerTypeAdapter(LocalDate.class, new GsonLocalDateAdapter())
+        .registerTypeAdapter(OffsetDateTime.class, new GsonOffsetDateTimeAdapter())
+        .setFieldNamingPolicy(com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        .create();
+    // @formatter:on
+
+    /**
+     * method for deserializing Data Interface objects into {@link Data} Interface objects
+     */
+    @Override
+    public synchronized Data deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+      String type = json.getAsJsonObject().get("type").getAsString();
+
+      if ("job".equals(type)) {
+        return gson.fromJson(json, Job.class);
+      } else if ("note".equals(type)) {
+        return gson.fromJson(json, Note.class);
+      }
+      throw new JsonParseException("Type object not implemented Type=" + type);
+    }
+
+    /**
+     * method for serializing {@link Data} objects into Data Interface
+     */
+    @Override
+    public synchronized JsonElement serialize(Data data, Type type, JsonSerializationContext jsonSerializationContext) {
+      if (data instanceof Job) {
+        return gson.toJsonTree((Job) data);
+      }
+      if (data instanceof JobSubmit) {
+        return gson.toJsonTree((JobSubmit) data);
+      }
+      if (data instanceof Note) {
+        return gson.toJsonTree((Note) data);
+      }
+
+      throw new JsonParseException("data object not implemented =" + data.getClass().getCanonicalName());
+    }
+  }
+
   /**
    * Handle the Serve Manager Date format
    * 
@@ -107,50 +151,6 @@ public class JsonHandle {
       } catch (DateTimeException e) {
         throw new JsonParseException(e);
       }
-    }
-  }
-
-  public class DataGsonTypeAdapter implements JsonSerializer<Data>, JsonDeserializer<Data> {
-    // Must be new different gson object, or we'll have a circular reference to ourselves
-    // @formatter:off
-    Gson gson = new GsonBuilder()
-        .registerTypeAdapter(LocalDate.class, new GsonLocalDateAdapter())
-        .registerTypeAdapter(OffsetDateTime.class, new GsonOffsetDateTimeAdapter())
-        .setFieldNamingPolicy(com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-        .create();
-    // @formatter:on
-
-    /**
-     * method for deserializing Data Interface objects into {@link Data} Interface objects
-     */
-    @Override
-    public synchronized Data deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-      String type = json.getAsJsonObject().get("type").getAsString();
-
-      if ("job".equals(type)) {
-        return gson.fromJson(json, Job.class);
-      } else if ("note".equals(type)) {
-        return gson.fromJson(json, Note.class);
-      }
-      throw new JsonParseException("Type object not implemented Type=" + type);
-    }
-
-    /**
-     * method for serializing {@link Data} objects into Data Interface
-     */
-    @Override
-    public synchronized JsonElement serialize(Data data, Type type, JsonSerializationContext jsonSerializationContext) {
-      if (data instanceof Job) {
-        return gson.toJsonTree((Job) data);
-      }
-      if (data instanceof JobSubmit) {
-        return gson.toJsonTree((JobSubmit) data);
-      }
-      if (data instanceof Note) {
-        return gson.toJsonTree((Note) data);
-      }
-
-      throw new JsonParseException("data object not implemented =" + data.getClass().getCanonicalName());
     }
   }
 

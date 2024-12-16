@@ -43,6 +43,9 @@ public abstract class JobBase extends Data {
   private Double quotedRetailPrice;
   private Integer quotedPageCount;
   private Integer clientTransactionRef;
+  private String attorneyName;
+  private String attorneyEmail;
+  private String sbn;
   // custom?
 
   public JobBase() {
@@ -62,6 +65,14 @@ public abstract class JobBase extends Data {
     setJobTypeId(job.getJobTypeId());
   }
 
+  public String getAttorneyEmail() {
+    return attorneyEmail;
+  }
+
+  public String getAttorneyName() {
+    return attorneyName;
+  }
+
   public String getClientJobNumber() {
     return this.clientJobNumber;
   }
@@ -74,20 +85,16 @@ public abstract class JobBase extends Data {
     return this.dueDate;
   }
 
+  public String getInstructionsFromClient() {
+    return this.instructionsFromClient;
+  }
+
   public String getJobStatus() {
     return this.jobStatus;
   }
 
   public Integer getJobTypeId() {
     return this.jobTypeId;
-  }
-
-  public String getInstructionsFromClient() {
-    return this.instructionsFromClient;
-  }
-
-  public Boolean getRequireServerAcceptance() {
-    return this.requireServerAcceptance;
   }
 
   public Integer getQuotedPageCount() {
@@ -102,12 +109,28 @@ public abstract class JobBase extends Data {
     return quotedSupplierCostId;
   }
 
+  public Boolean getRequireServerAcceptance() {
+    return this.requireServerAcceptance;
+  }
+
   public Boolean getRush() {
     return this.rush;
   }
 
+  public String getSbn() {
+    return sbn;
+  }
+
   public String getServiceInstructions() {
     return this.serviceInstructions;
+  }
+
+  public void setAttorneyEmail(String attorneyEmail) {
+    this.attorneyEmail = attorneyEmail;
+  }
+
+  public void setAttorneyName(String attorneyName) {
+    this.attorneyName = attorneyName;
   }
 
   public void setClientJobNumber(String clientJobNumber) {
@@ -120,6 +143,10 @@ public abstract class JobBase extends Data {
 
   public void setDueDate(LocalDate dueDate) {
     this.dueDate = dueDate;
+  }
+
+  public void setInstructionsFromClient(String instructionsFromClient) {
+    this.instructionsFromClient = instructionsFromClient;
   }
 
   /**
@@ -144,14 +171,6 @@ public abstract class JobBase extends Data {
     this.jobTypeId = jobTypeId;
   }
 
-  public void setInstructionsFromClient(String instructionsFromClient) {
-    this.instructionsFromClient = instructionsFromClient;
-  }
-
-  public void setRequireServerAcceptance(Boolean requireServerAcceptance) {
-    this.requireServerAcceptance = requireServerAcceptance;
-  }
-
   public void setQuotedPageCount(Integer quoted_page_count) {
     this.quotedPageCount = quoted_page_count;
   }
@@ -164,8 +183,16 @@ public abstract class JobBase extends Data {
     this.quotedSupplierCostId = quotedSupplierCodeId;
   }
 
+  public void setRequireServerAcceptance(Boolean requireServerAcceptance) {
+    this.requireServerAcceptance = requireServerAcceptance;
+  }
+
   public void setRush(Boolean rush) {
     this.rush = rush;
+  }
+
+  public void setSbn(String sbn) {
+    this.sbn = sbn;
   }
 
   public void setServiceInstructions(String serviceInstructions) {
