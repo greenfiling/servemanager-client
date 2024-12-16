@@ -27,27 +27,27 @@ public class PayLoad {
   Meta meta;
   ArrayList<Data> data = new ArrayList<>();
 
-  public Meta getMeta() {
-    return this.meta;
+  public ArrayList<Data> getData() {
+    return this.data;
   }
 
   public Links getLinks() {
     return this.links;
   }
 
-  public ArrayList<Data> getData() {
-    return this.data;
+  public Meta getMeta() {
+    return this.meta;
   }
 
-  public void setMeta(Meta meta) {
-    this.meta = meta;
+  public void setData(ArrayList<Data> data) {
+    this.data = data;
   }
 
   public void setLinks(Links links) {
     this.links = links;
   }
 
-  public void setData(ArrayList<Data> data) {
-    this.data = data;
+  public void setMeta(Meta meta) {
+    this.meta = meta;
   }
 }

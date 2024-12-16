@@ -28,6 +28,30 @@ public class Meta {
   public int accountId;
   public OffsetDateTime deliveredAt;
 
+  public int getAccountId() {
+    return accountId;
+  }
+
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public OffsetDateTime getDeliveredAt() {
+    return deliveredAt;
+  }
+
+  public int getEventCount() {
+    return eventCount;
+  }
+
+  public String getReference() {
+    return reference;
+  }
+
+  public String getTargetUrl() {
+    return targetUrl;
+  }
+
   public String getWebhookId() {
     return webhookId;
   }
@@ -36,28 +60,28 @@ public class Meta {
     return webhookName;
   }
 
-  public String getReference() {
-    return reference;
+  public void setAccountId(int accountId) {
+    this.accountId = accountId;
   }
 
-  public OffsetDateTime getCreatedAt() {
-    return createdAt;
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
   }
 
-  public int getEventCount() {
-    return eventCount;
+  public void setDeliveredAt(OffsetDateTime deliveredAt) {
+    this.deliveredAt = deliveredAt;
   }
 
-  public String getTargetUrl() {
-    return targetUrl;
+  public void setEventCount(int eventCount) {
+    this.eventCount = eventCount;
   }
 
-  public int getAccountId() {
-    return accountId;
+  public void setReference(String reference) {
+    this.reference = reference;
   }
 
-  public OffsetDateTime getDeliveredAt() {
-    return deliveredAt;
+  public void setTargetUrl(String targetUrl) {
+    this.targetUrl = targetUrl;
   }
 
   public void setWebhookId(String webhookId) {
@@ -66,29 +90,5 @@ public class Meta {
 
   public void setWebhookName(String webhookName) {
     this.webhookName = webhookName;
-  }
-
-  public void setReference(String reference) {
-    this.reference = reference;
-  }
-
-  public void setCreatedAt(OffsetDateTime createdAt) {
-    this.createdAt = createdAt;
-  }
-
-  public void setEventCount(int eventCount) {
-    this.eventCount = eventCount;
-  }
-
-  public void setTargetUrl(String targetUrl) {
-    this.targetUrl = targetUrl;
-  }
-
-  public void setAccountId(int accountId) {
-    this.accountId = accountId;
-  }
-
-  public void setDeliveredAt(OffsetDateTime deliveredAt) {
-    this.deliveredAt = deliveredAt;
   }
 }

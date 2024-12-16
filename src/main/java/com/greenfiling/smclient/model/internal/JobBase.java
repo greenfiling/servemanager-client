@@ -85,20 +85,16 @@ public abstract class JobBase extends Data {
     return this.dueDate;
   }
 
+  public String getInstructionsFromClient() {
+    return this.instructionsFromClient;
+  }
+
   public String getJobStatus() {
     return this.jobStatus;
   }
 
   public Integer getJobTypeId() {
     return this.jobTypeId;
-  }
-
-  public String getInstructionsFromClient() {
-    return this.instructionsFromClient;
-  }
-
-  public Boolean getRequireServerAcceptance() {
-    return this.requireServerAcceptance;
   }
 
   public Integer getQuotedPageCount() {
@@ -111,6 +107,10 @@ public abstract class JobBase extends Data {
 
   public Integer getQuotedSupplierCostId() {
     return quotedSupplierCostId;
+  }
+
+  public Boolean getRequireServerAcceptance() {
+    return this.requireServerAcceptance;
   }
 
   public Boolean getRush() {
@@ -145,6 +145,10 @@ public abstract class JobBase extends Data {
     this.dueDate = dueDate;
   }
 
+  public void setInstructionsFromClient(String instructionsFromClient) {
+    this.instructionsFromClient = instructionsFromClient;
+  }
+
   /**
    * Sets the job status
    * <P>
@@ -167,14 +171,6 @@ public abstract class JobBase extends Data {
     this.jobTypeId = jobTypeId;
   }
 
-  public void setInstructionsFromClient(String instructionsFromClient) {
-    this.instructionsFromClient = instructionsFromClient;
-  }
-
-  public void setRequireServerAcceptance(Boolean requireServerAcceptance) {
-    this.requireServerAcceptance = requireServerAcceptance;
-  }
-
   public void setQuotedPageCount(Integer quoted_page_count) {
     this.quotedPageCount = quoted_page_count;
   }
@@ -185,6 +181,10 @@ public abstract class JobBase extends Data {
 
   public void setQuotedSupplierCostId(Integer quotedSupplierCodeId) {
     this.quotedSupplierCostId = quotedSupplierCodeId;
+  }
+
+  public void setRequireServerAcceptance(Boolean requireServerAcceptance) {
+    this.requireServerAcceptance = requireServerAcceptance;
   }
 
   public void setRush(Boolean rush) {

@@ -35,20 +35,32 @@ public class ServerAcceptance extends CourtCaseBase {
     super();
   }
 
-  public String getResponse() {
-    return this.response;
-  }
-
-  public String getDeclineReason() {
-    return this.declineReason;
+  public OffsetDateTime getDeclinedAt() {
+    return this.declinedAt;
   }
 
   public String getDeclineDescription() {
     return this.declineDescription;
   }
 
-  public OffsetDateTime getDeclinedAt() {
-    return this.declinedAt;
+  public String getDeclineReason() {
+    return this.declineReason;
+  }
+
+  public String getResponse() {
+    return this.response;
+  }
+
+  public void setDeclinedAt(OffsetDateTime declinedAt) {
+    this.declinedAt = declinedAt;
+  }
+
+  public void setDeclineDescription(String declineDescription) {
+    this.declineDescription = declineDescription;
+  }
+
+  public void setDeclineReason(String declineReason) {
+    this.declineReason = declineReason;
   }
 
   /**
@@ -67,17 +79,5 @@ public class ServerAcceptance extends CourtCaseBase {
    */
   public void setResponse(String response) {
     this.response = response;
-  }
-
-  public void setDeclineReason(String declineReason) {
-    this.declineReason = declineReason;
-  }
-
-  public void setDeclineDescription(String declineDescription) {
-    this.declineDescription = declineDescription;
-  }
-
-  public void setDeclinedAt(OffsetDateTime declinedAt) {
-    this.declinedAt = declinedAt;
   }
 }
