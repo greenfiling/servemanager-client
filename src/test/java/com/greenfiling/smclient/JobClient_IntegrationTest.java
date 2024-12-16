@@ -127,6 +127,10 @@ public class JobClient_IntegrationTest {
     newJob.setQuotedRetailPrice(retailPrice);
     newJob.setQuotedPageCount(pageCount);
 
+    newJob.setAttorneyName("Test Attorney");
+    newJob.setAttorneyEmail("testAttorney@greenfiling.com");
+    newJob.setSbn("1234");
+
     Show<Job> response = client.create(newJob);
     assertThat(response, not(equalTo(null)));
     assertThat(response.getData(), not(equalTo(null)));
@@ -206,6 +210,10 @@ public class JobClient_IntegrationTest {
     // These two tests should be turned back on when these fields are settable in the API, see github issue #54
     // assertThat(job.getMiscAttachments().get(1).getAffidavit(), equalTo(affidavit.getAffidavit()));
     // assertThat(job.getMiscAttachments().get(1).getSigned(), equalTo(affidavit.getSigned()));
+
+    assertThat(job.getAttorneyName(), equalTo(newJob.getAttorneyName()));
+    assertThat(job.getAttorneyEmail(), equalTo(newJob.getAttorneyEmail()));
+    assertThat(job.getSbn(), equalTo(newJob.getSbn()));
   }
 
   @Test
