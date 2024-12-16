@@ -1,4 +1,12 @@
 #######################
+## 1.0.15
+## 2024-12-16
+
+  * Implement attorneyName, attorneyEmail, and sbn in JobBase (Job, JobSubmit)
+    model
+  * Code clean up
+
+#######################
 ## 1.0.14
 ## 2024-12-09
 
