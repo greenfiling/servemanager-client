@@ -18,3 +18,6 @@ b9caa036e79bb3498d9e3205c0b2c21e81042737
 # RM-3917 RM-3917 clean up project
 1d77f3cdb70e909b3b03f240d77357ff4eb6540a
 
+
+# RM-3917 Run prettier prior to branching for release 25.01 (2024-12-23)
+44b20aece7b07598cd927e2a8d305f1a9220398f
