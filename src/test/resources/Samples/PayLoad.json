@@ -24,9 +24,7 @@
       "created_at": "2023-07-20T16:18:06-06:00",
       "user_id": 4476652,
       "created_by": "Nathan Benes",
-      "visibility": [
-        "server"
-      ],
+      "visibility": ["server"],
       "shared_from": null,
       "emailed_to": [],
       "webhook_events": [
@@ -49,10 +47,10 @@
       "id": 736182,
       "servemanager_job_number": "3679689",
       "server_acceptance": {
-          "decline_description": null,
-          "decline_reason": null,
-          "declined_at": null,
-          "response": "accepted"
+        "decline_description": null,
+        "decline_reason": null,
+        "declined_at": null,
+        "response": "accepted"
       },
       "archived_at": null,
       "job_status": null,
@@ -295,9 +293,7 @@
             "primary": true
           },
           "process_server": null,
-          "visibility": [
-            "server"
-          ],
+          "visibility": ["server"],
           "shared_from": null,
           "emailed_to": []
         }
@@ -363,9 +359,7 @@
           "event": "jobs:updated",
           "event_reference": "0763d0fe-dbfa-4972-b6a3-51792ca5182c",
           "action": "update",
-          "changed": [
-            "attempt_count"
-          ],
+          "changed": ["attempt_count"],
           "created_at": "2023-07-20T16:18:54-06:00"
         },
         {
@@ -374,9 +368,7 @@
           "event": "jobs:updated",
           "event_reference": "3606801a-5863-45f4-9bf7-9f9b9385e856",
           "action": "update",
-          "changed": [
-            "status"
-          ],
+          "changed": ["status"],
           "created_at": "2023-07-20T16:18:54-06:00"
         },
         {
@@ -385,9 +377,7 @@
           "event": "jobs:updated",
           "event_reference": "bdc35a1e-cb8a-42fa-885b-8a5faf8b8c62",
           "action": "update",
-          "changed": [
-            "primary"
-          ],
+          "changed": ["primary"],
           "created_at": "2023-07-20T16:18:54-06:00"
         },
         {
@@ -414,10 +404,7 @@
           "event": "jobs:updated",
           "event_reference": "c662a031-3445-47c8-9bc7-4f0be2791180",
           "action": "update",
-          "changed": [
-            "affidavit_count",
-            "signed_affidavit"
-          ],
+          "changed": ["affidavit_count", "signed_affidavit"],
           "created_at": "2023-07-20T16:19:00-06:00"
         }
       ]
