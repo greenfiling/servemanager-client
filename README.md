@@ -16,7 +16,7 @@ Although this project is open source, ServeManager is a commercial product and y
 <dependency>
     <groupId>com.greenfiling.smclient</groupId>
     <artifactId>servemanager-client</artifactId>
-    <version>1.0.16-SNAPSHOT</version>
+    <version>1.0.16</version>
 </dependency>
 ```
 
@@ -26,7 +26,7 @@ The library logs via [SLF4J](http://www.slf4j.org/). What logging actually takes
 
 ## License
 
-servemanager-client is copyright 2024 Green Filing, LLC and is licensed under the Apache License 2.0
+servemanager-client is copyright 2025 Green Filing, LLC and is licensed under the Apache License 2.0
 
 ## To Do
 
