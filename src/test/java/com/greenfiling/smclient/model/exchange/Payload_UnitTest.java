@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Green Filing, LLC
+ * Copyright 2024-2025 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -71,7 +71,7 @@ public class Payload_UnitTest {
 
     assertEquals(false, aJob.getAssignedByCollaboratingServer());
     assertEquals(Integer.valueOf(99990), aJob.getMailedById());
-    assertEquals(OffsetDateTime.parse("2023-07-20T16:11:19-06:00"), aJob.getMailingDate());
+    assertEquals(LocalDate.parse("2023-07-20"), aJob.getMailingDate());
     assertEquals("Test description", aJob.getMailingLocation());
     assertEquals(false, aJob.getMailingRequired());
 
