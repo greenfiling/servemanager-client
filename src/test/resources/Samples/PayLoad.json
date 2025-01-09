@@ -67,7 +67,7 @@
       "duped_from_job_id": 99997,
       "duped_to_job_ids": [99999, 99998],
       "job_type_id": null,
-      "mailing_date": "2023-07-20T16:11:19-06:00",
+      "mailing_date": "2023-07-20",
       "mailed_by_id": 99990,
       "mailing_location": "Test description",
       "mailing_required": false,

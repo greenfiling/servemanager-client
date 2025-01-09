@@ -1,5 +1,5 @@
 /**
- * Copyright 2021-2024 Green Filing, LLC
+ * Copyright 2021-2025 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package com.greenfiling.smclient.model;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public class Job extends JobBase {
   private Recipient recipient;
   private Integer dupedFromJobId;
   private ArrayList<Integer> dupedToJobIds;
-  private OffsetDateTime mailingDate;
+  private LocalDate mailingDate;
   private Integer mailedById;
   private String mailingLocation;
   private Boolean mailingRequired;
@@ -180,7 +181,7 @@ public class Job extends JobBase {
     return this.mailedById;
   }
 
-  public OffsetDateTime getMailingDate() {
+  public LocalDate getMailingDate() {
     return this.mailingDate;
   }
 
@@ -336,7 +337,7 @@ public class Job extends JobBase {
     this.mailedById = mailedById;
   }
 
-  public void setMailingDate(OffsetDateTime mailingDate) {
+  public void setMailingDate(LocalDate mailingDate) {
     this.mailingDate = mailingDate;
   }
 
