@@ -22,14 +22,23 @@ public class Document extends DocumentBase {
   public static final String TYPE = "document";
 
   private String pdfDownloadUrl;
+  private String documentType;
 
   public Document() {
     super();
     setType(TYPE);
   }
 
+  public String getDocumentType(){
+    return documentType;
+  }
+
   public String getPdfDownloadUrl() {
     return this.pdfDownloadUrl;
+  }
+
+  public void setDocumentType(String documentType){
+    this.documentType = documentType;
   }
 
   public void setPdfDownloadUrl(String pdfDownloadUrl) {
