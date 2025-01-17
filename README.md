@@ -16,7 +16,7 @@ Although this project is open source, ServeManager is a commercial product and y
 <dependency>
     <groupId>com.greenfiling.smclient</groupId>
     <artifactId>servemanager-client</artifactId>
-    <version>1.0.17-SNAPSHOT</version>
+    <version>1.0.17</version>
 </dependency>
 ```
 
