@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2025 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ public class Document extends DocumentBase {
     setType(TYPE);
   }
 
-  public String getDocumentType(){
+  public String getDocumentType() {
     return documentType;
   }
 
@@ -37,7 +37,7 @@ public class Document extends DocumentBase {
     return this.pdfDownloadUrl;
   }
 
-  public void setDocumentType(String documentType){
+  public void setDocumentType(String documentType) {
     this.documentType = documentType;
   }
 
