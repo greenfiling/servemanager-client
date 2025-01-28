@@ -1,5 +1,5 @@
 /**
- * Copyright 2021-2024 Green Filing, LLC
+ * Copyright 2021-2025 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -91,6 +91,7 @@ public class ApiHandle {
     private String basicAuth;
     private IpMode ipMode;
     private okhttp3.OkHttpClient.Builder builder;
+    private okhttp3.Interceptor interceptor;
 
     /**
      * Set the API endpoint base
@@ -176,6 +177,10 @@ public class ApiHandle {
 
       builder.addInterceptor(new UserAgentInterceptor(UserAgentHandle.get().getUserAgent()));
 
+      if (interceptor != null) {
+        builder.addInterceptor(interceptor);
+      }
+
       logger.trace(
           "build - building and returning client, endpoint = {}, writeTimeout = {}, readTimeout = {}, connectTimeout = {}, keepTransactions = {}, ipMode = {}, auth = {}",
           apiEndpointBase, writeTimeout, readTimeout, connectTimeout, keepTransactions, ipMode, basicAuth);
@@ -217,6 +222,24 @@ public class ApiHandle {
     public Builder connectTimeout(int connectTimeout) {
       if (connectTimeout >= 0) {
         this.connectTimeout = Long.valueOf(connectTimeout);
+      }
+      return this;
+    }
+
+    /**
+     * Sets an OkHttp interceptor to be used on any calls made through the resulting ApiHandle
+     * <P>
+     * The most obvious use for this is logging, but it provides full access to the transaction, including rewriting. It is very much a foot-gun and
+     * all due caution should be taken.
+     *
+     * @param interceptor
+     *          The OkHttp application interceptor
+     * @return A valid @{link Builder} object so calls can be chained
+     * @since 1.0.18
+     */
+    public Builder interceptor(okhttp3.Interceptor interceptor) {
+      if (interceptor != null) {
+        this.interceptor = interceptor;
       }
       return this;
     }
