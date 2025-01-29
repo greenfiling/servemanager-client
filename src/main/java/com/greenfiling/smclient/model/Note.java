@@ -45,6 +45,7 @@ public class Note extends Data {
   private String sharedFrom;
   private Integer userId;
   private ArrayList<String> visibility;
+  private String clientJobNumber;
 
   public Note() {
     super();
@@ -115,6 +116,10 @@ public class Note extends Data {
   // I've not seen a formal definition of this but I've seen the values "client" and "server"
   public ArrayList<String> getVisibility() {
     return this.visibility;
+  }
+
+  public String getClientJobNumber() {
+    return this.clientJobNumber;
   }
 
   public void setBody(String body) {
@@ -205,5 +210,9 @@ public class Note extends Data {
 
   public void setVisibility(ArrayList<String> visibility) {
     this.visibility = visibility;
+  }
+
+  public void setClientJobNumber(String clientJobNumber) {
+    this.clientJobNumber = clientJobNumber;
   }
 }
