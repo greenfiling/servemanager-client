@@ -60,6 +60,10 @@ public class Note extends Data {
     return this.categoryId;
   }
 
+  public String getClientJobNumber() {
+    return this.clientJobNumber;
+  }
+
   public OffsetDateTime getCreatedAt() {
     return this.createdAt;
   }
@@ -118,10 +122,6 @@ public class Note extends Data {
     return this.visibility;
   }
 
-  public String getClientJobNumber() {
-    return this.clientJobNumber;
-  }
-
   public void setBody(String body) {
     this.body = body;
   }
@@ -147,6 +147,10 @@ public class Note extends Data {
    */
   public void setCategoryId(Integer categoryId) {
     this.categoryId = categoryId;
+  }
+
+  public void setClientJobNumber(String clientJobNumber) {
+    this.clientJobNumber = clientJobNumber;
   }
 
   public void setCreatedAt(OffsetDateTime createdAt) {
@@ -210,9 +214,5 @@ public class Note extends Data {
 
   public void setVisibility(ArrayList<String> visibility) {
     this.visibility = visibility;
-  }
-
-  public void setClientJobNumber(String clientJobNumber) {
-    this.clientJobNumber = clientJobNumber;
   }
 }
