@@ -35,20 +35,20 @@ public class RegisteredAgent {
     setType(TYPE);
   }
 
+  public Address getAddress() {
+    return address;
+  }
+
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
   public Integer getId() {
     return id;
   }
 
   public String getName() {
     return name;
-  }
-
-  public String getType() {
-    return type;
-  }
-
-  public Address getAddress() {
-    return address;
   }
 
   public List<SupplierCost> getSupplierCosts() {
@@ -58,12 +58,20 @@ public class RegisteredAgent {
     return supplierCosts;
   }
 
-  public OffsetDateTime getCreatedAt() {
-    return createdAt;
+  public String getType() {
+    return type;
   }
 
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
+  }
+
+  public void setAddress(Address address) {
+    this.address = address;
+  }
+
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
   }
 
   public void setId(Integer id) {
@@ -74,20 +82,12 @@ public class RegisteredAgent {
     this.name = name;
   }
 
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  public void setAddress(Address address) {
-    this.address = address;
-  }
-
   public void setSupplierCost(List<SupplierCost> supplierCosts) {
     this.supplierCosts = supplierCosts;
   }
 
-  public void setCreatedAt(OffsetDateTime createdAt) {
-    this.createdAt = createdAt;
+  public void setType(String type) {
+    this.type = type;
   }
 
   public void setUpdatedAt(OffsetDateTime updatedAt) {
