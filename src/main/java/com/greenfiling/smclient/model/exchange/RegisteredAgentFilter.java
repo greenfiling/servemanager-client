@@ -36,6 +36,13 @@ public class RegisteredAgentFilter extends FilterBase {
   private ArrayList<String> zipCodes = null;
   private ArrayList<String> registeredAgentCompanys = null;
 
+  public ArrayList<String> getCity() {
+    if (city == null) {
+      setCity(new ArrayList<>());
+    }
+    return city;
+  }
+
   @Override
   public ArrayList<FilterPair> getFilters() {
     ArrayList<FilterPair> pairs = super.getFilters();
@@ -53,11 +60,11 @@ public class RegisteredAgentFilter extends FilterBase {
     return pairs;
   }
 
-  public ArrayList<String> getCity() {
-    if (city == null) {
-      setCity(new ArrayList<>());
+  public ArrayList<String> getRegisteredAgentCompanies() {
+    if (registeredAgentCompanys == null) {
+      setRegisteredAgentCompanys(new ArrayList<>());
     }
-    return city;
+    return registeredAgentCompanys;
   }
 
   public String getState() {
@@ -71,15 +78,12 @@ public class RegisteredAgentFilter extends FilterBase {
     return zipCodes;
   }
 
-  public ArrayList<String> getRegisteredAgentCompanies() {
-    if (registeredAgentCompanys == null) {
-      setRegisteredAgentCompanys(new ArrayList<>());
-    }
-    return registeredAgentCompanys;
-  }
-
   public void setCity(ArrayList<String> city) {
     this.city = city;
+  }
+
+  public void setRegisteredAgentCompanys(ArrayList<String> registeredAgentCompanys) {
+    this.registeredAgentCompanys = registeredAgentCompanys;
   }
 
   public void setState(String state) {
@@ -88,10 +92,6 @@ public class RegisteredAgentFilter extends FilterBase {
 
   public void setZipCodes(ArrayList<String> zipCodes) {
     this.zipCodes = zipCodes;
-  }
-
-  public void setRegisteredAgentCompanys(ArrayList<String> registeredAgentCompanys) {
-    this.registeredAgentCompanys = registeredAgentCompanys;
   }
 
 }
