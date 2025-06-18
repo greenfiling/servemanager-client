@@ -1,4 +1,11 @@
 #######################
+## 1.0.21
+## 2025-06-18
+
+  * Allow RegisteredAgentId to be included in JobSubmit
+  * Add RegisteredAgent to supplierCost filter
+
+#######################
 ## 1.0.20
 ## 2025-05-21
 
