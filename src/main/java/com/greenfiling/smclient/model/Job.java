@@ -49,6 +49,7 @@ public class Job extends JobBase {
   private Company processServerCompany;
   private Contact processServerContact;
   private Employee employeeProcessServer;
+  private RegisteredAgent registeredAgent;
   private CourtCase courtCase;
   private Invoice invoice;
   private Invoice processServerInvoice;
@@ -155,6 +156,10 @@ public class Job extends JobBase {
 
   public Employee getEmployeeProcessServer() {
     return this.employeeProcessServer;
+  }
+
+  public RegisteredAgent getRegisteredAgent() {
+    return this.registeredAgent;
   }
 
   public Integer getId() {
@@ -311,6 +316,10 @@ public class Job extends JobBase {
 
   public void setEmployeeProcessServer(Employee employeeProcessServer) {
     this.employeeProcessServer = employeeProcessServer;
+  }
+
+  public void setRegisteredAgent(RegisteredAgent registeredAgent) {
+    this.registeredAgent = registeredAgent;
   }
 
   public void setId(Integer id) {
