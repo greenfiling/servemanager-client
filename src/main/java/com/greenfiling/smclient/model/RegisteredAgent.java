@@ -18,7 +18,8 @@ package com.greenfiling.smclient.model;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
 
 public class RegisteredAgent {
   public static final String TYPE = "registered_agent";
@@ -26,7 +27,8 @@ public class RegisteredAgent {
   private String name;
   private String type;
   private Address address;
-  private List<SupplierCost> supplierCosts;
+  @SerializedName(value = "supplier_cost")
+  private ArrayList<SupplierCost> supplierCosts;
   private OffsetDateTime createdAt;
   private OffsetDateTime updatedAt;
 
@@ -51,10 +53,7 @@ public class RegisteredAgent {
     return address;
   }
 
-  public List<SupplierCost> getSupplierCosts() {
-    if (supplierCosts == null) {
-      setSupplierCost(new ArrayList<>());
-    }
+  public ArrayList<SupplierCost> getSupplierCosts() {
     return supplierCosts;
   }
 
@@ -82,7 +81,7 @@ public class RegisteredAgent {
     this.address = address;
   }
 
-  public void setSupplierCost(List<SupplierCost> supplierCosts) {
+  public void setSupplierCost(ArrayList<SupplierCost> supplierCosts) {
     this.supplierCosts = supplierCosts;
   }
 
