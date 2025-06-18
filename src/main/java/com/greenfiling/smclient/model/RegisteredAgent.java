@@ -56,7 +56,7 @@ public class RegisteredAgent {
 
   public List<SupplierCost> getSupplierCosts() {
     if (supplierCosts == null) {
-      setSupplierCost(new ArrayList<SupplierCost>());
+      setSupplierCost(new ArrayList<>());
     }
     return supplierCosts;
   }
