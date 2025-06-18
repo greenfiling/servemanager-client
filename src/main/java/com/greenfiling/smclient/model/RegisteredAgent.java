@@ -20,12 +20,15 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
 public class RegisteredAgent {
   public static final String TYPE = "registered_agent";
   private Integer id;
   private String name;
   private String type;
   private Address address;
+  @SerializedName(value = "supplier_cost")
   private List<SupplierCost> supplierCosts;
   private OffsetDateTime createdAt;
   private OffsetDateTime updatedAt;
