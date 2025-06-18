@@ -1,5 +1,5 @@
 /**
- * Copyright 2021-2024 Green Filing, LLC
+ * Copyright 2021-2025 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ public class JobSubmit extends JobBase {
   private Integer processServerCompanyId;
   private Integer processServerContactId;
   private Integer employeeProcessServerId;
+  private Integer registeredAgentId;
   private Integer courtCaseId;
   private ArrayList<Address> addressesAttributes;
   private ArrayList<ServiceDocument> documentsToBeServedAttributes;
@@ -61,6 +62,12 @@ public class JobSubmit extends JobBase {
     if (job.getEmployeeProcessServer() != null) {
       setEmployeeProcessServerId(job.getEmployeeProcessServer().getId());
     }
+    if (job.getRegisteredAgent() != null) {
+      setEmployeeProcessServerId(job.getRegisteredAgent().getId());
+    }
+    if (job.getQuotedSupplierCostId() != null) {
+      setQuotedSupplierCostId(job.getQuotedSupplierCostId());
+    }
     if (job.getCourtCase() != null) {
       setCourtCaseId(job.getCourtCase().getId());
     }
@@ -91,6 +98,10 @@ public class JobSubmit extends JobBase {
 
   public Integer getEmployeeProcessServerId() {
     return this.employeeProcessServerId;
+  }
+
+  public Integer getRegisteredAgentId() {
+    return this.registeredAgentId;
   }
 
   public ArrayList<Attachment> getMiscAttachmentsAttributes() {
@@ -143,6 +154,10 @@ public class JobSubmit extends JobBase {
 
   public void setProcessServerContactId(Integer processServerContactId) {
     this.processServerContactId = processServerContactId;
+  }
+
+  public void setRegisteredAgentId(Integer registeredAgentId) {
+    this.registeredAgentId = registeredAgentId;
   }
 
   public void setRecipientAttributes(Recipient recipientAttributes) {

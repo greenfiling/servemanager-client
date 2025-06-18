@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Green Filing, LLC
+ * Copyright 2023-2025 Green Filing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ public class SupplierCostFilter extends FilterBase {
   private Integer jobType;
   private Integer serviceLevel;
   private Integer pageCount;
+  private boolean registeredAgent = false;
   private ArrayList<String> zipCodes = null;
   private Integer courtId;
   private OffsetDateTime updatedSince;
@@ -50,6 +51,9 @@ public class SupplierCostFilter extends FilterBase {
     if (getPageCount() != null) {
       pairs.add(new FilterPair("page_count", String.valueOf(getPageCount())));
     }
+    if (getRegisteredAgent()) {
+      pairs.add(new FilterPair("registered_agent", String.valueOf(getRegisteredAgent())));
+    }
     pairs.addAll(addListFilter("zipcodes[]", getZipCodes()));
     if (getCourtId() != null) {
       pairs.add(new FilterPair("court_id", String.valueOf(getCourtId())));
@@ -63,6 +67,10 @@ public class SupplierCostFilter extends FilterBase {
 
   public Integer getPageCount() {
     return pageCount;
+  }
+
+  public boolean getRegisteredAgent() {
+    return registeredAgent;
   }
 
   public Integer getServiceLevel() {
@@ -102,6 +110,10 @@ public class SupplierCostFilter extends FilterBase {
 
   public void setPageCount(Integer pageCount) {
     this.pageCount = pageCount;
+  }
+
+  public void setRegisteredAgent(boolean registeredAgent) {
+    this.registeredAgent = registeredAgent;
   }
 
   /**
