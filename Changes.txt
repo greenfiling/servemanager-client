@@ -1,4 +1,10 @@
 #######################
+## 1.0.22
+## 2025-06-19
+
+  * Fix deserialization issue with RegisteredAgent.supplierCosts
+
+#######################
 ## 1.0.21
 ## 2025-06-18
 
