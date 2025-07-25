@@ -158,10 +158,6 @@ public class Job extends JobBase {
     return this.employeeProcessServer;
   }
 
-  public RegisteredAgent getRegisteredAgent() {
-    return this.registeredAgent;
-  }
-
   public Integer getId() {
     return this.id;
   }
@@ -220,6 +216,10 @@ public class Job extends JobBase {
 
   public Recipient getRecipient() {
     return this.recipient;
+  }
+
+  public RegisteredAgent getRegisteredAgent() {
+    return this.registeredAgent;
   }
 
   public String getServeManagerJobNumber() {
@@ -318,10 +318,6 @@ public class Job extends JobBase {
     this.employeeProcessServer = employeeProcessServer;
   }
 
-  public void setRegisteredAgent(RegisteredAgent registeredAgent) {
-    this.registeredAgent = registeredAgent;
-  }
-
   public void setId(Integer id) {
     this.id = id;
   }
@@ -380,6 +376,10 @@ public class Job extends JobBase {
 
   public void setRecipient(Recipient recipient) {
     this.recipient = recipient;
+  }
+
+  public void setRegisteredAgent(RegisteredAgent registeredAgent) {
+    this.registeredAgent = registeredAgent;
   }
 
   public void setServeManagerJobNumber(String serveManagerJobNumber) {

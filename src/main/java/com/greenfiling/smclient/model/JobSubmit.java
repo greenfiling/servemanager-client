@@ -100,10 +100,6 @@ public class JobSubmit extends JobBase {
     return this.employeeProcessServerId;
   }
 
-  public Integer getRegisteredAgentId() {
-    return this.registeredAgentId;
-  }
-
   public ArrayList<Attachment> getMiscAttachmentsAttributes() {
     return this.miscAttachmentsAttributes;
   }
@@ -118,6 +114,10 @@ public class JobSubmit extends JobBase {
 
   public Recipient getRecipientAttributes() {
     return recipientAttributes;
+  }
+
+  public Integer getRegisteredAgentId() {
+    return this.registeredAgentId;
   }
 
   public void setAddressesAttributes(ArrayList<Address> addressesAttributes) {
@@ -156,12 +156,12 @@ public class JobSubmit extends JobBase {
     this.processServerContactId = processServerContactId;
   }
 
-  public void setRegisteredAgentId(Integer registeredAgentId) {
-    this.registeredAgentId = registeredAgentId;
-  }
-
   public void setRecipientAttributes(Recipient recipientAttributes) {
     this.recipientAttributes = recipientAttributes;
+  }
+
+  public void setRegisteredAgentId(Integer registeredAgentId) {
+    this.registeredAgentId = registeredAgentId;
   }
 
 }
