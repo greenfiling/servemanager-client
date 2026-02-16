@@ -1,5 +1,5 @@
 /**
- * Copyright 2021-2023 Green Filing, LLC
+ * Copyright 2021-2026 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,6 +41,7 @@ public class Address {
   private OffsetDateTime createdAt;
   private OffsetDateTime updatedAt;
   private Boolean primary;
+  private String businessName;
 
   public Address() {
     super();
@@ -53,6 +54,10 @@ public class Address {
 
   public String getAddress2() {
     return this.address2;
+  }
+
+  public String getBusinessName() {
+    return this.businessName;
   }
 
   public String getCity() {
@@ -109,6 +114,10 @@ public class Address {
 
   public void setAddress2(String address2) {
     this.address2 = address2;
+  }
+
+  public void setBusinessName(String businessName) {
+    this.businessName = businessName;
   }
 
   public void setCity(String city) {

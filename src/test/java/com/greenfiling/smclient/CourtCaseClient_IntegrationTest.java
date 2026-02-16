@@ -1,5 +1,5 @@
 /**
- * Copyright 2021-2023 Green Filing, LLC
+ * Copyright 2021-2026 Green Filing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.junit.BeforeClass;
@@ -30,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.greenfiling.smclient.model.CourtCase;
+import com.greenfiling.smclient.model.CourtCaseSubmit;
 import com.greenfiling.smclient.model.Links;
 import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
@@ -51,7 +53,35 @@ public class CourtCaseClient_IntegrationTest {
   }
 
   @Test
-  public void testIndexCourtCase_HappyPath() throws Exception {
+  public void test_create_HappyPath() throws Exception {
+    CourtCaseSubmit newCourtCase = new CourtCaseSubmit();
+    newCourtCase.setPlaintiff("John Doe");
+    newCourtCase.setDefendant("Jane Doe");
+    newCourtCase.setFiledDate(LocalDate.parse("2023-01-01"));
+    newCourtCase.setCourtDate(LocalDate.parse("2023-02-01"));
+    newCourtCase.setNumber("12345");
+
+    Show<CourtCase> response = client.create(newCourtCase);
+    assertThat(response, not(equalTo(null)));
+    assertThat(response.getData(), not(equalTo(null)));
+    assertThat(response.getData().getLinks(), not(equalTo(null)));
+    assertThat(response.getData().getType(), equalTo("court_case"));
+    assertThat(response.getData().getId(), greaterThan(0));
+
+    Links links = response.getData().getLinks();
+    log("links.self = %s", links.getSelf());
+
+    CourtCase courtCase = response.getData();
+    assertThat(courtCase.getId(), greaterThan(0));
+    assertThat(courtCase.getPlaintiff(), equalTo(newCourtCase.getPlaintiff()));
+    assertThat(courtCase.getDefendant(), equalTo(newCourtCase.getDefendant()));
+    assertThat(courtCase.getFiledDate(), equalTo(newCourtCase.getFiledDate()));
+    assertThat(courtCase.getCourtDate(), equalTo(newCourtCase.getCourtDate()));
+    assertThat(courtCase.getNumber(), equalTo(newCourtCase.getNumber()));
+  }
+
+  @Test
+  public void test_index_HappyPath() throws Exception {
     Index<CourtCase> response = client.index();
     assertThat(response, not(equalTo(null)));
     assertThat(response.getData(), not(equalTo(null)));
@@ -67,7 +97,7 @@ public class CourtCaseClient_IntegrationTest {
   }
 
   @Test
-  public void testShowCourtCase_HappyPath() throws Exception {
+  public void test_show_HappyPath() throws Exception {
     Show<CourtCase> response = client.show(3968864);
     assertThat(response, not(equalTo(null)));
     assertThat(response.getData(), not(equalTo(null)));

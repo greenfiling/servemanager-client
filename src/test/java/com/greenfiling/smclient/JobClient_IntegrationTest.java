@@ -1,5 +1,5 @@
 /**
- * Copyright 2023-2024 Green Filing, LLC
+ * Copyright 2023-2026 Green Filing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,6 +72,7 @@ public class JobClient_IntegrationTest {
     Address a = TestHelper.getAddress();
     a.setLabel("Address created by testCreateJob_Full (1)");
     a.setPrimary(true);
+    a.setBusinessName("Business name for address created by testCreateJob_Full");
     addresses.add(a);
     a = TestHelper.getAddress();
     a.setLabel("Address created by testCreateJob_Full (2)");
@@ -84,6 +85,7 @@ public class JobClient_IntegrationTest {
     serveDoc.setReceivedAt(OffsetDateTime.now());
     serveDoc.setFileName("file_name.pdf");
     serveDoc.setExternalUrl(TestHelper.REMOTE_FILE);
+    serveDoc.setDocumentTypeId(12);
     serveDocs.add(serveDoc);
 
     ArrayList<Attachment> miscDocs = new ArrayList<>();
@@ -92,6 +94,7 @@ public class JobClient_IntegrationTest {
     miscDoc.setFileName("file_name.pdf");
     miscDoc.setExternalUrl(TestHelper.REMOTE_FILE);
     miscDoc.setReferenceNumber(1234);
+    miscDoc.setDocumentTypeId(1);
     miscDocs.add(miscDoc);
     Attachment affidavit = new Attachment();
     affidavit.setTitle("Attachment Title (affidavit)");
@@ -100,6 +103,7 @@ public class JobClient_IntegrationTest {
     affidavit.setReferenceNumber(5678);
     affidavit.setAffidavit(true);
     affidavit.setSigned(true);
+    affidavit.setDocumentTypeId(12);
     miscDocs.add(affidavit);
 
     Integer transactionRef = TestHelper.getRandom();
@@ -130,6 +134,9 @@ public class JobClient_IntegrationTest {
     newJob.setAttorneyName("Test Attorney");
     newJob.setAttorneyEmail("testAttorney@greenfiling.com");
     newJob.setSbn("1234");
+    newJob.setCaseTypeString("This is a case type string");
+    newJob.setDocumentTypeId(1);
+    newJob.setCaseReferenceNumber("foo-reference-number");
 
     Show<Job> response = client.create(newJob);
     assertThat(response, not(equalTo(null)));
@@ -152,6 +159,12 @@ public class JobClient_IntegrationTest {
     // https://github.com/greenfiling/servemanager-client/issues/60
     // assertThat(job.getDueDate(), equalTo(newJob.getDueDate()));
     assertThat(job.getRush(), equalTo(newJob.getRush()));
+    assertThat(job.getAttorneyName(), equalTo(newJob.getAttorneyName()));
+    assertThat(job.getAttorneyEmail(), equalTo(newJob.getAttorneyEmail()));
+    assertThat(job.getSbn(), equalTo(newJob.getSbn()));
+    assertThat(job.getCaseTypeString(), equalTo(newJob.getCaseTypeString()));
+    assertThat(job.getDocumentTypeId(), equalTo(newJob.getDocumentTypeId()));
+    assertThat(job.getCaseReferenceNumber(), equalTo(newJob.getCaseReferenceNumber()));
 
     assertThat(job.getClientTransactionRef(), equalTo(transactionRef));
     assertThat(job.getQuotedSupplierCostId(), equalTo(supplierCostId));
@@ -186,15 +199,17 @@ public class JobClient_IntegrationTest {
     Address a1 = job.getAddresses().get(0);
     assertThat(a1.getLabel(), equalTo(addresses.get(0).getLabel()));
     assertThat(a1.getPrimary(), equalTo(addresses.get(0).getPrimary()));
+    assertThat(a1.getBusinessName(), equalTo(addresses.get(0).getBusinessName()));
     Address a2 = job.getAddresses().get(1);
     assertThat(a2.getLabel(), equalTo(addresses.get(1).getLabel()));
-    assertThat(a2.getPrimary(), equalTo(addresses.get(1).getPrimary()));
+    assertThat(a2.getBusinessName(), equalTo(addresses.get(1).getBusinessName()));
 
     assertThat(job.getDocumentsToBeServedCount(), equalTo(1));
     assertThat(job.getDocumentsToBeServed(), not(equalTo(null)));
     assertThat(job.getDocumentsToBeServed().size(), equalTo(1));
     assertThat(job.getDocumentsToBeServed().get(0), not(equalTo(null)));
     assertThat(job.getDocumentsToBeServed().get(0).getTitle(), equalTo(serveDoc.getTitle()));
+    assertThat(job.getDocumentsToBeServed().get(0).getDocumentTypeId(), equalTo(serveDoc.getDocumentTypeId()));
 
     assertThat(job.getMiscAttachmentsCount(), equalTo(2));
     assertThat(job.getMiscAttachments(), not(equalTo(null)));
@@ -204,9 +219,11 @@ public class JobClient_IntegrationTest {
     assertThat(job.getMiscAttachments().get(0).getAffidavit(), equalTo(miscDoc.getAffidavit()));
     assertThat(job.getMiscAttachments().get(0).getSigned(), equalTo(miscDoc.getSigned()));
     assertThat(job.getMiscAttachments().get(0).getReferenceNumber(), equalTo(miscDoc.getReferenceNumber()));
+    assertThat(job.getMiscAttachments().get(0).getDocumentTypeId(), equalTo(miscDoc.getDocumentTypeId()));
     assertThat(job.getMiscAttachments().get(1), not(equalTo(null)));
     assertThat(job.getMiscAttachments().get(1).getTitle(), equalTo(affidavit.getTitle()));
     assertThat(job.getMiscAttachments().get(1).getReferenceNumber(), equalTo(affidavit.getReferenceNumber()));
+    assertThat(job.getMiscAttachments().get(1).getDocumentTypeId(), equalTo(affidavit.getDocumentTypeId()));
     // These two tests should be turned back on when these fields are settable in the API, see github issue #54
     // assertThat(job.getMiscAttachments().get(1).getAffidavit(), equalTo(affidavit.getAffidavit()));
     // assertThat(job.getMiscAttachments().get(1).getSigned(), equalTo(affidavit.getSigned()));
