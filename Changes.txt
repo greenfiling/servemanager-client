@@ -1,4 +1,12 @@
 #######################
+## 1.0.23
+## 2026-0218
+
+  * Implement Job fields caseTypeString, caseReferenceNumber, documentTypeId
+  * Implement Address field businessName
+  * Implement Document field documentTypeId
+
+#######################
 ## 1.0.22
 ## 2025-06-19
 
