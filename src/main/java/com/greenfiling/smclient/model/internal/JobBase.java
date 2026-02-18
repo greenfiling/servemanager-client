@@ -1,5 +1,5 @@
 /**
- * Copyright 2021-2024 Green Filing, LLC
+ * Copyright 2021-2026 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,10 @@ public abstract class JobBase extends Data {
   private Integer clientTransactionRef;
   private String attorneyName;
   private String attorneyEmail;
-  private String sbn;
+  private String sbn; // state bar number
+  private String caseTypeString;
+  private Integer documentTypeId;
+  private String caseReferenceNumber;
   // custom?
 
   public JobBase() {
@@ -63,6 +66,18 @@ public abstract class JobBase extends Data {
     setDueDate(job.getDueDate());
     setRush(job.getRush());
     setJobTypeId(job.getJobTypeId());
+    setInstructionsFromClient(job.getInstructionsFromClient());
+    setRequireServerAcceptance(job.getRequireServerAcceptance());
+    setQuotedSupplierCostId(job.getQuotedSupplierCostId());
+    setQuotedRetailPrice(job.getQuotedRetailPrice());
+    setQuotedPageCount(job.getQuotedPageCount());
+    setClientTransactionRef(job.getClientTransactionRef());
+    setAttorneyName(job.getAttorneyName());
+    setAttorneyEmail(job.getAttorneyEmail());
+    setSbn(job.getSbn());
+    setCaseTypeString(job.getCaseTypeString());
+    setDocumentTypeId(job.getDocumentTypeId());
+    setCaseReferenceNumber(job.getCaseReferenceNumber());
   }
 
   public String getAttorneyEmail() {
@@ -73,12 +88,26 @@ public abstract class JobBase extends Data {
     return attorneyName;
   }
 
+  public String getCaseReferenceNumber() {
+    return this.caseReferenceNumber;
+  }
+
+  public String getCaseTypeString() {
+    return this.caseTypeString;
+  }
+
+  // custom?
+
   public String getClientJobNumber() {
     return this.clientJobNumber;
   }
 
   public Integer getClientTransactionRef() {
     return clientTransactionRef;
+  }
+
+  public Integer getDocumentTypeId() {
+    return this.documentTypeId;
   }
 
   public LocalDate getDueDate() {
@@ -133,12 +162,24 @@ public abstract class JobBase extends Data {
     this.attorneyName = attorneyName;
   }
 
+  public void setCaseReferenceNumber(String caseReferenceNumber) {
+    this.caseReferenceNumber = caseReferenceNumber;
+  }
+
+  public void setCaseTypeString(String caseTypeString) {
+    this.caseTypeString = caseTypeString;
+  }
+
   public void setClientJobNumber(String clientJobNumber) {
     this.clientJobNumber = clientJobNumber;
   }
 
   public void setClientTransactionRef(Integer clientTransactionRef) {
     this.clientTransactionRef = clientTransactionRef;
+  }
+
+  public void setDocumentTypeId(Integer documentTypeId) {
+    this.documentTypeId = documentTypeId;
   }
 
   public void setDueDate(LocalDate dueDate) {

@@ -1,5 +1,5 @@
 /**
- * Copyright 2021-2024 Green Filing, LLC
+ * Copyright 2021-2026 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,9 +26,14 @@ public abstract class DocumentBase {
   private String fileName; // This is only used in creating or updating jobs. So, kludgy, but not worth splitting into a dedicated object
   private OffsetDateTime updatedAt;
   private OffsetDateTime createdAt;
+  private Integer documentTypeId;
 
   public OffsetDateTime getCreatedAt() {
     return this.createdAt;
+  }
+
+  public Integer getDocumentTypeId() {
+    return documentTypeId;
   }
 
   public String getFileName() {
@@ -57,6 +62,10 @@ public abstract class DocumentBase {
 
   public void setCreatedAt(OffsetDateTime createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public void setDocumentTypeId(Integer documentTypeId) {
+    this.documentTypeId = documentTypeId;
   }
 
   public void setFileName(String fileName) {
