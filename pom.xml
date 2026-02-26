@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.greenfiling.smclient</groupId>
   <artifactId>servemanager-client</artifactId>
-  <version>1.0.23</version>
+  <version>1.0.24-SNAPSHOT</version>
   <name>ServeManager Api Client</name>
   <description>Java implementation of client for ServeManager API (https://www.servemanager.com/)</description>
   <url>https://www.github.com/greenfiling/servemanager-client</url>
@@ -43,13 +43,6 @@
     <url>https://github.com/greenfiling/servemanager-client/tree/${project.scm.tag}</url>
     <tag>v${project.version}</tag>
   </scm>
-
-  <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
 
   <dependencies>
     <dependency>
@@ -150,14 +143,13 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.13</version>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.10.0</version>
         <extensions>true</extensions>
         <configuration>
-          <serverId>ossrh</serverId>
-          <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>false</autoReleaseAfterClose>
+          <publishingServerId>central</publishingServerId>
+          <autoPublish>false</autoPublish>
         </configuration>
       </plugin>
       <plugin>
