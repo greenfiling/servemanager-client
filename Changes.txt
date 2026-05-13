@@ -1,6 +1,13 @@
 #######################
+## 1.1.0
+## 2026-05-13
+
+  * Update Job clientTransactionRef from Integer to String
+  * Update maven publishing tools
+
+#######################
 ## 1.0.23
-## 2026-0218
+## 2026-02-18
 
   * Implement Job fields caseTypeString, caseReferenceNumber, documentTypeId
   * Implement Address field businessName
