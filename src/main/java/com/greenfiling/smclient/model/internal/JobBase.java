@@ -42,7 +42,7 @@ public abstract class JobBase extends Data {
   private Integer quotedSupplierCostId;
   private Double quotedRetailPrice;
   private Integer quotedPageCount;
-  private Integer clientTransactionRef;
+  private String clientTransactionRef;
   private String attorneyName;
   private String attorneyEmail;
   private String sbn; // state bar number
@@ -102,7 +102,7 @@ public abstract class JobBase extends Data {
     return this.clientJobNumber;
   }
 
-  public Integer getClientTransactionRef() {
+  public String getClientTransactionRef() {
     return clientTransactionRef;
   }
 
@@ -174,7 +174,7 @@ public abstract class JobBase extends Data {
     this.clientJobNumber = clientJobNumber;
   }
 
-  public void setClientTransactionRef(Integer clientTransactionRef) {
+  public void setClientTransactionRef(String clientTransactionRef) {
     this.clientTransactionRef = clientTransactionRef;
   }
 

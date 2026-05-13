@@ -106,7 +106,7 @@ public class JobClient_IntegrationTest {
     affidavit.setDocumentTypeId(12);
     miscDocs.add(affidavit);
 
-    Integer transactionRef = TestHelper.getRandom();
+    String transactionRef = TestHelper.getUniqueString();
     Integer supplierCostId = 28551; // 90210, sla_id=1, zone_id=1, job_type_id=1
     Integer pageCount = 101;
     Double retailPrice = 202.02;
