@@ -31,6 +31,7 @@ import com.greenfiling.smclient.Exceptions.ContentTypeException;
 import com.greenfiling.smclient.Exceptions.InvalidCredentialsException;
 import com.greenfiling.smclient.Exceptions.InvalidEndpointException;
 import com.greenfiling.smclient.Exceptions.InvalidRequestException;
+import com.greenfiling.smclient.Exceptions.NoContentException;
 import com.greenfiling.smclient.Exceptions.RecordNotFoundException;
 import com.greenfiling.smclient.internal.ApiClient;
 import com.greenfiling.smclient.internal.DnsSelector;
@@ -630,6 +631,11 @@ public class ApiHandle {
 
     // TODO - parse the error body as JSON and return a more meaningful response. For now just return the raw json
     String error = responseBody;
+
+    if (responseCode == 204) {
+      logger.info("doRequest - 204, no Content");
+      throw new NoContentException(error);
+    }
 
     if (responseCode == 404) {
       if (error.startsWith("{\"errors\":")) {

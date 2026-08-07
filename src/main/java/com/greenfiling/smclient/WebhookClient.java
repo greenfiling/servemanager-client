@@ -17,6 +17,7 @@
 package com.greenfiling.smclient;
 
 import com.google.gson.reflect.TypeToken;
+import com.greenfiling.smclient.Exceptions.NoContentException;
 import com.greenfiling.smclient.internal.ApiClient;
 import com.greenfiling.smclient.model.Webhook;
 import com.greenfiling.smclient.model.exchange.Index;
@@ -24,11 +25,11 @@ import com.greenfiling.smclient.model.exchange.Show;
 
 /**
  * @author wiseman
- * @since 1.0.0
+ * @since 1.1.1
  */
 public class WebhookClient extends ApiClient<Webhook, Webhook, Webhook> {
   /**
-   * API endpoint for account information
+   * API endpoint for web hooks
    */
   public static final String ENDPOINT = "webhooks";
 
@@ -49,15 +50,13 @@ public class WebhookClient extends ApiClient<Webhook, Webhook, Webhook> {
   }
 
   public String delete(String id) throws Exception {
-    String responce = null;
+    String response = null;
     try {
-      responce = doDeleteRequest(id);
-    } catch (Exception e) {
-      if (e.getMessage().contains("204")) {
-        // 204 No Content is expected for a successful delete, so we can ignore this exception
-      }
+      response = doDeleteRequest(id);
+    } catch (NoContentException e) {
+      // 204 No Content is expected for a successful delete, so we can ignore this exception
     }
-    return responce;
+    return response;
   }
 
   @Override
@@ -73,7 +72,6 @@ public class WebhookClient extends ApiClient<Webhook, Webhook, Webhook> {
   @Override
   @SuppressWarnings("unchecked")
   public Show<Webhook> update(Object id, Webhook record) throws Exception {
-    // TODO Auto-generated method stub
     return (Show<Webhook>) toShow(doUpdateRequest(id, record));
   }
 }
