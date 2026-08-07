@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Green Filing, LLC
+ * Copyright 2024-2026 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,13 +59,13 @@ public class CompanyClient extends ApiClient<CompanyBase, Company, CompanySubmit
 
   @Override
   @SuppressWarnings("unchecked")
-  public Show<Company> show(Integer id) throws Exception {
+  public Show<Company> show(Object id) throws Exception {
     return (Show<Company>) toShow(doShowRequest(id));
   }
 
   @Override
   @SuppressWarnings("unchecked")
-  public Show<Company> update(Integer id, CompanyBase record) throws Exception {
+  public Show<Company> update(Object id, CompanyBase record) throws Exception {
     CompanySubmit submitRecord = (record instanceof CompanySubmit) ? (CompanySubmit) record : new CompanySubmit((Company) record);
     return (Show<Company>) toShow(doUpdateRequest(id, submitRecord));
   }

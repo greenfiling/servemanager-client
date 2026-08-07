@@ -1,5 +1,5 @@
 /**
- * Copyright 2021-2025 Green Filing, LLC
+ * Copyright 2021-2026 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -384,6 +384,26 @@ public class ApiHandle {
     this.client = builder.client;
     this.basicAuth = builder.basicAuth;
     this.jsonMediaType = MediaType.parse("application/json; charset=utf-8");
+  }
+
+  /**
+   * Perform a DELETE request against the API.
+   * <P>
+   * Should not be called directly
+   *
+   * @param url
+   *          the URL to DELETE
+   * @return The response from the request
+   * @throws Exception
+   *           see {@link ApiClient#show(Integer)} for explanation of possible exceptions
+   * @since 1.0.0
+   */
+  public String doDelete(String url) throws Exception {
+    logger.trace("doDelete - url = {}", url);
+
+    RequestBody requestBody = RequestBody.create("", this.jsonMediaType);
+    Request.Builder builder = new Request.Builder().url(url).delete(requestBody);
+    return doApiRequest(new RequestEnclosure(builder, requestBody.toString()));
   }
 
   /**
