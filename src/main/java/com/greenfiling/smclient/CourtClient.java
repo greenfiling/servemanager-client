@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2026 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,7 +59,7 @@ public class CourtClient extends ApiClient<CourtBase, Court, CourtSubmit> {
 
   @Override
   @SuppressWarnings("unchecked")
-  public Show<Court> show(Integer id) throws Exception {
+  public Show<Court> show(Object id) throws Exception {
     return (Show<Court>) toShow(doShowRequest(id));
   }
 

@@ -1,5 +1,5 @@
 /**
- * Copyright 2021-2023 Green Filing, LLC
+ * Copyright 2021-2026 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -128,13 +128,13 @@ public class JobClient extends ApiClient<JobBase, Job, JobSubmit> {
 
   @Override
   @SuppressWarnings("unchecked")
-  public Show<Job> show(Integer id) throws Exception {
+  public Show<Job> show(Object id) throws Exception {
     return (Show<Job>) toShow(doShowRequest(id));
   }
 
   @Override
   @SuppressWarnings("unchecked")
-  public Show<Job> update(Integer id, JobBase record) throws Exception {
+  public Show<Job> update(Object id, JobBase record) throws Exception {
     JobSubmit submitRecord = (record instanceof JobSubmit) ? (JobSubmit) record : new JobSubmit((Job) record);
     return (Show<Job>) toShow(doUpdateRequest(id, submitRecord));
   }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2025 Green Filing, LLC
+ * Copyright 2025-2026 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ public class RegisteredAgentClient extends ApiClient<RegisteredAgent, Registered
 
   @Override
   @SuppressWarnings("unchecked")
-  public Show<RegisteredAgent> show(Integer id) throws Exception {
+  public Show<RegisteredAgent> show(Object id) throws Exception {
     return (Show<RegisteredAgent>) toShow(doShowRequest(id));
   }
 }

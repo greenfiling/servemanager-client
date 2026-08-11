@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Green Filing, LLC
+ * Copyright 2023-2026 Green Filing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ public class SupplierCostClient extends ApiClient<SupplierCost, SupplierCost, Su
 
   @Override
   @SuppressWarnings("unchecked")
-  public Show<SupplierCost> show(Integer id) throws Exception {
+  public Show<SupplierCost> show(Object id) throws Exception {
     return (Show<SupplierCost>) toShow(doShowRequest(id));
   }
 }
