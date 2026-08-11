@@ -5,6 +5,7 @@ import com.greenfiling.smclient.internal.ApiClient;
 import com.greenfiling.smclient.model.Agency;
 import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
+import com.greenfiling.smclient.model.internal.FilterBase;
 
 public class AgencyClient extends ApiClient<Agency, Agency, Agency> {
   public static final String ENDPOINT = "infotrack_exchange/agencies";
@@ -17,5 +18,19 @@ public class AgencyClient extends ApiClient<Agency, Agency, Agency> {
   setShowType(new TypeToken<Show<Agency>>() {}.getType());
   setIndexType(new TypeToken<Index<Agency>>() {}.getType());
   // @formatter:on
+  }
+
+  // GET /agencies
+  @Override
+  @SuppressWarnings("unchecked")
+  public Index<Agency> index(FilterBase filter) throws Exception {
+    return (Index<Agency>) toIndex(doIndexRequest(filter));
+  }
+
+  // GET /agencies/:id
+  @Override
+  @SuppressWarnings("unchecked")
+  public Show<Agency> show(Integer id) throws Exception {
+    return (Show<Agency>) toShow(doShowRequest(id));
   }
 }

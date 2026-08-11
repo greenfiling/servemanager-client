@@ -20,4 +20,20 @@ public class AgencyConnectionClient extends ApiClient<AgencyConnectionBase, Agen
     setIndexType(new TypeToken<Index<AgencyConnection>>() {}.getType());
     // @formatter:on
   }
+
+  // POST /agency_connections
+  @Override
+  @SuppressWarnings("unchecked")
+  public Show<AgencyConnection> create(AgencyConnectionBase record) throws Exception {
+    AgencyConnectionSubmit submitRecord = (record instanceof AgencyConnectionSubmit) ? (AgencyConnectionSubmit) record
+        : new AgencyConnectionSubmit((AgencyConnection) record);
+    return (Show<AgencyConnection>) toShow(doCreateRequest(submitRecord));
+  }
+
+  // GET /agency_connections/:id
+  @Override
+  @SuppressWarnings("unchecked")
+  public Show<AgencyConnection> show(Integer id) throws Exception {
+    return (Show<AgencyConnection>) toShow(doShowRequest(id));
+  }
 }

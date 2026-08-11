@@ -4,4 +4,8 @@ import com.greenfiling.smclient.model.internal.AgencyConnectionBase;
 
 public class AgencyConnection extends AgencyConnectionBase {
 
+  public AgencyConnection() {
+    super();
+  }
+
 }
