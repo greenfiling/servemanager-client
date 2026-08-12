@@ -48,6 +48,15 @@ public class FirmClient extends ApiClient<AccountBase, Account, FirmSubmit> {
   }
 
   // POST /firms/:id/api_keys
+  /**
+   * Mints the firm's firm_direct_exchange key and returns the raw key value. This is the key you authenticate as the firm with for connections and
+   * job creation. The target account must be an Exchange firm, which POST /firms guarantees. <br>
+   * If the firm already has an Exchange key, this returns that existing key rather than creating a second one, so the call is safe to repeat.
+   * 
+   * @param firmId
+   * @return
+   * @throws Exception
+   */
   public Show<FirmApiKey> createFirmApiKey(Integer firmId) throws Exception {
     FirmApiKeySubmit showRecord = new FirmApiKeySubmit();
     String url = makeFirmApiKeyUrl(firmId, null);
