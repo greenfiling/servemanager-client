@@ -4,8 +4,13 @@ import com.greenfiling.smclient.model.internal.AgencyConnectionBase;
 
 public class AgencyConnectionSubmit extends AgencyConnectionBase {
 
-  public AgencyConnectionSubmit(AgencyConnection agencyConnection) {
-    super(agencyConnection);
+  private Integer agencyAccountId;
+
+  public Integer getAgencyAccountId() {
+    return this.agencyAccountId;
   }
 
+  public void setAgencyAccountId(Integer agencyAccountId) {
+    this.agencyAccountId = agencyAccountId;
+  }
 }
