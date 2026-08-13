@@ -20,6 +20,12 @@ public class AgencyClient extends ApiClient<Agency, Agency, Agency> {
   // @formatter:on
   }
 
+  @Override
+  @SuppressWarnings("unchecked")
+  public Index<Agency> getNext(Index<Agency> index) throws Exception {
+    return (Index<Agency>) toIndex(doGetNext(index));
+  }
+
   // GET /agencies
   @Override
   @SuppressWarnings("unchecked")
