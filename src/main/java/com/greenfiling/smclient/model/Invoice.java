@@ -21,13 +21,14 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
 import com.google.gson.annotations.SerializedName;
+import com.greenfiling.smclient.model.internal.InvoiceBase;
 
-public class Invoice {
+public class Invoice extends InvoiceBase {
   public static final String TYPE = "invoice";
 
-  private String type;
   private Integer id;
   private String balanceDue;
+  private Boolean locked;
   private LocalDate issuedOn;
   private String totalPaid;
   private String total;
@@ -78,6 +79,10 @@ public class Invoice {
     return this.lineItems;
   }
 
+  public Boolean getLocked() {
+    return this.locked;
+  }
+
   public LocalDate getPaidOn() {
     return this.paidOn;
   }
@@ -114,10 +119,6 @@ public class Invoice {
     return this.totalPaid;
   }
 
-  public String getType() {
-    return this.type;
-  }
-
   public OffsetDateTime getUpdatedAt() {
     return this.updatedAt;
   }
@@ -148,6 +149,10 @@ public class Invoice {
 
   public void setLineItems(ArrayList<LineItem> lineItems) {
     this.lineItems = lineItems;
+  }
+
+  public void setLocked(Boolean locked) {
+    this.locked = locked;
   }
 
   public void setPaidOn(LocalDate paidOn) {
@@ -184,10 +189,6 @@ public class Invoice {
 
   public void setTotalPaid(String totalPaid) {
     this.totalPaid = totalPaid;
-  }
-
-  public void setType(String type) {
-    this.type = type;
   }
 
   public void setUpdatedAt(OffsetDateTime updatedAt) {
