@@ -25,8 +25,8 @@ public class AgencyConnectionClient extends ApiClient<AgencyConnectionBase, Agen
   @Override
   @SuppressWarnings("unchecked")
   public Show<AgencyConnection> create(AgencyConnectionBase record) throws Exception {
-    AgencyConnectionSubmit submitRecord = (record instanceof AgencyConnectionSubmit) ? (AgencyConnectionSubmit) record
-        : new AgencyConnectionSubmit((AgencyConnection) record);
+    AgencyConnectionSubmit submitRecord = (record instanceof AgencyConnectionSubmit) ? (AgencyConnectionSubmit) record : new AgencyConnectionSubmit();
+
     return (Show<AgencyConnection>) toShow(doCreateRequest(submitRecord));
   }
 
