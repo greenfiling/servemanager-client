@@ -1,32 +1,23 @@
 package com.greenfiling.smclient;
 
 import com.google.gson.reflect.TypeToken;
-import com.greenfiling.smclient.internal.ApiClient;
 import com.greenfiling.smclient.internal.JsonHandle;
 import com.greenfiling.smclient.model.Contact;
 import com.greenfiling.smclient.model.Invoice;
-import com.greenfiling.smclient.model.Job;
-import com.greenfiling.smclient.model.JobSubmit;
 import com.greenfiling.smclient.model.ServerInvoiceSubmit;
-import com.greenfiling.smclient.model.exchange.Index;
 import com.greenfiling.smclient.model.exchange.Show;
 import com.greenfiling.smclient.model.internal.InvoiceBase;
-import com.greenfiling.smclient.model.internal.JobBase;
 
-public class ExchangeJobClient extends ApiClient<JobBase, Job, JobSubmit> {
+public class SopExchangeJobManagementClient {
   public static final String ENDPOINT = "infotrack_exchange/jobs";
 
   public static final String TYPE_SERVER_INVOICE = "server_invoice";
   public static final String TYPE_SERVER_CLIENT_CONTACT = "server_client_contact";
 
-  public ExchangeJobClient(ApiHandle handle) {
-    super(handle);
-    setEndpoint(ENDPOINT);
+  private ApiHandle apiHandle;
 
-    // @formatter:off
-    setShowType(new TypeToken<Show<Job>>() {}.getType());
-    setIndexType(new TypeToken<Index<Job>>() {}.getType());
-    // @formatter:on
+  public SopExchangeJobManagementClient(ApiHandle handle) {
+    setHandle(handle);
   }
 
   // POST - /jobs/:job_id/server_invoices
@@ -41,7 +32,7 @@ public class ExchangeJobClient extends ApiClient<JobBase, Job, JobSubmit> {
   // PUT - /jobs/:job_id/server_invoices/lock_invoice
   public Show<Invoice> lockServerInvoice(Integer jobId) throws Exception {
     InvoiceBase record = new InvoiceBase();
-    // manually set endpoint required type
+    // manually set to type required by endpoint
     record.setType(TYPE_SERVER_INVOICE);
     Show<InvoiceBase> showRecord = new Show<InvoiceBase>(record);
     String url = makeShowBaseUrl(jobId) + "/server_invoices/lock_invoice";
@@ -52,12 +43,30 @@ public class ExchangeJobClient extends ApiClient<JobBase, Job, JobSubmit> {
 
   // POST - /jobs/:job_id/server_client_contact
   public Show<Contact> updateServerClientContact(Integer jobId, Contact record) throws Exception {
-    // manually set endpoint required type
+    // manually set to type required by endpoint
     record.setType(TYPE_SERVER_CLIENT_CONTACT);
     Show<Contact> showRecord = new Show<Contact>(record);
     String url = makeShowBaseUrl(jobId) + "/server_client_contact";
     String responseJson = getHandle().doPost(url, showRecord);
     return JsonHandle.get().getGson().fromJson(responseJson, new TypeToken<Show<Contact>>() {
     }.getType());
+  }
+
+  private ApiHandle getHandle() {
+    return apiHandle;
+  }
+
+  private String makeShowBaseUrl(Integer id) {
+    String baseUrl = apiHandle.getApiEndpointBase() + "/" + ENDPOINT;
+
+    if (id == null) {
+      return baseUrl;
+    }
+    return baseUrl + "/" + id.toString();
+
+  }
+
+  private void setHandle(ApiHandle handle) {
+    this.apiHandle = handle;
   }
 }
