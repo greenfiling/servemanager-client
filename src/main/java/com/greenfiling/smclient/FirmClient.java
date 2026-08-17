@@ -58,7 +58,7 @@ public class FirmClient extends ApiClient<AccountBase, Account, FirmSubmit> {
    * @throws Exception
    */
   public Show<FirmApiKey> createFirmApiKey(Integer firmId) throws Exception {
-    FirmApiKeySubmit showRecord = new FirmApiKeySubmit();
+    Show<FirmApiKeySubmit> showRecord = new Show<FirmApiKeySubmit>(new FirmApiKeySubmit());
     String url = makeFirmApiKeyUrl(firmId, null);
     String responseJson = getHandle().doPost(url, showRecord);
     return JsonHandle.get().getGson().fromJson(responseJson, new TypeToken<Show<FirmApiKey>>() {

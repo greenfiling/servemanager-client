@@ -31,8 +31,9 @@ public class ExchangeJobClient extends ApiClient<JobBase, Job, JobSubmit> {
 
   // POST - /jobs/:job_id/server_invoices
   public Show<Invoice> createServerInvoice(Integer jobId, ServerInvoiceSubmit record) throws Exception {
+    Show<ServerInvoiceSubmit> showRecord = new Show<ServerInvoiceSubmit>(record);
     String url = makeShowBaseUrl(jobId) + "/server_invoices";
-    String responseJson = getHandle().doPost(url, record);
+    String responseJson = getHandle().doPost(url, showRecord);
     return JsonHandle.get().getGson().fromJson(responseJson, new TypeToken<Show<Invoice>>() {
     }.getType());
   }
@@ -42,8 +43,9 @@ public class ExchangeJobClient extends ApiClient<JobBase, Job, JobSubmit> {
     InvoiceBase record = new InvoiceBase();
     // manually set endpoint required type
     record.setType(TYPE_SERVER_INVOICE);
+    Show<InvoiceBase> showRecord = new Show<InvoiceBase>(record);
     String url = makeShowBaseUrl(jobId) + "/server_invoices/lock_invoice";
-    String responseJson = getHandle().doPut(url, record);
+    String responseJson = getHandle().doPut(url, showRecord);
     return JsonHandle.get().getGson().fromJson(responseJson, new TypeToken<Show<Invoice>>() {
     }.getType());
   }
@@ -52,8 +54,9 @@ public class ExchangeJobClient extends ApiClient<JobBase, Job, JobSubmit> {
   public Show<Contact> updateServerClientContact(Integer jobId, Contact record) throws Exception {
     // manually set endpoint required type
     record.setType(TYPE_SERVER_CLIENT_CONTACT);
+    Show<Contact> showRecord = new Show<Contact>(record);
     String url = makeShowBaseUrl(jobId) + "/server_client_contact";
-    String responseJson = getHandle().doPost(url, record);
+    String responseJson = getHandle().doPost(url, showRecord);
     return JsonHandle.get().getGson().fromJson(responseJson, new TypeToken<Show<Contact>>() {
     }.getType());
   }
