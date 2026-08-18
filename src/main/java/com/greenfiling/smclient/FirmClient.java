@@ -24,7 +24,10 @@ public class FirmClient extends ApiClient<AccountBase, Account, FirmSubmit> {
   // @formatter:on
   }
 
-  // POST /firms
+  /**
+   * Creates a ServeManager account for a law firm and marks it as an Exchange firm in the same call, so the account is immediately eligible for a
+   * firm key and for connections. Returns the full account object.
+   */
   @Override
   @SuppressWarnings("unchecked")
   public Show<Account> create(AccountBase record) throws Exception {
@@ -32,14 +35,18 @@ public class FirmClient extends ApiClient<AccountBase, Account, FirmSubmit> {
     return (Show<Account>) toShow(doCreateRequest(submitRecord));
   }
 
-  // GET /firms/:id
+  /**
+   * Reads a firm account.
+   */
   @Override
   @SuppressWarnings("unchecked")
   public Show<Account> show(Integer id) throws Exception {
     return (Show<Account>) toShow(doShowRequest(id));
   }
 
-  // PUT /firms/:id
+  /**
+   * Updates a firm's own details. Cannot change the account's Exchange status either way.
+   */
   @Override
   @SuppressWarnings("unchecked")
   public Show<Account> update(Integer id, AccountBase record) throws Exception {
@@ -47,7 +54,6 @@ public class FirmClient extends ApiClient<AccountBase, Account, FirmSubmit> {
     return (Show<Account>) toShow(doUpdateRequest(id, submitRecord));
   }
 
-  // POST /firms/:id/api_keys
   /**
    * Mints the firm's firm_direct_exchange key and returns the raw key value. This is the key you authenticate as the firm with for connections and
    * job creation. The target account must be an Exchange firm, which POST /firms guarantees. <br>
@@ -65,7 +71,15 @@ public class FirmClient extends ApiClient<AccountBase, Account, FirmSubmit> {
     }.getType());
   }
 
-  // GET /firms/:id/api_keys/:id
+  /**
+   * Reads a key by id, including its raw value, so you can recover a key you did not persist. The key must belong to the given firm. Not restricted
+   * to firm_direct_exchange keys, any of the firm's keys can be read.
+   * 
+   * @param firmId
+   * @param keyId
+   * @return
+   * @throws Exception
+   */
   public Show<FirmApiKey> showFirmApiKey(Integer firmId, Integer keyId) throws Exception {
     String url = makeFirmApiKeyUrl(firmId, keyId);
     String responseJson = getHandle().doGet(url);

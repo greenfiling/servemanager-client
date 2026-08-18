@@ -20,7 +20,14 @@ public class SopExchangeJobManagementClient {
     setHandle(handle);
   }
 
-  // POST - /jobs/:job_id/server_invoices
+  /**
+   * Creates the agency's invoice for a shared job.
+   * 
+   * @param jobId
+   * @param record
+   * @return
+   * @throws Exception
+   */
   public Show<Invoice> createServerInvoice(Integer jobId, ServerInvoiceSubmit record) throws Exception {
     Show<ServerInvoiceSubmit> showRecord = new Show<ServerInvoiceSubmit>(record);
     String url = makeShowBaseUrl(jobId) + "/server_invoices";
@@ -29,7 +36,13 @@ public class SopExchangeJobManagementClient {
     }.getType());
   }
 
-  // PUT - /jobs/:job_id/server_invoices/lock_invoice
+  /**
+   * Locks the invoice against further edits by the agency.
+   * 
+   * @param jobId
+   * @return
+   * @throws Exception
+   */
   public Show<Invoice> lockServerInvoice(Integer jobId) throws Exception {
     InvoiceBase record = new InvoiceBase();
     // manually set to type required by endpoint
@@ -41,7 +54,14 @@ public class SopExchangeJobManagementClient {
     }.getType());
   }
 
-  // POST - /jobs/:job_id/server_client_contact
+  /**
+   * Creates or updates the firm's contact person on the agency's copy of the job, so the agency knows who to reach at the firm.
+   * 
+   * @param jobId
+   * @param record
+   * @return
+   * @throws Exception
+   */
   public Show<Contact> updateServerClientContact(Integer jobId, Contact record) throws Exception {
     // manually set to type required by endpoint
     record.setType(TYPE_SERVER_CLIENT_CONTACT);

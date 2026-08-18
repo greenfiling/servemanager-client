@@ -21,7 +21,13 @@ public class AgencyConnectionClient extends ApiClient<AgencyConnectionBase, Agen
     // @formatter:on
   }
 
-  // POST /agency_connections
+  /**
+   * Connects the calling firm to an agency and returns the process_server_company_id you need in order to route a job to that agency. <br>
+   * Calling this repeatedly for the same firm and agency pair creates nothing new. It resolves the existing link, returns the same
+   * process_server_company_id with "status": "connected" <br>
+   * On the first call back-clones the firm's existing jobs into the new collaboration as a background task.
+   * 
+   */
   @Override
   @SuppressWarnings("unchecked")
   public Show<AgencyConnection> create(AgencyConnectionBase record) throws Exception {
@@ -30,7 +36,9 @@ public class AgencyConnectionClient extends ApiClient<AgencyConnectionBase, Agen
     return (Show<AgencyConnection>) toShow(doCreateRequest(submitRecord));
   }
 
-  // GET /agency_connections/:id
+  /**
+   * Reads a agency connection's current status.
+   */
   @Override
   @SuppressWarnings("unchecked")
   public Show<AgencyConnection> show(Integer id) throws Exception {

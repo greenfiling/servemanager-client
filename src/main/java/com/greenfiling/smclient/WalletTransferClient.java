@@ -22,7 +22,9 @@ public class WalletTransferClient extends ApiClient<WalletTransferBase, WalletTr
     // @formatter:on
   }
 
-  // POST - /wallet_transfers
+  /**
+   * Pays the agency's invoice for a shared job.
+   */
   @Override
   @SuppressWarnings("unchecked")
   public Show<WalletTransfer> create(WalletTransferBase record) throws Exception {

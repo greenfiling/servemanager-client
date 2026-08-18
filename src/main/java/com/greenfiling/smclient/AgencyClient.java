@@ -26,14 +26,22 @@ public class AgencyClient extends ApiClient<Agency, Agency, Agency> {
     return (Index<Agency>) toIndex(doGetNext(index));
   }
 
-  // GET /agencies
+  /**
+   * Searches agencies by ZIP code, full address, email, or company name. This is the endpoint that answers "who can serve this address, and what do
+   * they charge". Results are ordered by tier, then by age, and agencies marked do not use are excluded unless you look them up explicitly by id.
+   * 
+   * @param filter
+   *          - com.greenfiling.smclient.model.exchange.AgencyFilter
+   */
   @Override
   @SuppressWarnings("unchecked")
   public Index<Agency> index(FilterBase filter) throws Exception {
     return (Index<Agency>) toIndex(doIndexRequest(filter));
   }
 
-  // GET /agencies/:id
+  /**
+   * Reads one agency profile by agency's account id.
+   */
   @Override
   @SuppressWarnings("unchecked")
   public Show<Agency> show(Integer id) throws Exception {
