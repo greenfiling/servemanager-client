@@ -36,25 +36,6 @@ public class FirmClient extends ApiClient<AccountBase, Account, FirmSubmit> {
   }
 
   /**
-   * Reads a firm account.
-   */
-  @Override
-  @SuppressWarnings("unchecked")
-  public Show<Account> show(Integer id) throws Exception {
-    return (Show<Account>) toShow(doShowRequest(id));
-  }
-
-  /**
-   * Updates a firm's own details. Cannot change the account's Exchange status either way.
-   */
-  @Override
-  @SuppressWarnings("unchecked")
-  public Show<Account> update(Integer id, AccountBase record) throws Exception {
-    FirmSubmit submitRecord = (record instanceof FirmSubmit) ? (FirmSubmit) record : new FirmSubmit((Account) record);
-    return (Show<Account>) toShow(doUpdateRequest(id, submitRecord));
-  }
-
-  /**
    * Mints the firm's firm_direct_exchange key and returns the raw key value. This is the key you authenticate as the firm with for connections and
    * job creation. The target account must be an Exchange firm, which POST /firms guarantees. <br>
    * If the firm already has an Exchange key, this returns that existing key rather than creating a second one, so the call is safe to repeat.
@@ -72,6 +53,15 @@ public class FirmClient extends ApiClient<AccountBase, Account, FirmSubmit> {
   }
 
   /**
+   * Reads a firm account.
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public Show<Account> show(Integer id) throws Exception {
+    return (Show<Account>) toShow(doShowRequest(id));
+  }
+
+  /**
    * Reads a key by id, including its raw value, so you can recover a key you did not persist. The key must belong to the given firm. Not restricted
    * to firm_direct_exchange keys, any of the firm's keys can be read.
    * 
@@ -85,6 +75,16 @@ public class FirmClient extends ApiClient<AccountBase, Account, FirmSubmit> {
     String responseJson = getHandle().doGet(url);
     return JsonHandle.get().getGson().fromJson(responseJson, new TypeToken<Show<FirmApiKey>>() {
     }.getType());
+  }
+
+  /**
+   * Updates a firm's own details. Cannot change the account's Exchange status either way.
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public Show<Account> update(Integer id, AccountBase record) throws Exception {
+    FirmSubmit submitRecord = (record instanceof FirmSubmit) ? (FirmSubmit) record : new FirmSubmit((Account) record);
+    return (Show<Account>) toShow(doUpdateRequest(id, submitRecord));
   }
 
   private String makeFirmApiKeyUrl(Integer firmId, Integer keyId) {
