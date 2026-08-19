@@ -117,6 +117,11 @@ public class SopExchangeJobManagementClient_IntegrationTest {
     JobSubmit newJob = TestHelper.getTestJobSubmit();
     newJob.setProcessServerCompanyId(processServerCompanyId);
     Show<Job> jobResponse = jobClient.create(newJob);
+
+    assertThat(jobResponse, not(equalTo(null)));
+    assertThat(jobResponse.getData(), not(equalTo(null)));
+    assertTrue(jobResponse.getData().getId() > 0);
+
     Integer jobId = jobResponse.getData().getId();
 
     return jobId;

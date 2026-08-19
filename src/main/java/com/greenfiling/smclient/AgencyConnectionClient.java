@@ -27,11 +27,17 @@ public class AgencyConnectionClient extends ApiClient<AgencyConnectionBase, Agen
    * process_server_company_id with "status": "connected" <br>
    * On the first call back-clones the firm's existing jobs into the new collaboration as a background task.
    * 
+   * @param record
+   *          - AgencyConnectionSubmit
    */
   @Override
   @SuppressWarnings("unchecked")
   public Show<AgencyConnection> create(AgencyConnectionBase record) throws Exception {
-    AgencyConnectionSubmit submitRecord = (record instanceof AgencyConnectionSubmit) ? (AgencyConnectionSubmit) record : new AgencyConnectionSubmit();
+    AgencyConnectionSubmit submitRecord = (record instanceof AgencyConnectionSubmit) ? (AgencyConnectionSubmit) record : null;
+
+    if (submitRecord == null) {
+      throw new Exception("Invalid AgencyConnectionSubmit parameter");
+    }
 
     return (Show<AgencyConnection>) toShow(doCreateRequest(submitRecord));
   }
