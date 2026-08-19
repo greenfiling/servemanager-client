@@ -26,9 +26,8 @@ public class AgencyFilter extends FilterBase {
     return email;
   }
 
-  @SuppressWarnings({ "unchecked", "rawtypes" })
   @Override
-  public ArrayList getFilters() {
+  public ArrayList<FilterPair> getFilters() {
     ArrayList<FilterPair> pairs = super.getFilters();
 
     if (getZipcode() != null) {

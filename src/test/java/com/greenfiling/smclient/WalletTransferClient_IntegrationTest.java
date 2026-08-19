@@ -105,7 +105,7 @@ public class WalletTransferClient_IntegrationTest {
 
     assertThat(jobResponse, not(equalTo(null)));
     assertThat(jobResponse.getData(), not(equalTo(null)));
-    assertThat(createFirmResponse.getData().getId(), greaterThan(0));
+    assertThat(jobResponse.getData().getId(), greaterThan(0));
 
     Integer jobId = jobResponse.getData().getId();
 

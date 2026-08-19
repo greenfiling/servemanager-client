@@ -103,14 +103,14 @@ public class SopExchangeJobManagementClient_IntegrationTest {
     AgencyConnectionSubmit connectionRecord = new AgencyConnectionSubmit();
     connectionRecord.setAgencyAccountId(testAgencyId);
 
-    Show<AgencyConnection> setupeConnectionResponse = connectionClient.create(connectionRecord);
+    Show<AgencyConnection> setupConnectionResponse = connectionClient.create(connectionRecord);
 
-    assertThat(setupeConnectionResponse, not(equalTo(null)));
-    assertThat(setupeConnectionResponse.getData(), not(equalTo(null)));
-    assertThat(setupeConnectionResponse.getData().getProcessServerCompanyId(), not(equalTo(null)));
-    assertThat(setupeConnectionResponse.getData().getStatus(), equalTo("connected"));
+    assertThat(setupConnectionResponse, not(equalTo(null)));
+    assertThat(setupConnectionResponse.getData(), not(equalTo(null)));
+    assertThat(setupConnectionResponse.getData().getProcessServerCompanyId(), not(equalTo(null)));
+    assertThat(setupConnectionResponse.getData().getStatus(), equalTo("connected"));
 
-    Integer processServerCompanyId = setupeConnectionResponse.getData().getProcessServerCompanyId();
+    Integer processServerCompanyId = setupConnectionResponse.getData().getProcessServerCompanyId();
 
     JobClient jobClient = new JobClient(firmHandle);
 

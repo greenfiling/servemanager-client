@@ -23,6 +23,7 @@ import java.util.List;
 import com.greenfiling.smclient.model.internal.AccountBase;
 
 public class Account extends AccountBase {
+  public static final String TYPE = AccountBase.TYPE;
 
   private Links links;
   private Integer id;
