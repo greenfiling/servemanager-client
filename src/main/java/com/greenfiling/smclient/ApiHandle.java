@@ -1,5 +1,5 @@
 /**
- * Copyright 2021-2025 Green Filing, LLC
+ * Copyright 2021-2026 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ import com.greenfiling.smclient.Exceptions.ContentTypeException;
 import com.greenfiling.smclient.Exceptions.InvalidCredentialsException;
 import com.greenfiling.smclient.Exceptions.InvalidEndpointException;
 import com.greenfiling.smclient.Exceptions.InvalidRequestException;
+import com.greenfiling.smclient.Exceptions.NoContentException;
 import com.greenfiling.smclient.Exceptions.RecordNotFoundException;
 import com.greenfiling.smclient.internal.ApiClient;
 import com.greenfiling.smclient.internal.DnsSelector;
@@ -387,6 +388,26 @@ public class ApiHandle {
   }
 
   /**
+   * Perform a DELETE request against the API.
+   * <P>
+   * Should not be called directly
+   *
+   * @param url
+   *          the URL to DELETE
+   * @return The response from the request
+   * @throws Exception
+   *           see {@link ApiClient#show(Integer)} for explanation of possible exceptions
+   * @since 1.0.0
+   */
+  public String doDelete(String url) throws Exception {
+    logger.trace("doDelete - url = {}", url);
+
+    RequestBody requestBody = RequestBody.create("", this.jsonMediaType);
+    Request.Builder builder = new Request.Builder().url(url).delete(requestBody);
+    return doApiRequest(new RequestEnclosure(builder, requestBody.toString()));
+  }
+
+  /**
    * Perform a GET request against the API.
    * <P>
    * Should not be called directly
@@ -610,6 +631,11 @@ public class ApiHandle {
 
     // TODO - parse the error body as JSON and return a more meaningful response. For now just return the raw json
     String error = responseBody;
+
+    if (responseCode == 204) {
+      logger.info("doRequest - 204, no Content");
+      throw new NoContentException(error);
+    }
 
     if (responseCode == 404) {
       if (error.startsWith("{\"errors\":")) {

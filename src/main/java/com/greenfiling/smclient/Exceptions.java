@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Green Filing, LLC
+ * Copyright 2021-2026 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -106,6 +106,24 @@ public class Exceptions {
      * {@inheritDoc}
      */
     public InvalidRequestException(String message) {
+      super(message);
+    }
+  }
+
+  /**
+   * Indicates No Content was returned from the server
+   * <P>
+   * The response from the server should include more detail and is included in the exception's message
+   *
+   * @since 1.1.1
+   */
+  public static class NoContentException extends Exception {
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * {@inheritDoc}
+     */
+    public NoContentException(String message) {
       super(message);
     }
   }

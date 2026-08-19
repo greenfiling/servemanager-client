@@ -111,15 +111,15 @@ public abstract class ApiClient<BASE, READ, CREATE> {
     throw new UnsupportedOperationException("The extending class did not implement the index(filter) method");
   }
 
-  public Show<READ> show(Integer id) throws Exception {
+  public Show<READ> show(Object id) throws Exception {
     throw new UnsupportedOperationException("The extending class did not implement the show method");
   }
 
-  public Show<READ> show(Integer id, FilterBase filter) throws Exception {
+  public Show<READ> show(Object id, FilterBase filter) throws Exception {
     throw new UnsupportedOperationException("The extending class did not implement the show(filter) method");
   }
 
-  public Show<READ> update(Integer id, BASE record) throws Exception {
+  public Show<READ> update(Object id, BASE record) throws Exception {
     throw new UnsupportedOperationException("The extending class did not implement the update method");
   }
 
@@ -158,6 +158,12 @@ public abstract class ApiClient<BASE, READ, CREATE> {
     return responseJson;
   }
 
+  protected String doDeleteRequest(Object id) throws Exception {
+    String url = makeUpdateUrl(id);
+    String responseJson = getHandle().doDelete(url);
+    return responseJson;
+  }
+
   protected String doGetNext(Index<READ> index) throws Exception {
     if (index == null || index.getLinks() == null || index.getLinks().getNext() == null || index.getData() == null || index.getData().size() == 0) {
       return null;
@@ -172,17 +178,17 @@ public abstract class ApiClient<BASE, READ, CREATE> {
     return responseJson;
   }
 
-  protected String doShowRequest(Integer id) throws Exception {
+  protected String doShowRequest(Object id) throws Exception {
     return doShowRequest(id, null);
   }
 
-  protected String doShowRequest(Integer id, FilterBase filter) throws Exception {
+  protected String doShowRequest(Object id, FilterBase filter) throws Exception {
     String url = makeShowUrl(id, filter);
     String responseJson = getHandle().doGet(url);
     return responseJson;
   }
 
-  protected String doUpdateRequest(Integer id, CREATE record) throws Exception {
+  protected String doUpdateRequest(Object id, CREATE record) throws Exception {
     Show<CREATE> showRecord = new Show<CREATE>(record);
     String url = makeUpdateUrl(id);
     String responseJson = getHandle().doPut(url, showRecord);
@@ -208,7 +214,7 @@ public abstract class ApiClient<BASE, READ, CREATE> {
    *          id of resource for endpoint. Can be null.
    * @return URL w/o the filter options. Abstracted to be allowed to be overridden
    */
-  protected String makeShowBaseUrl(Integer id) {
+  protected String makeShowBaseUrl(Object id) {
     String baseUrl = makeBaseUrl();
 
     if (id == null) {
@@ -218,11 +224,11 @@ public abstract class ApiClient<BASE, READ, CREATE> {
 
   }
 
-  protected String makeShowUrl(Integer id, FilterBase filter) {
+  protected String makeShowUrl(Object id, FilterBase filter) {
     return makeUrlWithFilter(makeShowBaseUrl(id), filter == null ? null : filter.getQueryString());
   }
 
-  protected String makeUpdateUrl(Integer id) throws Exception {
+  protected String makeUpdateUrl(Object id) throws Exception {
     if (id == null) {
       throw new IllegalArgumentException("Argument id cannot be null");
     }
