@@ -41,7 +41,7 @@ public class AgencyConnectionClient extends ApiClient<AgencyConnectionBase, Agen
    */
   @Override
   @SuppressWarnings("unchecked")
-  public Show<AgencyConnection> show(Integer id) throws Exception {
+  public Show<AgencyConnection> show(Object id) throws Exception {
     return (Show<AgencyConnection>) toShow(doShowRequest(id));
   }
 }

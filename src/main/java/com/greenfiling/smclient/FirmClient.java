@@ -57,7 +57,7 @@ public class FirmClient extends ApiClient<AccountBase, Account, FirmSubmit> {
    */
   @Override
   @SuppressWarnings("unchecked")
-  public Show<Account> show(Integer id) throws Exception {
+  public Show<Account> show(Object id) throws Exception {
     return (Show<Account>) toShow(doShowRequest(id));
   }
 
@@ -82,7 +82,7 @@ public class FirmClient extends ApiClient<AccountBase, Account, FirmSubmit> {
    */
   @Override
   @SuppressWarnings("unchecked")
-  public Show<Account> update(Integer id, AccountBase record) throws Exception {
+  public Show<Account> update(Object id, AccountBase record) throws Exception {
     FirmSubmit submitRecord = (record instanceof FirmSubmit) ? (FirmSubmit) record : new FirmSubmit((Account) record);
     return (Show<Account>) toShow(doUpdateRequest(id, submitRecord));
   }
