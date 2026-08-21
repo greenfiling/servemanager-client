@@ -18,14 +18,15 @@ package com.greenfiling.smclient.model;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Account {
-  public static final String TYPE = "account";
+import com.greenfiling.smclient.model.internal.AccountBase;
 
-  private String type;
+public class Account extends AccountBase {
+  public static final String TYPE = AccountBase.TYPE;
+
   private Links links;
   private Integer id;
-  private String companyName;
   private String phone;
   private String fax;
   private String email;
@@ -35,18 +36,25 @@ public class Account {
   private OffsetDateTime createdAt;
   private OffsetDateTime updatedAt;
   private ArrayList<Address> addresses = new ArrayList<Address>();
+  private Boolean canReceiveFunds;
+  private String subscriptionPlan;
+  private Boolean staff;
+  private OffsetDateTime firstJobCreatedAt;
+  private OffsetDateTime lastJobCreatedAt;
+  private Integer pendingJobsCount;
+  private List<String> jobStatuses;
+  private Boolean infotrackExchangeReady;
 
   public Account() {
     super();
-    setType(TYPE);
   }
 
   public ArrayList<Address> getAddresses() {
     return this.addresses;
   }
 
-  public String getCompanyName() {
-    return this.companyName;
+  public Boolean getCanReceiveFunds() {
+    return this.canReceiveFunds;
   }
 
   public OffsetDateTime getCreatedAt() {
@@ -61,8 +69,24 @@ public class Account {
     return this.fax;
   }
 
+  public OffsetDateTime getFirstJobCreatedAt() {
+    return this.firstJobCreatedAt;
+  }
+
   public Integer getId() {
     return this.id;
+  }
+
+  public Boolean getInfotrackExchangeReady() {
+    return this.infotrackExchangeReady;
+  }
+
+  public List<String> getJobStatuses() {
+    return this.jobStatuses;
+  }
+
+  public OffsetDateTime getLastJobCreatedAt() {
+    return this.lastJobCreatedAt;
   }
 
   public Links getLinks() {
@@ -77,12 +101,20 @@ public class Account {
     return this.monthlyJobsQuota;
   }
 
+  public Integer getPendingJobsCount() {
+    return this.pendingJobsCount;
+  }
+
   public String getPhone() {
     return this.phone;
   }
 
-  public String getType() {
-    return this.type;
+  public Boolean getStaff() {
+    return this.staff;
+  }
+
+  public String getSubscriptionPlan() {
+    return this.subscriptionPlan;
   }
 
   public OffsetDateTime getUpdatedAt() {
@@ -97,8 +129,8 @@ public class Account {
     this.addresses = addresses;
   }
 
-  public void setCompanyName(String companyName) {
-    this.companyName = companyName;
+  public void setCanReceiveFunds(Boolean canReceiveFunds) {
+    this.canReceiveFunds = canReceiveFunds;
   }
 
   public void setCreatedAt(OffsetDateTime createdAt) {
@@ -113,8 +145,24 @@ public class Account {
     this.fax = fax;
   }
 
+  public void setFirstJobCreatedAt(OffsetDateTime firstJobCreatedAt) {
+    this.firstJobCreatedAt = firstJobCreatedAt;
+  }
+
   public void setId(Integer id) {
     this.id = id;
+  }
+
+  public void setInfotrackExchangeReady(Boolean infotrackExchangeReady) {
+    this.infotrackExchangeReady = infotrackExchangeReady;
+  }
+
+  public void setJobStatuses(List<String> jobStatuses) {
+    this.jobStatuses = jobStatuses;
+  }
+
+  public void setLastJobCreatedAt(OffsetDateTime lastJobCreatedAt) {
+    this.lastJobCreatedAt = lastJobCreatedAt;
   }
 
   public void setLinks(Links links) {
@@ -129,12 +177,20 @@ public class Account {
     this.monthlyJobsQuota = monthlyJobsQuota;
   }
 
+  public void setPendingJobsCount(Integer pendingJobsCount) {
+    this.pendingJobsCount = pendingJobsCount;
+  }
+
   public void setPhone(String phone) {
     this.phone = phone;
   }
 
-  public void setType(String type) {
-    this.type = type;
+  public void setStaff(Boolean staff) {
+    this.staff = staff;
+  }
+
+  public void setSubscriptionPlan(String subscriptionPlan) {
+    this.subscriptionPlan = subscriptionPlan;
   }
 
   public void setUpdatedAt(OffsetDateTime updatedAt) {

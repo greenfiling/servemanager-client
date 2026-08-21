@@ -19,6 +19,7 @@ package com.greenfiling.smclient.model;
 import java.time.OffsetDateTime;
 
 public class Contact {
+  private String type;
   private Integer id;
   private String firstName;
   private String lastName;
@@ -76,6 +77,10 @@ public class Contact {
     return this.title;
   }
 
+  public String getType() {
+    return this.type;
+  }
+
   public OffsetDateTime getUpdatedAt() {
     return this.updatedAt;
   }
@@ -122,6 +127,10 @@ public class Contact {
 
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 
   public void setUpdatedAt(OffsetDateTime updatedAt) {

@@ -48,6 +48,7 @@ public class TestHelper {
   private static final String TESTING_PROPERTIES_FILE = "testing.properties";
   private static final String QUIET_TESTS_PROPERTY_NAME = "quiet-tests";
   private static final String API_KEY_PROPERTY_NAME = "api-key";
+  private static final String EXCHANGE_API_KEY_PROPERTY_NAME = "exchange-api-key";
   private static final String VALID_FILE_NAME_1 = "small-1.pdf";
   private static final String VALID_FILE_NAME_2 = "small-2.pdf";
   private static final String DEFAULT_API_KEY = "REPLACE_WITH_WORKING_API_KEY";
@@ -65,8 +66,11 @@ public class TestHelper {
   public static final Integer TEST_RUN_ID = getRandom(); // will be unique for every test run, allowing results created in the same test run to be
                                                          // grouped
 
+  public static final String SM_STAGE_BASE_ENDPOINT = "https://staging-infotrack.servemanager.com/api";
+
   private static Properties properties = null;
   public static String VALID_API_KEY;
+  public static String EXCHANGE_VALID_API_KEY;
   private static Boolean QUIET_TESTS = false; // Run with this at false until we get through the actual configuration
   // public static Boolean LOG_AT_TRACE;
   public static String VALID_FILE_PATH_1;
@@ -93,6 +97,14 @@ public class TestHelper {
 
   public static ApiHandle getApiHandle() {
     return new ApiHandle.Builder().apiKey(VALID_API_KEY).apiEndpoint(ApiHandle.DEFAULT_ENDPOINT_BASE).build();
+  }
+
+  public static ApiHandle getApiHandle_SopExchange(String apiKey) {
+    return new ApiHandle.Builder().apiKey(apiKey).apiEndpoint(SM_STAGE_BASE_ENDPOINT).build();
+  }
+
+  public static String getExchangeStaffApiKey() {
+    return EXCHANGE_VALID_API_KEY;
   }
 
   public static Integer getRandom() {
@@ -164,6 +176,7 @@ public class TestHelper {
     QUIET_TESTS = quietTests == null ? false : quietTests.equalsIgnoreCase("true");
 
     VALID_API_KEY = getProperty(API_KEY_PROPERTY_NAME);
+    EXCHANGE_VALID_API_KEY = getProperty(EXCHANGE_API_KEY_PROPERTY_NAME);
     assertNotNull(fmt("unable to find required test property %s", API_KEY_PROPERTY_NAME), VALID_API_KEY);
     assertThat(fmt("unable to find required test property %s", API_KEY_PROPERTY_NAME), VALID_API_KEY, not(equalTo("")));
     assertThat(fmt("test property %s must be changed from the default value", API_KEY_PROPERTY_NAME), VALID_API_KEY, not(equalTo(DEFAULT_API_KEY)));
