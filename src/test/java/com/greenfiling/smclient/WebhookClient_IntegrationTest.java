@@ -41,24 +41,6 @@ public class WebhookClient_IntegrationTest {
   }
 
   @Test
-  public void testIndex_GetAll() throws Exception {
-    Index<Webhook> response = client.index();
-    TestHelper.log("testIndex_GetAll re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
-
-    assertThat(response.getData().size() > 0, equalTo(true));
-
-    assertThat(response.getData().get(0).getBatchIntervalInSeconds(), notNullValue());
-    assertThat(response.getData().get(0).getEvents().length > 0, equalTo(true));
-    assertThat(response.getData().get(0).getId(), notNullValue());
-    assertThat(response.getData().get(0).getName(), notNullValue());
-    assertThat(response.getData().get(0).getSecretKey(), notNullValue());
-    assertThat(response.getData().get(0).getTargetUrl(), notNullValue());
-    assertThat(response.getData().get(0).getType(), notNullValue());
-
-    TestHelper.log("list length = " + response.getData().size());
-  }
-
-  @Test
   public void testCreateUpdateDelete() throws Exception {
     Webhook webhook = new Webhook();
     webhook.setName("Test Webhook");
@@ -78,5 +60,23 @@ public class WebhookClient_IntegrationTest {
     assertThat(update.getData().getName(), equalTo("Updated Test Webhook"));
 
     client.delete(show.getData().getId());
+  }
+
+  @Test
+  public void testIndex_GetAll() throws Exception {
+    Index<Webhook> response = client.index();
+    TestHelper.log("testIndex_GetAll re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(response));
+
+    assertThat(response.getData().size() > 0, equalTo(true));
+
+    assertThat(response.getData().get(0).getBatchIntervalInSeconds(), notNullValue());
+    assertThat(response.getData().get(0).getEvents().length > 0, equalTo(true));
+    assertThat(response.getData().get(0).getId(), notNullValue());
+    assertThat(response.getData().get(0).getName(), notNullValue());
+    assertThat(response.getData().get(0).getSecretKey(), notNullValue());
+    assertThat(response.getData().get(0).getTargetUrl(), notNullValue());
+    assertThat(response.getData().get(0).getType(), notNullValue());
+
+    TestHelper.log("list length = " + response.getData().size());
   }
 }
