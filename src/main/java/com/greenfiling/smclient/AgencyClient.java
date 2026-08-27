@@ -30,10 +30,10 @@ public class AgencyClient extends ApiClient<Agency, Agency, Agency> {
     super(handle);
     setEndpoint(ENDPOINT);
 
-  // @formatter:off
-  setShowType(new TypeToken<Show<Agency>>() {}.getType());
-  setIndexType(new TypeToken<Index<Agency>>() {}.getType());
-  // @formatter:on
+    // @formatter:off
+    setShowType(new TypeToken<Show<Agency>>() {}.getType());
+    setIndexType(new TypeToken<Index<Agency>>() {}.getType());
+    // @formatter:on
   }
 
   @Override

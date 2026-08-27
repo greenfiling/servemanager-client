@@ -34,10 +34,10 @@ public class FirmClient extends ApiClient<AccountBase, Account, FirmSubmit> {
     super(handle);
     setEndpoint(ENDPOINT);
 
-  // @formatter:off
-  setShowType(new TypeToken<Show<Account>>() {}.getType());
-  setIndexType(new TypeToken<Index<Account>>() {}.getType());
-  // @formatter:on
+    // @formatter:off
+    setShowType(new TypeToken<Show<Account>>() {}.getType());
+    setIndexType(new TypeToken<Index<Account>>() {}.getType());
+    // @formatter:on
   }
 
   /**
