@@ -42,7 +42,21 @@ public class AgencyClient_IntegrationTest {
   }
 
   @Test
-  public void testIndexAgency_withFilter() throws Exception {
+  public void testIndexAgency_withFilterAddress() throws Exception {
+    ApiHandle handle = TestHelper.getApiHandle_SopExchange(TestHelper.getExchangeStaffApiKey());
+    AgencyClient client = new AgencyClient(handle);
+    AgencyFilter filter = new AgencyFilter();
+    filter.setAddress("9500 Wilshire Blvd, Beverly Hills, CA 90212");
+
+    Index<Agency> response = client.index(filter);
+    assertThat(response, not(equalTo(null)));
+    assertThat(response.getLinks(), not(equalTo(null)));
+    assertThat(response.getData(), not(equalTo(null)));
+    assertTrue(response.getData().size() > 0);
+  }
+
+  @Test
+  public void testIndexAgency_withFilterZip() throws Exception {
     ApiHandle handle = TestHelper.getApiHandle_SopExchange(TestHelper.getExchangeStaffApiKey());
     AgencyClient client = new AgencyClient(handle);
     AgencyFilter filter = new AgencyFilter();

@@ -28,16 +28,16 @@ public class Agency {
   private String companyName;
   private Boolean infotrackExchangeReady;
   private AgencyExchangeProfile exchangeProfile;
-  private Integer distanceInMiles;
+  private Double distanceInMiles;
   private Integer jobsInLocation;
   private Integer nearbyJobsLastNinetyDays;
   private Integer monthlyJobsQuota;
-  private Integer standardPricing;
-  private Integer defaultStandardPricing;
-  private Integer nationalStandardPricing;
-  private Integer rushPricing;
-  private Integer defaultRushPricing;
-  private Integer nationalRushPricing;
+  private Double standardPricing;
+  private Double defaultStandardPricing;
+  private Double nationalStandardPricing;
+  private Double rushPricing;
+  private Double defaultRushPricing;
+  private Double nationalRushPricing;
   private Integer rushDuration; // Hours
   private Boolean nationalCoverage;
   private Boolean localCoverage;
@@ -58,15 +58,15 @@ public class Agency {
     return this.createdAt;
   }
 
-  public Integer getDefaultRushPricing() {
+  public Double getDefaultRushPricing() {
     return this.defaultRushPricing;
   }
 
-  public Integer getDefaultStandardPricing() {
+  public Double getDefaultStandardPricing() {
     return this.defaultStandardPricing;
   }
 
-  public Integer getDistanceInMiles() {
+  public Double getDistanceInMiles() {
     return this.distanceInMiles;
   }
 
@@ -102,11 +102,11 @@ public class Agency {
     return this.nationalCoverage;
   }
 
-  public Integer getNationalRushPricing() {
+  public Double getNationalRushPricing() {
     return this.nationalRushPricing;
   }
 
-  public Integer getNationalStandardPricing() {
+  public Double getNationalStandardPricing() {
     return this.nationalStandardPricing;
   }
 
@@ -118,11 +118,11 @@ public class Agency {
     return this.rushDuration;
   }
 
-  public Integer getRushPricing() {
+  public Double getRushPricing() {
     return this.rushPricing;
   }
 
-  public Integer getStandardPricing() {
+  public Double getStandardPricing() {
     return this.standardPricing;
   }
 
@@ -150,15 +150,15 @@ public class Agency {
     this.createdAt = createdAt;
   }
 
-  public void setDefaultRushPricing(Integer defaultRushPricing) {
+  public void setDefaultRushPricing(Double defaultRushPricing) {
     this.defaultRushPricing = defaultRushPricing;
   }
 
-  public void setDefaultStandardPricing(Integer defaultStandardPricing) {
+  public void setDefaultStandardPricing(Double defaultStandardPricing) {
     this.defaultStandardPricing = defaultStandardPricing;
   }
 
-  public void setDistanceInMiles(Integer distanceInMiles) {
+  public void setDistanceInMiles(Double distanceInMiles) {
     this.distanceInMiles = distanceInMiles;
   }
 
@@ -194,11 +194,11 @@ public class Agency {
     this.nationalCoverage = nationalCoverage;
   }
 
-  public void setNationalRushPricing(Integer nationalRushPricing) {
+  public void setNationalRushPricing(Double nationalRushPricing) {
     this.nationalRushPricing = nationalRushPricing;
   }
 
-  public void setNationalStandardPricing(Integer nationalStandardPricing) {
+  public void setNationalStandardPricing(Double nationalStandardPricing) {
     this.nationalStandardPricing = nationalStandardPricing;
   }
 
@@ -210,11 +210,11 @@ public class Agency {
     this.rushDuration = rushDuration;
   }
 
-  public void setRushPricing(Integer rushPricing) {
+  public void setRushPricing(Double rushPricing) {
     this.rushPricing = rushPricing;
   }
 
-  public void setStandardPricing(Integer standardPricing) {
+  public void setStandardPricing(Double standardPricing) {
     this.standardPricing = standardPricing;
   }
 
