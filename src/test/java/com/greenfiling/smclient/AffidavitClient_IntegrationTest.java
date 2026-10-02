@@ -63,7 +63,7 @@ public class AffidavitClient_IntegrationTest {
   @Test
   public void testIndexAffidavit_withFilterJobId() throws Exception {
     AffidavitFilter filter = new AffidavitFilter();
-    filter.setjobId("11487024");
+    filter.setJobId("11487024");
 
     Index<Affidavit> response = client.index(filter);
 

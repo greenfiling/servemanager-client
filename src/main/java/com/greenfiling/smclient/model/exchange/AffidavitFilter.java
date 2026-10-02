@@ -46,14 +46,14 @@ public class AffidavitFilter extends FilterBase {
       pairs.add(new FilterPair("document_id", getDocumentId()));
     }
 
-    if (getjobId() != null) {
-      pairs.add(new FilterPair("job_id", getjobId()));
+    if (getJobId() != null) {
+      pairs.add(new FilterPair("job_id", getJobId()));
     }
 
     return pairs;
   }
 
-  public String getjobId() {
+  public String getJobId() {
     return jobId;
   }
 
@@ -65,7 +65,7 @@ public class AffidavitFilter extends FilterBase {
     this.documentId = documentId;
   }
 
-  public void setjobId(String jobId) {
+  public void setJobId(String jobId) {
     this.jobId = jobId;
   }
 }
