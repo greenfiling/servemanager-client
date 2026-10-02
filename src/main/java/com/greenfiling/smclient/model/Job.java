@@ -1,5 +1,5 @@
 /**
- * Copyright 2021-2025 Green Filing, LLC
+ * Copyright 2021-2026 Green Filing, LLC
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,6 +69,7 @@ public class Job extends JobBase {
   private ArrayList<Attempt> attempts;
   private OffsetDateTime lastAttemptServedAt;
   private String lastAttemptServedAtTimezone;
+  private String agencyServeItStatus;
   private HashMap<String, String> custom; // I have no idea what might be in this field
 
   public Job() {
@@ -81,6 +82,10 @@ public class Job extends JobBase {
 
   public Integer getAddressesCount() {
     return this.addressesCount;
+  }
+
+  public String getAgencyServeItStatus() {
+    return this.agencyServeItStatus;
   }
 
   public OffsetDateTime getArchivedAt() {
@@ -244,6 +249,10 @@ public class Job extends JobBase {
 
   public void setAddressesCount(Integer addressesCount) {
     this.addressesCount = addressesCount;
+  }
+
+  public void setAgencyServeItStatus(String agencyServeItStatus) {
+    this.agencyServeItStatus = agencyServeItStatus;
   }
 
   public void setArchivedAt(OffsetDateTime archivedAt) {

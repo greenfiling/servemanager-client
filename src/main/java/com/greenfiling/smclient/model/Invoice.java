@@ -45,6 +45,7 @@ public class Invoice extends InvoiceBase {
   private OffsetDateTime createdAt;
   private ArrayList<LineItem> lineItems;
   private ArrayList<Payment> payments;
+  private Double serveItAgencyFee;
 
   public Invoice() {
     super();
@@ -93,6 +94,10 @@ public class Invoice extends InvoiceBase {
 
   public String getPdfDownloadUrl() {
     return this.pdfDownloadUrl;
+  }
+
+  public Double getServeItAgencyFee() {
+    return serveItAgencyFee;
   }
 
   public Integer getServeManagerJobNumber() {
@@ -165,6 +170,10 @@ public class Invoice extends InvoiceBase {
 
   public void setPdfDownloadUrl(String pdfDownloadUrl) {
     this.pdfDownloadUrl = pdfDownloadUrl;
+  }
+
+  public void setServeItAgencyFee(Double serveItAgencyFee) {
+    this.serveItAgencyFee = serveItAgencyFee;
   }
 
   public void setServeManagerJobNumber(Integer serveManagerJobNumber) {

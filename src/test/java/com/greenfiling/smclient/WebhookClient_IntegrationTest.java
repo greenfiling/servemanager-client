@@ -48,6 +48,7 @@ public class WebhookClient_IntegrationTest {
     webhook.setTargetUrl("https://example.com/webhook");
     webhook.setBatchIntervalInSeconds(60);
     webhook.setEnabled(true);
+    webhook.setUpdateIfExists(true);
     webhook.setEvents(new String[] { Webhook.JOBS_CREATED, Webhook.JOBS_UPDATED });
     Show<Webhook> show = client.create(webhook);
     TestHelper.log("testCreateUpdateDelete re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(show.getData()));
@@ -58,6 +59,13 @@ public class WebhookClient_IntegrationTest {
     Show<Webhook> update = client.update(show.getData().getId(), uWebhook);
     TestHelper.log("testCreateUpdateDelete re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(update.getData()));
     assertThat(update.getData().getName(), equalTo("Updated Test Webhook"));
+
+    uWebhook.setName("Updated Test Webhook2");
+    uWebhook.setClientReferenceKey("Test Webhook");
+    uWebhook.setUpdateIfExists(true);
+    Show<Webhook> update2 = client.create(uWebhook);
+    TestHelper.log("testCreateUpdateDelete re-serialized: " + JsonHandle.get().getGsonWithNulls().toJson(update2.getData()));
+    assertThat(update2.getData().getName(), equalTo("Updated Test Webhook2"));
 
     client.delete(show.getData().getId());
   }

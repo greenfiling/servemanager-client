@@ -1,0 +1,71 @@
+/**
+ * Copyright 2026 Green Filing, LLC
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.greenfiling.smclient.model.exchange;
+
+import java.util.ArrayList;
+
+import com.greenfiling.smclient.model.internal.FilterBase;
+
+public class AffidavitFilter extends FilterBase {
+
+  private String attachmentId;
+  private String documentId;
+  private String jobId;
+
+  public String getAttachmentId() {
+    return attachmentId;
+  }
+
+  public String getDocumentId() {
+    return documentId;
+  }
+
+  @Override
+  public ArrayList<FilterPair> getFilters() {
+    ArrayList<FilterPair> pairs = super.getFilters();
+
+    if (getAttachmentId() != null) {
+      pairs.add(new FilterPair("attachment_id", getAttachmentId()));
+    }
+
+    if (getDocumentId() != null) {
+      pairs.add(new FilterPair("document_id", getDocumentId()));
+    }
+
+    if (getJobId() != null) {
+      pairs.add(new FilterPair("job_id", getJobId()));
+    }
+
+    return pairs;
+  }
+
+  public String getJobId() {
+    return jobId;
+  }
+
+  public void setAttachmentId(String attachmentId) {
+    this.attachmentId = attachmentId;
+  }
+
+  public void setDocumentId(String documentId) {
+    this.documentId = documentId;
+  }
+
+  public void setJobId(String jobId) {
+    this.jobId = jobId;
+  }
+}
