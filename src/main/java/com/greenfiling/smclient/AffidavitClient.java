@@ -36,12 +36,6 @@ public class AffidavitClient extends ApiClient<Affidavit, Affidavit, Affidavit> 
     // @formatter:on
   }
 
-  @Override
-  @SuppressWarnings("unchecked")
-  public Show<Affidavit> create(Affidavit record) throws Exception {
-    return (Show<Affidavit>) toShow(doCreateRequest(record));
-  }
-
   /**
    * Lists the affidavits shared with the firm's job, with each one's review state. job_id is the firm's job id. You can filter by document_id or
    * attachment_id instead. Always pass one of the three filters.
@@ -62,6 +56,15 @@ public class AffidavitClient extends ApiClient<Affidavit, Affidavit, Affidavit> 
   @SuppressWarnings("unchecked")
   public Show<Affidavit> show(Object id) throws Exception {
     return (Show<Affidavit>) toShow(doShowRequest(id));
+  }
+
+  /**
+   * Updates the affidavitAcceptance field to "accepted" or "rejected".
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public Show<Affidavit> update(Object id, Affidavit record) throws Exception {
+    return (Show<Affidavit>) toShow(doUpdateRequest(id, record));
   }
 
 }

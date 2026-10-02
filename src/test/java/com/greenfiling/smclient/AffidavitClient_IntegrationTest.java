@@ -85,12 +85,11 @@ public class AffidavitClient_IntegrationTest {
   // @Test
   // public void testAffidavitAccept() throws Exception {
   // Affidavit affidavit = new Affidavit();
-  // affidavit.setId(14360239);
   // affidavit.setAffidavitAcceptance("accepted");
   //
   // ApiHandle firmHandle = TestHelper.getApiHandle_SopExchange(firmKey);
   // AffidavitClient affidavitClient = new AffidavitClient(firmHandle);
-  // Show<Affidavit> response = affidavitClient.create(affidavit);
+  // Show<Affidavit> response = affidavitClient.update(14360239, affidavit);
   //
   // assertThat(response, not(equalTo(null)));
   // assertThat(response.getData().getId(), equalTo(14360239));
