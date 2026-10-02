@@ -32,6 +32,11 @@ public class Affidavit {
   private OffsetDateTime createdAt;
   private OffsetDateTime updatedAt;
 
+  public Affidavit() {
+    super();
+    setType(TYPE);
+  }
+
   public OffsetDateTime getAcceptedAt() {
     return this.acceptedAt;
   }

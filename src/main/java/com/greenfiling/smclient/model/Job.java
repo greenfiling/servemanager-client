@@ -88,10 +88,6 @@ public class Job extends JobBase {
     return this.agencyServeItStatus;
   }
 
-  public void getAgencyServeItStatus(String agencyServeItStatus) {
-    this.agencyServeItStatus = agencyServeItStatus;
-  }
-
   public OffsetDateTime getArchivedAt() {
     return this.archivedAt;
   }
@@ -253,6 +249,10 @@ public class Job extends JobBase {
 
   public void setAddressesCount(Integer addressesCount) {
     this.addressesCount = addressesCount;
+  }
+
+  public void setAgencyServeItStatus(String agencyServeItStatus) {
+    this.agencyServeItStatus = agencyServeItStatus;
   }
 
   public void setArchivedAt(OffsetDateTime archivedAt) {

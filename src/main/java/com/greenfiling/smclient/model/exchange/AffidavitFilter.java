@@ -39,7 +39,7 @@ public class AffidavitFilter extends FilterBase {
     ArrayList<FilterPair> pairs = super.getFilters();
 
     if (getAttachmentId() != null) {
-      pairs.add(new FilterPair("attachment_id ", getAttachmentId()));
+      pairs.add(new FilterPair("attachment_id", getAttachmentId()));
     }
 
     if (getDocumentId() != null) {
