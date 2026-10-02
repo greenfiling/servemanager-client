@@ -69,6 +69,7 @@ public class Job extends JobBase {
   private ArrayList<Attempt> attempts;
   private OffsetDateTime lastAttemptServedAt;
   private String lastAttemptServedAtTimezone;
+  private String agencyServeItStatus;
   private HashMap<String, String> custom; // I have no idea what might be in this field
 
   public Job() {
@@ -81,6 +82,14 @@ public class Job extends JobBase {
 
   public Integer getAddressesCount() {
     return this.addressesCount;
+  }
+
+  public String getAgencyServeItStatus() {
+    return this.agencyServeItStatus;
+  }
+
+  public void getAgencyServeItStatus(String agencyServeItStatus) {
+    this.agencyServeItStatus = agencyServeItStatus;
   }
 
   public OffsetDateTime getArchivedAt() {

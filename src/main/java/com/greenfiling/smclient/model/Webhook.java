@@ -55,6 +55,7 @@ public class Webhook {
   public String[] events;
   public boolean locked;
   public String secretKey;
+  public boolean updateIfExists = false;
 
   public int getBatchIntervalInSeconds() {
     return batchIntervalInSeconds;
@@ -86,6 +87,10 @@ public class Webhook {
 
   public String getType() {
     return type;
+  }
+
+  public boolean getUpdateIfExists() {
+    return updateIfExists;
   }
 
   public boolean isEnabled() {
@@ -134,6 +139,10 @@ public class Webhook {
 
   public void setType(String type) {
     this.type = type;
+  }
+
+  public void setUpdateIfExists(boolean updateIfExists) {
+    this.updateIfExists = updateIfExists;
   }
 
 }
