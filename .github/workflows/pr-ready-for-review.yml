@@ -1,0 +1,19 @@
+name: PR Ready for Review or Review Requested
+on:
+  pull_request:
+    types: [ready_for_review, review_requested]
+jobs:
+  update-board:
+    if: >
+      github.event.action == 'ready_for_review' || 
+          (github.event.action == 'review_requested' && github.event.requested_reviewer.type == 'User')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859
+        id: app-token
+        with:
+          app-id: ${{ secrets.BOARD_BOT_APP_ID }}
+          private-key: ${{ secrets.BOARD_BOT_PRIVATE_KEY }}
+      - uses: greenfiling/PR-Board-Actions/pr-ready-for-review@e808ba1ca35e17a3e1792ec13f01e6252e832643
+        with:
+          token: ${{ steps.app-token.outputs.token }}
